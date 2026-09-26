@@ -12,7 +12,7 @@
     background-color: #070B14;
     color: #FFFFFF;
     font-family: var(--font-body);
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   h1, h2, h3, .font-headline {
@@ -57,3 +57,107 @@
   border-radius: 6px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
+
+/* ========================================================
+   MVP LOGISTICS REVERSE-ENGINEERED BUTTON HOVER SYSTEM
+   1. Rising Liquid Bubble (:after with border-radius: 100% -> 0)
+   2. Staggered Character Rolling Text Wave
+   ======================================================== */
+.mvp-bubble-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #f4f4f7;
+  border: 1px solid #f4f4f7;
+  color: #1b1e3d;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 0.35s ease, border-color 0.35s ease;
+  user-select: none;
+}
+
+/* Rising Bubble Layer */
+.mvp-bubble-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  background-color: #FF5A1F;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border-radius: 100%;
+  transform: translateY(100%);
+  transition: opacity 0.65s cubic-bezier(0.215, 0.61, 0.355, 1),
+              border-radius 0s 0.65s,
+              transform 0s 0.65s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mvp-bubble-btn:hover {
+  color: #ffffff;
+  border-color: #FF5A1F;
+}
+
+.mvp-bubble-btn:hover::after {
+  opacity: 1;
+  border-radius: 0;
+  transform: translate(0);
+  transition: border-radius 0.65s cubic-bezier(0.215, 0.61, 0.355, 1),
+              transform 0.65s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Character Split Roll Animation */
+.mvp-text-clip {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 2;
+  line-height: 1.1;
+  clip-path: inset(0 -0.5em 0 -0.5em);
+}
+
+.mvp-char-primary {
+  display: inline-block;
+  transform: translateY(0);
+  transition: transform 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+  will-change: transform;
+}
+
+.mvp-char-secondary {
+  display: inline-block;
+  transform: translateY(120%);
+  transition: transform 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+  will-change: transform;
+}
+
+.mvp-bubble-btn:hover .mvp-char-primary,
+a.group:hover .mvp-char-primary {
+  transform: translateY(-120%);
+}
+
+.mvp-bubble-btn:hover .mvp-char-secondary,
+a.group:hover .mvp-char-secondary {
+  transform: translateY(0);
+}
+
+/* ========================================================
+   MVP LOGISTICS REVERSE-ENGINEERED HEADER ARCHITECTURE
+   Compositor-only hardware-accelerated transform
+   ======================================================== */
+.mvp-header-container {
+  transform: translateY(0);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.mvp-header-container.is-hidden {
+  transform: translateY(calc(-100% - 40px));
+}
+
+

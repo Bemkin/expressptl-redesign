@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import AnimatedText from "./AnimatedText";
 
 interface ServiceDivision {
   id: string;
@@ -44,7 +45,13 @@ const SERVICES_DATA: ServiceDivision[] = [
   },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({
+  hideBackground = false,
+  isStarted = true,
+}: {
+  hideBackground?: boolean;
+  isStarted?: boolean;
+}) {
   const [currentServiceIdx, setCurrentServiceIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -65,72 +72,109 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full h-screen min-h-[720px] overflow-hidden bg-[#070B14] flex flex-col justify-end select-none">
+    <section className={`relative w-full h-screen min-h-[720px] overflow-hidden ${hideBackground ? "bg-transparent" : "bg-[#070B14]"} flex flex-col justify-end select-none`}>
       
       {/* 1. BACKGROUND & BASE LAYER: CINEMATIC TRUCK VIDEO ON WET HIGHWAY + DUAL GRADIENT OVERLAYS */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/assets/hero_truck_exact.jpg"
-          className="w-full h-full object-cover object-[center_65%] filter brightness-[0.92] contrast-[1.05]"
-        >
-          <source src="/assets/gemini_generated_video_40cb6d4f.mp4" type="video/mp4" />
-        </video>
-        {/* Dark cinematic gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070B14]/50 via-[#070B14]/20 to-[#070B14]/75" />
-      </div>
+      {!hideBackground && (
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/assets/hero_truck_poster.jpg"
+            className="w-full h-full object-cover object-[center_65%] filter brightness-[0.92] contrast-[1.05]"
+          >
+            <source src="/assets/gemini_generated_video_40cb6d4f.mp4" type="video/mp4" />
+          </video>
+          {/* Dark cinematic gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#070B14]/50 via-[#070B14]/20 to-[#070B14]/75" />
+        </div>
+      )}
 
-      {/* 2. SPATIAL FLOATING DEPTH ELEMENTS (E. P. T. L. + TRANS-LOGISTICS) */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full z-10 pointer-events-none">
-        {/* Subtle Horizontal Depth Guideline */}
-        <div className="w-full h-[1px] bg-white/20 absolute top-1/2 left-0 -translate-y-1/2" />
-
-        <div className="relative flex items-center justify-center md:justify-between px-5 md:px-12 max-w-[1720px] mx-auto w-full">
-          <div className="flex items-center gap-3.5 sm:gap-6 md:gap-24 lg:gap-32">
-            <span className="font-headline text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-white/95 tracking-wider drop-shadow-md">
-              E.
-            </span>
-            <span className="font-headline text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-white/95 tracking-wider drop-shadow-md">
-              P.
-            </span>
-            <span className="font-headline text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-white/95 tracking-wider drop-shadow-md">
-              T.
-            </span>
-            <span className="font-headline text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-white/95 tracking-wider drop-shadow-md">
-              L.
-            </span>
+      {/* 2. MAIN HERO CONTAINER: HERO HEAD (MONOGRAM + GUIDELINE) + HERO INNER (HEADLINE + SERVICES CARD) */}
+      <div className="relative z-20 w-full px-4 sm:px-6 md:px-8 lg:px-10 pb-6 sm:pb-10 md:pb-14 max-w-[1880px] mx-auto flex flex-col justify-end">
+        
+        {/* REVERSE-ENGINEERED MVP .hero__head WITH .main-animated-line */}
+        <div className="relative w-full flex items-center justify-between pb-3 sm:pb-4 lg:pb-5 mb-8 sm:mb-12 lg:mb-16 select-none">
+          {/* Left: Monogram items with wide rhythmic column spacing matching MVP .hero__abb-item */}
+          <div className="flex items-center">
+            {["E.", "P.", "T.", "L."].map((char, i) => (
+              <span key={char} className="w-16 sm:w-24 md:w-36 lg:w-48 xl:w-56 inline-block overflow-hidden">
+                <motion.span
+                  custom={i}
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      scaleY: 0,
+                      y: "-40%",
+                      transformOrigin: "50% 0%",
+                    },
+                    visible: (idx: number) => ({
+                      opacity: 1,
+                      scaleY: 1,
+                      y: "0%",
+                      transformOrigin: "50% 0%",
+                      transition: {
+                        delay: 0.06 + idx * 0.08,
+                        duration: 0.85,
+                        ease: [0.175, 0.885, 0.32, 1.275], // GSAP back.out(1.7) overshoot curve
+                      },
+                    }),
+                  }}
+                  initial="hidden"
+                  animate={isStarted ? "visible" : "hidden"}
+                  className="font-headline text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-white/95 tracking-wider inline-block drop-shadow-md"
+                >
+                  {char}
+                </motion.span>
+              </span>
+            ))}
           </div>
 
-          <span className="font-headline text-xs sm:text-base md:text-4xl lg:text-5xl tracking-widest text-white/95 drop-shadow-md uppercase ml-4 sm:ml-6 md:ml-0">
-            TRANS-LOGISTICS
-          </span>
-        </div>
-      </div>
+          {/* Right: TRANS-LOGISTICS with SplitType character animation */}
+          <div className="select-none">
+            <AnimatedText
+              text="TRANS-LOGISTICS"
+              as="span"
+              animate={isStarted}
+              delay={0.25}
+              stagger={0.025}
+              duration={0.8}
+              className="font-headline text-sm sm:text-lg md:text-3xl lg:text-4xl tracking-[0.16em] text-white/90 uppercase drop-shadow-md"
+            />
+          </div>
 
-      {/* 3. BOTTOM ROW: MONUMENTAL HEADLINE (LEFT) & SERVICES CARD (RIGHT) */}
-      <div className="relative z-20 w-full px-5 pb-5 sm:pb-8 md:px-12 md:pb-12 max-w-[1720px] mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4 sm:gap-6 lg:gap-8">
-        
-        {/* Monumental Headline (Bottom-Left) */}
-        <div className="max-w-2xl lg:max-w-3xl pointer-events-none">
-          <motion.h1
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          {/* MVP .main-animated-line Baseline Guideline Line sweeping across */}
+          <motion.div
+            initial={{ width: "0%" }}
+            animate={isStarted ? { width: "100%" } : { width: "0%" }}
+            transition={{ duration: 1.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-0 bottom-0 h-[1px] bg-white/20 origin-left"
+          />
+        </div>
+
+        {/* 3. HERO INNER ROW: MONUMENTAL HEADLINE (LEFT) & SERVICES CARD (RIGHT) */}
+        <div className="w-full flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-8">
+          
+          {/* Monumental Headline (Bottom-Left) with MVP Character Peel & Elastic Drop */}
+          <div className="max-w-2xl lg:max-w-3xl pointer-events-none">
+            <AnimatedText
+              text={"WE DELIVER MORE THAN CARGO —\nWE DELIVER PEACE OF MIND."}
+            as="h1"
+            animate={isStarted}
+            delay={0.05}
+            stagger={0.02}
+            duration={0.75}
             className="font-headline text-3xl sm:text-4xl md:text-6xl lg:text-[5.5rem] xl:text-[6.2rem] leading-[0.88] tracking-tight text-white uppercase drop-shadow-[0_12px_30px_rgba(0,0,0,0.85)]"
-          >
-            WE DELIVER MORE THAN CARGO — <br />
-            WE DELIVER PEACE OF MIND.
-          </motion.h1>
+          />
         </div>
 
-        {/* Interactive Services Mini-Card (Bottom-Right Anchored) */}
+        {/* Interactive Services Mini-Card (Bottom-Right Anchored) with MVP Scale Entrance: t = 0.45s */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, scale: 0.85, y: 30 }}
+          animate={isStarted ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 30 }}
+          transition={{ duration: 0.85, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           className="w-full sm:w-[420px] lg:w-[440px] bg-white rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(0,0,0,0.75)]"
@@ -184,6 +228,7 @@ export default function HeroSection() {
             </button>
           </div>
         </motion.div>
+        </div>
 
       </div>
 

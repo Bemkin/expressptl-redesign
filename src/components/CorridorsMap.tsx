@@ -62,7 +62,7 @@ export default function CorridorsMap() {
   const activeCorridor = CORRIDORS.find((c) => c.id === activeCorridorId) || CORRIDORS[0];
 
   return (
-    <section id="corridors" className="py-24 bg-[#080C16] border-t border-white/10">
+    <section id="corridors" className="relative z-20 py-24 bg-[#080C16] border-t border-white/10">
       <div className="max-w-[1720px] mx-auto px-6 md:px-12">
         
         {/* Header */}

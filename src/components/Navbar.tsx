@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react";
 
@@ -11,57 +12,216 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "about", label: "ABOUT US", href: "#about" },
-  { id: "services", label: "SERVICES", href: "#services" },
-  { id: "corridors", label: "CORRIDORS", href: "#corridors" },
-  { id: "fleet", label: "FLEET", href: "#fleet" },
-  { id: "calculator", label: "CALCULATOR", href: "#calculator" },
-  { id: "contacts", label: "CONTACTS", href: "#contact" },
+  { id: "about", label: "ABOUT US", href: "/about" },
+  { id: "services", label: "SERVICES", href: "/#services" },
+  { id: "corridors", label: "CORRIDORS", href: "/corridors" },
+  { id: "fleet", label: "FLEET", href: "/fleet" },
+  { id: "calculator", label: "CALCULATOR", href: "/calculator" },
+  { id: "contacts", label: "CONTACTS", href: "/contact" },
 ];
 
-export default function Navbar() {
-  const [activeTab, setActiveTab] = useState("services");
+interface NavbarProps {
+  isStarted?: boolean;
+}
+
+const LANGUAGES = [
+  { code: "ENG", label: "English" },
+  { code: "FRA", label: "Français" },
+  { code: "SWA", label: "Kiswahili" },
+];
+
+export default function Navbar({ isStarted = true }: NavbarProps) {
+  const pathname = usePathname();
+  const [activeTab, setActiveTab] = useState<string | null>(null);
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [currentLang, setCurrentLang] = useState("ENG");
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const langDropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close desktop language dropdown when clicking outside
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 60);
-
-      // Directional hide/show
-      if (currentScrollY > 150 && currentScrollY > lastScrollY + 8) {
-        setHidden(true);
-      } else if (currentScrollY < lastScrollY - 8) {
-        setHidden(false);
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target as Node)) {
+        setLangDropdownOpen(false);
       }
-      setLastScrollY(currentScrollY);
+    };
+    if (langDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [langDropdownOpen]);
+
+  // Synchronize active tab with current page route & homepage scroll sections
+  useEffect(() => {
+    if (pathname !== "/") {
+      if (pathname.startsWith("/about")) setActiveTab("about");
+      else if (pathname.startsWith("/corridors")) setActiveTab("corridors");
+      else if (pathname.startsWith("/fleet")) setActiveTab("fleet");
+      else if (pathname.startsWith("/calculator")) setActiveTab("calculator");
+      else if (pathname.startsWith("/contact")) setActiveTab("contacts");
+      else setActiveTab(null);
+      return;
+    }
+
+    // On homepage: dynamically activate based on current scroll position
+    const handleScroll = () => {
+      const servicesEl = document.getElementById("services");
+      const aboutEl = document.getElementById("about");
+      const viewportMid = window.innerHeight * 0.4;
+
+      if (servicesEl) {
+        const rect = servicesEl.getBoundingClientRect();
+        if (rect.top <= viewportMid && rect.bottom >= 150) {
+          setActiveTab("services");
+          return;
+        }
+      }
+
+      if (aboutEl) {
+        const rect = aboutEl.getBoundingClientRect();
+        if (rect.top <= viewportMid && rect.bottom >= 150) {
+          setActiveTab("about");
+          return;
+        }
+      }
+
+      // Default at top of homepage: clean state with no tab selected
+      setActiveTab(null);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [pathname]);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isHiddenRef = useRef(false);
+  const lastScrollY = useRef(0);
+  const accumulatedDiff = useRef(0);
+
+  useEffect(() => {
+    const updateVisibility = (scrollY: number, explicitDirection?: number) => {
+      const container = containerRef.current;
+      if (!container || mobileMenuOpen) return;
+
+      // When near the top, header is ALWAYS visible
+      if (scrollY <= 100) {
+        if (isHiddenRef.current) {
+          container.classList.remove("is-hidden");
+          isHiddenRef.current = false;
+        }
+        accumulatedDiff.current = 0;
+        lastScrollY.current = scrollY;
+        return;
+      }
+
+      let direction = explicitDirection;
+      const diff = scrollY - lastScrollY.current;
+
+      if (direction === undefined) {
+        // Accumulate directional movement over frames to eliminate micro-jitter
+        accumulatedDiff.current += diff;
+        if (accumulatedDiff.current > 12) {
+          direction = 1;
+          accumulatedDiff.current = 0;
+        } else if (accumulatedDiff.current < -12) {
+          direction = -1;
+          accumulatedDiff.current = 0;
+        }
+      }
+
+      // Hide when scrolling DOWN past hero threshold
+      if (direction === 1 && scrollY > 120) {
+        if (!isHiddenRef.current) {
+          container.classList.add("is-hidden");
+          isHiddenRef.current = true;
+        }
+      }
+      // Reveal immediately when scrolling UP
+      else if (direction === -1) {
+        if (isHiddenRef.current) {
+          container.classList.remove("is-hidden");
+          isHiddenRef.current = false;
+        }
+      }
+
+      lastScrollY.current = scrollY;
+    };
+
+    // 1. Hook directly into Lenis smooth flywheel scroll if present
+    let cleanupLenis: (() => void) | null = null;
+    const bindLenis = () => {
+      const lenis = (window as any).__lenis;
+      if (lenis && !cleanupLenis) {
+        const onLenisScroll = (e: { scroll: number; direction: number }) => {
+          updateVisibility(e.scroll, e.direction);
+        };
+        lenis.on("scroll", onLenisScroll);
+        cleanupLenis = () => {
+          lenis.off("scroll", onLenisScroll);
+        };
+        return true;
+      }
+      return false;
+    };
+
+    bindLenis();
+
+    // 2. Native scroll listener as seamless fallback
+    let rafId: number | null = null;
+    const handleScroll = () => {
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          if (!bindLenis()) {
+            updateVisibility(window.scrollY);
+          }
+          rafId = null;
+        });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (cleanupLenis) cleanupLenis();
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, [mobileMenuOpen]);
+
+  // Ensure header is visible whenever mobile menu is toggled open
+  useEffect(() => {
+    if (mobileMenuOpen && containerRef.current && isHiddenRef.current) {
+      containerRef.current.classList.remove("is-hidden");
+      isHiddenRef.current = false;
+    }
+  }, [mobileMenuOpen]);
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 w-full z-50 pointer-events-none transition-all duration-300 ${
-          hidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
-        } ${scrolled ? "py-4 md:py-5" : "py-6 md:py-8"}`}
+      <motion.header
+        initial={{ y: -140, opacity: 0 }}
+        animate={{
+          y: !isStarted ? -140 : 0,
+          opacity: !isStarted ? 0 : 1,
+        }}
+        transition={{
+          duration: 0.8,
+          delay: 0.35,
+          ease: [0.16, 1, 0.3, 1], // Reverse-Engineered MVP power-out ease
+        }}
+        className="fixed top-0 left-0 w-full z-50 pointer-events-none py-5 md:py-6"
       >
-        <div className="max-w-[1720px] mx-auto px-5 md:px-12 flex items-start justify-between">
+        <div
+          ref={containerRef}
+          className="mvp-header-container max-w-[1880px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex items-start justify-between"
+        >
           
           {/* Left: Dedicated Large Logo Container displaying the full brand mark */}
           <a
-            href="#"
-            className={`pointer-events-auto aspect-square rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.55)] flex items-center justify-center transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] bg-[#0E1224] border border-white/20 group shrink-0 ${
-              scrolled
-                ? "h-[76px] w-[76px] sm:h-[90px] sm:w-[90px] md:h-[100px] md:w-[100px]"
-                : "h-[88px] w-[88px] sm:h-[106px] sm:w-[106px] md:h-[120px] md:w-[120px]"
-            }`}
+            href="/"
+            className="pointer-events-auto aspect-square rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.55)] flex items-center justify-center transition-transform duration-300 hover:scale-[1.04] active:scale-[0.98] bg-[#0E1224] border border-white/20 group shrink-0 h-[88px] w-[88px] sm:h-[96px] sm:w-[96px] md:h-[104px] md:w-[104px]"
             aria-label="Express Transport and Logistics"
           >
             <img
@@ -78,7 +238,11 @@ export default function Navbar() {
           >
             <ul className="flex items-center gap-0.5 relative z-10 m-0 p-0 list-none h-full">
               {NAV_ITEMS.map((item) => {
-                const isActive = (hoveredTab || activeTab) === item.id;
+                const isHovered = hoveredTab === item.id;
+                const isCurrent = activeTab === item.id;
+                // Follow user hover cursor smoothly, or rest on active page tab when not hovering
+                const isActive = hoveredTab ? isHovered : isCurrent;
+
                 return (
                   <li key={item.id} className="relative h-full flex items-center">
                     <a
@@ -87,23 +251,46 @@ export default function Navbar() {
                         setActiveTab(item.id);
                       }}
                       onMouseEnter={() => setHoveredTab(item.id)}
-                      className={`relative z-20 flex items-center h-full px-4 xl:px-5 font-headline text-[1.2rem] tracking-[0.05em] uppercase transition-colors duration-200 select-none ${
-                        isActive ? "text-white" : "text-[#0D1322] hover:text-[#0D1322]"
+                      className={`group relative z-20 flex items-center h-full px-4 xl:px-5 font-headline text-[1.2rem] tracking-[0.05em] uppercase transition-colors duration-200 select-none ${
+                        isActive ? "text-white" : "text-[#0D1322]"
                       }`}
                     >
-                      {item.label}
+                      <span className="mvp-text-clip">
+                        <span className="inline-flex">
+                          {item.label.split("").map((c, i) => (
+                            <span
+                              key={`nl1-${i}`}
+                              className="mvp-char-primary"
+                              style={{ transitionDelay: `${i * 14}ms` }}
+                            >
+                              {c === " " ? "\u00A0" : c}
+                            </span>
+                          ))}
+                        </span>
+                        <span className="inline-flex absolute top-0 left-0 w-full pointer-events-none">
+                          {item.label.split("").map((c, i) => (
+                            <span
+                              key={`nl2-${i}`}
+                              className="mvp-char-secondary"
+                              style={{ transitionDelay: `${i * 14}ms` }}
+                            >
+                              {c === " " ? "\u00A0" : c}
+                            </span>
+                          ))}
+                        </span>
+                      </span>
                     </a>
 
-                    {/* Shared Layout Sliding Pill */}
+                    {/* Shared Layout Sliding Pill - Signature Express Orange #FF5A1F */}
                     {isActive && (
                       <motion.div
                         layoutId="navSlidingPill"
                         transition={{
                           type: "spring",
-                          stiffness: 400,
-                          damping: 32,
+                          stiffness: 420,
+                          damping: 34,
                         }}
-                        className="absolute inset-y-1 inset-x-0.5 bg-[#0D1322] rounded-[4px] z-10 pointer-events-none"
+                        className="absolute inset-y-1 inset-x-0.5 bg-[#FF5A1F] rounded-[4px] z-10 pointer-events-none shadow-[0_2px_12px_rgba(255,90,31,0.4)]"
                       />
                     )}
                   </li>
@@ -112,26 +299,92 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          {/* Right: Solid White Action Pills Group */}
+          {/* Right: Solid White Action Pills Group with MVP Reverse-Engineered Hover */}
           <div className="pointer-events-auto flex items-center gap-3 mt-1.5">
             <a
-              href="#contact"
-              className="bg-white hover:bg-[#0D1322] text-[#0D1322] hover:text-white px-5 md:px-7 h-[52px] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-[0.05em] uppercase transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-1.5"
+              href="/contact"
+              className="group mvp-bubble-btn px-5 md:px-7 h-[52px] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-[0.05em] uppercase flex items-center gap-2"
             >
-              <span>CONTACT US</span>
-              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+              <span className="mvp-text-clip">
+                <span className="inline-flex">
+                  {"CONTACT US".split("").map((c, i) => (
+                    <span
+                      key={`h1-${i}`}
+                      className="mvp-char-primary"
+                      style={{ transitionDelay: `${i * 14}ms` }}
+                    >
+                      {c === " " ? "\u00A0" : c}
+                    </span>
+                  ))}
+                </span>
+                <span className="inline-flex absolute top-0 left-0 w-full pointer-events-none">
+                  {"CONTACT US".split("").map((c, i) => (
+                    <span
+                      key={`h2-${i}`}
+                      className="mvp-char-secondary"
+                      style={{ transitionDelay: `${i * 14}ms` }}
+                    >
+                      {c === " " ? "\u00A0" : c}
+                    </span>
+                  ))}
+                </span>
+              </span>
+              <ArrowUpRight className="w-4 h-4 stroke-[2.5] relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
-            {/* Language Selector Pill */}
-            <div className="hidden sm:flex items-center gap-1 bg-white text-[#0D1322] px-4 h-[52px] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-[0.05em] uppercase cursor-pointer hover:bg-slate-100 transition-colors">
-              <span>ENG</span>
-              <ChevronDown className="w-4 h-4 text-[#0D1322] stroke-[2.5]" />
+            {/* Desktop Language Selector Pill with Dropdown */}
+            <div ref={langDropdownRef} className="relative hidden sm:block">
+              <button
+                type="button"
+                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                className="group mvp-bubble-btn flex items-center gap-1.5 px-4 h-[52px] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-[0.05em] uppercase cursor-pointer"
+                aria-label="Select Language"
+              >
+                <span className="relative z-10">{currentLang}</span>
+                <ChevronDown
+                  className={`w-4 h-4 relative z-10 stroke-[2.5] transition-transform duration-300 ${
+                    langDropdownOpen ? "rotate-180" : "group-hover:rotate-180"
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {langDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-2 w-36 bg-white rounded-xl shadow-2xl border border-slate-100 p-1.5 z-50 flex flex-col gap-1"
+                  >
+                    {LANGUAGES.map((lang) => (
+                      <button
+                        key={lang.code}
+                        type="button"
+                        onClick={() => {
+                          setCurrentLang(lang.code);
+                          setLangDropdownOpen(false);
+                        }}
+                        className={`w-full px-3 py-2 rounded-lg font-headline text-sm tracking-wider text-left flex items-center justify-between transition-colors ${
+                          currentLang === lang.code
+                            ? "bg-[#FF5A1F] text-white"
+                            : "text-[#0D1322] hover:bg-slate-100 hover:text-[#FF5A1F]"
+                        }`}
+                      >
+                        <span>{lang.label}</span>
+                        <span className="text-[11px] opacity-75 font-mono">{lang.code}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Mobile Hamburger Toggle Button */}
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex lg:hidden items-center justify-center w-11 h-[52px] bg-white rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] text-[#0D1322] focus:outline-none"
+              className="flex lg:hidden items-center justify-center w-11 h-[52px] bg-white hover:bg-[#FF5A1F] hover:text-white transition-colors duration-200 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] text-[#0D1322] focus:outline-none"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -139,7 +392,7 @@ export default function Navbar() {
           </div>
 
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -148,25 +401,62 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-24 left-5 right-5 z-50 bg-white rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.7)] p-6 flex flex-col gap-2 border border-slate-100 lg:hidden"
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed top-24 left-5 right-5 z-50 bg-white rounded-2xl shadow-[0_25px_70px_rgba(0,0,0,0.45)] p-5 sm:p-6 flex flex-col gap-2 border border-slate-100 lg:hidden max-h-[calc(100vh-120px)] overflow-y-auto"
           >
-            {NAV_ITEMS.map((item) => (
+            {/* Primary Nav Links */}
+            <div className="flex flex-col gap-1">
+              {NAV_ITEMS.map((item) => (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`py-3 px-4 rounded-xl font-headline text-xl sm:text-2xl tracking-wide uppercase transition-colors ${
+                    activeTab === item.id
+                      ? "bg-[#FF5A1F] text-white shadow-lg shadow-[#FF5A1F]/20"
+                      : "text-[#0D1322] hover:bg-[#FF5A1F] hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile Footer Area: Language Selector & Direct Contact */}
+            <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-3">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Language</span>
+                <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
+                  {LANGUAGES.map((lang) => (
+                    <button
+                      key={lang.code}
+                      type="button"
+                      onClick={() => setCurrentLang(lang.code)}
+                      className={`px-3 py-1.5 rounded-lg font-headline text-sm tracking-wider uppercase transition-all duration-200 ${
+                        currentLang === lang.code
+                          ? "bg-[#FF5A1F] text-white shadow-md shadow-[#FF5A1F]/25"
+                          : "text-[#0D1322] hover:text-[#FF5A1F]"
+                      }`}
+                    >
+                      {lang.code}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile CTA */}
               <a
-                key={item.id}
-                href={item.href}
-                onClick={() => {
-                  setActiveTab(item.id);
-                  setMobileMenuOpen(false);
-                }}
-                className={`py-3 px-4 rounded-lg font-headline text-2xl tracking-wide uppercase transition-colors ${
-                  activeTab === item.id
-                    ? "bg-[#0D1322] text-white"
-                    : "text-[#0D1322] hover:bg-slate-100"
-                }`}
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-12 mt-1 bg-[#1B1E3D] hover:bg-[#FF5A1F] text-white rounded-xl font-headline text-lg tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg transition-colors duration-200"
               >
-                {item.label}
+                <span>CONTACT US</span>
+                <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
               </a>
-            ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

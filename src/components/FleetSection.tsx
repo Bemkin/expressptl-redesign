@@ -27,7 +27,7 @@ const FLEET_VEHICLES: FleetVehicle[] = [
     power: "440 HP V6 Turbocharged",
     capacity: "34 MT Kingpin Load",
     telemetry: "Fleetboard real-time axle telemetry",
-    img: "/assets/hero_truck_exact.jpg",
+    img: "/assets/hero_truck_poster.jpg",
   },
   {
     name: "GOLDHOFER MODULAR MULTI-AXLE LOWBED",
