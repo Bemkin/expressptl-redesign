@@ -14,6 +14,7 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
+  { id: "home", label: "HOME", href: "/" },
   { id: "about", label: "ABOUT US", href: "/about" },
   { id: "services", label: "SERVICES", href: "/services" },
   { id: "operations", label: "OPERATIONS", href: "/operations" },
@@ -32,12 +33,12 @@ const LANGUAGES = [
 
 export default function Navbar({ isStarted = true }: NavbarProps) {
   const pathname = usePathname();
-  const routeTab = pathname !== "/" ? (
+  const routeTab = pathname === "/" ? "home" : (
     pathname.startsWith("/about") ? "about" :
     pathname.startsWith("/services") ? "services" :
     (pathname.startsWith("/operations") || pathname.startsWith("/corridors") || pathname.startsWith("/fleet") || pathname.startsWith("/calculator")) ? "operations" :
     pathname.startsWith("/contact") ? "contacts" : null
-  ) : null;
+  );
   const [scrollTab, setScrollTab] = useState<string | null>(null);
   const activeTab = routeTab ?? scrollTab;
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
@@ -85,8 +86,8 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
         }
       }
 
-      // Default at top of homepage: clean state with no tab selected
-      setScrollTab(null);
+      // Default at top of homepage: activate 'home'
+      setScrollTab("home");
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -246,7 +247,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
 
                 return (
                   <li key={item.id} className="relative h-full flex items-center">
-                    <a
+                    <Link
                       href={item.href}
                       onClick={() => {
                         setScrollTab(item.id);
@@ -280,7 +281,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                           ))}
                         </span>
                       </span>
-                    </a>
+                    </Link>
 
                     {/* Shared Layout Sliding Pill - Signature Express Orange #FF5A1F */}
                     {isActive && (
@@ -408,7 +409,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
             {/* Primary Nav Links */}
             <div className="flex flex-col gap-1">
               {NAV_ITEMS.map((item) => (
-                <a
+                <Link
                   key={item.id}
                   href={item.href}
                   onClick={() => {
@@ -422,7 +423,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                   }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
 
