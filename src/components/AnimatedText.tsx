@@ -34,8 +34,8 @@ export default function AnimatedText({
   once = true,
   animate: explicitAnimate,
 }: AnimatedTextProps) {
-  // Support multi-line headlines using \n
-  const lines = text.split("\n");
+  // Support multi-line headlines using \n (both literal \n string and real newline)
+  const lines = text.replace(/\\n/g, "\n").split("\n");
 
   const containerVariants: Variants = {
     hidden: {},

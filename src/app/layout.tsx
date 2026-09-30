@@ -30,15 +30,17 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Express Transport & Logistics | Premier East African Supply Chain & Heavy Haul",
-  description: "Cross-border heavy haulage, multimodal freight forwarding, bonded warehousing, and temperature-controlled logistics across Kenya, Uganda, Rwanda, DRC, and South Sudan.",
-  keywords: "logistics, freight forwarding, heavy haulage, East Africa transport, bonded warehouse, breakbulk cargo, Mombasa corridor, cross border transit",
+  title: "Express Transport & Logistics (Express PTL) | Premier Ethiopian Heavy Haulage & Multimodal Freight",
+  description:
+    "Operating continuously since 2013, Express PTL provides 76 company-owned heavy prime movers (2,916 MT synchronous lift), licensed AEO customs clearance, and strategic Djibouti–Addis trade corridor logistics across Ethiopia and East Africa.",
+  keywords:
+    "Express PTL, Ethiopia logistics, heavy haulage Ethiopia, Djibouti Addis corridor transport, 76 prime movers, Bole Bulbula terminal, customs clearance Addis Ababa, UN WFP transport partner, Ambasel building",
   icons: {
     icon: "/assets/Gemini_Generated_Image_nmde0znmde0znmde.jpg",
   },
   openGraph: {
-    title: "Express Transport & Logistics | Industrial Freight Solutions",
-    description: "We Deliver More Than Cargo — We Deliver Peace of Mind.",
+    title: "Express Transport & Logistics (Express PTL) | Premier Heavy Haulage",
+    description: "76 owned prime movers, 2,916 MT lift capacity, and licensed customs clearance across Ethiopia and the Horn of Africa.",
     type: "website",
   },
 };

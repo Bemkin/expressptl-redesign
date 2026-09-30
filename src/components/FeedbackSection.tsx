@@ -259,11 +259,11 @@ export default function FeedbackSection() {
                   <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/10 text-xs text-slate-400">
                     <div className="flex items-center gap-2">
                       <Phone className="w-3.5 h-3.5 text-[#FF5A1F]" />
-                      <span>+254 (0) 700 882 119</span>
+                      <span>+251 11 470 2031</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Mail className="w-3.5 h-3.5 text-[#FF5A1F]" />
-                      <span>operations@expressptl.com</span>
+                      <span>express@expressptl.com</span>
                     </div>
                   </div>
                 </form>

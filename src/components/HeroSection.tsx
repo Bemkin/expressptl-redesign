@@ -95,7 +95,7 @@ export default function HeroSection({
       {/* 2. MAIN HERO CONTAINER: HERO HEAD (MONOGRAM + GUIDELINE) + HERO INNER (HEADLINE + SERVICES CARD) */}
       <div className="relative z-20 w-full px-4 sm:px-6 md:px-8 lg:px-10 pb-6 sm:pb-10 md:pb-14 max-w-[1880px] mx-auto flex flex-col justify-end">
         
-        {/* REVERSE-ENGINEERED MVP .hero__head WITH .main-animated-line */}
+        {/* REVERSE-ENGINEERED MVP .hero__head WITH .main-animated-line (REVEALED SLOWER & LATER) */}
         <div className="relative w-full flex items-center justify-between pb-3 sm:pb-4 lg:pb-5 mb-8 sm:mb-12 lg:mb-16 select-none">
           {/* Left: Monogram items with wide rhythmic column spacing matching MVP .hero__abb-item */}
           <div className="flex items-center">
@@ -116,9 +116,9 @@ export default function HeroSection({
                       y: "0%",
                       transformOrigin: "50% 0%",
                       transition: {
-                        delay: 0.06 + idx * 0.08,
-                        duration: 0.85,
-                        ease: [0.175, 0.885, 0.32, 1.275], // GSAP back.out(1.7) overshoot curve
+                        delay: 0.85 + idx * 0.16, // Reveals later and spaced with deliberate rhythm
+                        duration: 1.25, // Reveals slower with graceful deceleration
+                        ease: [0.16, 1, 0.3, 1],
                       },
                     }),
                   }}
@@ -132,24 +132,24 @@ export default function HeroSection({
             ))}
           </div>
 
-          {/* Right: TRANS-LOGISTICS with SplitType character animation */}
+          {/* Right: TRANS-LOGISTICS with SplitType character animation (Revealed slower & later) */}
           <div className="select-none">
             <AnimatedText
               text="TRANS-LOGISTICS"
               as="span"
               animate={isStarted}
-              delay={0.25}
-              stagger={0.025}
-              duration={0.8}
+              delay={1.15}
+              stagger={0.038}
+              duration={1.15}
               className="font-headline text-sm sm:text-lg md:text-3xl lg:text-4xl tracking-[0.16em] text-white/90 uppercase drop-shadow-md"
             />
           </div>
 
-          {/* MVP .main-animated-line Baseline Guideline Line sweeping across */}
+          {/* MVP .main-animated-line Baseline Guideline Line sweeping across (Slower & Later) */}
           <motion.div
             initial={{ width: "0%" }}
             animate={isStarted ? { width: "100%" } : { width: "0%" }}
-            transition={{ duration: 1.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 2.0, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="absolute left-0 bottom-0 h-px bg-white/20 origin-left"
           />
         </div>
@@ -157,28 +157,28 @@ export default function HeroSection({
         {/* 3. HERO INNER ROW: MONUMENTAL HEADLINE (LEFT) & SERVICES CARD (RIGHT) */}
         <div className="w-full flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-8">
           
-          {/* Monumental Headline (Bottom-Left) with MVP Character Peel & Elastic Drop */}
+          {/* Monumental Headline (Bottom-Left) with MVP Character Peel & Elastic Drop (Revealed slower & later) */}
           <div className="max-w-2xl lg:max-w-3xl pointer-events-none">
             <AnimatedText
               text={"WE DELIVER MORE THAN CARGO —\nWE DELIVER PEACE OF MIND."}
-            as="h1"
-            animate={isStarted}
-            delay={0.05}
-            stagger={0.02}
-            duration={0.75}
-            className="font-headline text-3xl sm:text-4xl md:text-6xl lg:text-[5.5rem] xl:text-[6.2rem] leading-[0.88] tracking-tight text-white uppercase drop-shadow-[0_12px_30px_rgba(0,0,0,0.85)]"
-          />
-        </div>
+              as="h1"
+              animate={isStarted}
+              delay={0.55}
+              stagger={0.032}
+              duration={1.2}
+              className="font-headline text-3xl sm:text-4xl md:text-6xl lg:text-[5.5rem] xl:text-[6.2rem] leading-[0.88] tracking-tight text-white uppercase drop-shadow-[0_12px_30px_rgba(0,0,0,0.85)]"
+            />
+          </div>
 
-        {/* Interactive Services Mini-Card (Bottom-Right Anchored) with MVP Scale Entrance: t = 0.45s */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85, y: 30 }}
-          animate={isStarted ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 30 }}
-          transition={{ duration: 0.85, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          className="w-full sm:w-105 lg:w-110 bg-white rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(0,0,0,0.75)]"
-        >
+          {/* Interactive Services Mini-Card (Bottom-Right Anchored) with MVP Scale Entrance (Revealed slower & later) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, y: 30 }}
+            animate={isStarted ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 30 }}
+            transition={{ duration: 1.0, delay: 0.95, ease: [0.16, 1, 0.3, 1] }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="w-full sm:w-105 lg:w-110 bg-white rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(0,0,0,0.75)]"
+          >
           {/* Card Meta Row: Counter & Tag */}
           <div className="flex items-baseline justify-between mb-6">
             <div className="font-headline text-2xl tracking-tight text-[#0D1322]">

@@ -161,12 +161,12 @@ export default function Footer({ hideBackground = false }: FooterProps) {
                 />
                 <TextHoverRoll
                   text="Our Fleet"
-                  href="/fleet"
+                  href="/operations#fleet"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
                   text="Regional Corridors"
-                  href="/corridors"
+                  href="/operations#corridors"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
@@ -177,47 +177,47 @@ export default function Footer({ hideBackground = false }: FooterProps) {
               </div>
             </div>
 
-            {/* Column 2: USEFUL LINKS (Exact 7 production services) */}
+            {/* Column 2: USEFUL LINKS (Exact production services) */}
             <div className="flex flex-col">
               <TextHoverRoll
                 text="USEFUL LINKS"
-                href="/#services"
+                href="/services"
                 className="font-headline text-lg sm:text-xl lg:text-[22px] tracking-wider uppercase text-white mb-2 sm:mb-3 lg:mb-4"
               />
               <div className="flex flex-col space-y-1.5 sm:space-y-2">
                 <TextHoverRoll
                   text="All Services"
-                  href="/#services"
-                  className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
-                />
-                <TextHoverRoll
-                  text="Import Export"
-                  href="/#services"
+                  href="/services"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
                   text="Ground Transport"
-                  href="/#services"
-                  className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
-                />
-                <TextHoverRoll
-                  text="Warehousing"
-                  href="/#services"
-                  className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
-                />
-                <TextHoverRoll
-                  text="Logistic Service"
-                  href="/#services"
+                  href="/services#service-1"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
                   text="Construction"
-                  href="/#services"
+                  href="/services#service-2"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
-                  text="Manufacturing"
-                  href="/#services"
+                  text="Import Export"
+                  href="/services#service-3"
+                  className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
+                />
+                <TextHoverRoll
+                  text="Warehousing & Logistics"
+                  href="/services#service-4"
+                  className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
+                />
+                <TextHoverRoll
+                  text="Manufacturing Plant"
+                  href="/services#service-5"
+                  className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
+                />
+                <TextHoverRoll
+                  text="Humanitarian Aid"
+                  href="/services#service-6"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
               </div>
@@ -254,7 +254,7 @@ export default function Footer({ hideBackground = false }: FooterProps) {
                 <div className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 pt-1">
                   <span className="text-white/50 text-[11px] block uppercase font-headline">Address</span>
                   <p className="leading-snug text-slate-300 text-[12px] sm:text-[13px]">
-                    Wollo Sefer, Ambasel Building, 6th floor 607–6010 &amp; 7th floor 701–702<br />
+                    Wollo Sefer, Ambasel Building, 6th floor 607–610 &amp; 7th floor 701–702<br />
                     Addis Ababa, Ethiopia.
                   </p>
                 </div>
@@ -310,7 +310,7 @@ export default function Footer({ hideBackground = false }: FooterProps) {
 
                 <TextHoverRoll
                   text="Rate Calculator"
-                  href="/calculator"
+                  href="/operations#calculator"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll

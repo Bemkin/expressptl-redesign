@@ -27,12 +27,18 @@ export default function Home() {
 
       if (!preloaderDone) {
         document.body.style.overflow = "hidden";
+        window.__lenis?.stop();
       } else {
         document.body.style.overflow = "";
+        window.__lenis?.start();
+        requestAnimationFrame(() => {
+          window.__lenis?.resize();
+        });
       }
     }
     return () => {
       document.body.style.overflow = "";
+      window.__lenis?.start();
     };
   }, [preloaderDone]);
 

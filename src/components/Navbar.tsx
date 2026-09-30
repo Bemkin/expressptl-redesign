@@ -15,10 +15,8 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { id: "about", label: "ABOUT US", href: "/about" },
-  { id: "services", label: "SERVICES", href: "/#services" },
-  { id: "corridors", label: "CORRIDORS", href: "/corridors" },
-  { id: "fleet", label: "FLEET", href: "/fleet" },
-  { id: "calculator", label: "CALCULATOR", href: "/calculator" },
+  { id: "services", label: "SERVICES", href: "/services" },
+  { id: "operations", label: "OPERATIONS", href: "/operations" },
   { id: "contacts", label: "CONTACTS", href: "/contact" },
 ];
 
@@ -36,9 +34,8 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
   const pathname = usePathname();
   const routeTab = pathname !== "/" ? (
     pathname.startsWith("/about") ? "about" :
-    pathname.startsWith("/corridors") ? "corridors" :
-    pathname.startsWith("/fleet") ? "fleet" :
-    pathname.startsWith("/calculator") ? "calculator" :
+    pathname.startsWith("/services") ? "services" :
+    (pathname.startsWith("/operations") || pathname.startsWith("/corridors") || pathname.startsWith("/fleet") || pathname.startsWith("/calculator")) ? "operations" :
     pathname.startsWith("/contact") ? "contacts" : null
   ) : null;
   const [scrollTab, setScrollTab] = useState<string | null>(null);
