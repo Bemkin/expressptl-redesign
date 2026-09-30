@@ -16,12 +16,16 @@ interface PreloaderProps {
  * 2. onStartHero() -> Hero text peels down, guideline slices across, navbar drops, card rises
  * 3. onComplete() -> Unmounts preloader
  */
+import { hasSeenIntroSession, markIntroAsSeen } from "@/lib/introSession";
+
 export default function Preloader({ onExpand, onStartHero, onComplete }: PreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [isExpanding, setIsExpanding] = useState(false);
-  const [isDone, setIsDone] = useState(false);
+  const [isDone, setIsDone] = useState(() => hasSeenIntroSession());
 
   useEffect(() => {
+    if (isDone) return;
+
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
@@ -54,6 +58,7 @@ export default function Preloader({ onExpand, onStartHero, onComplete }: Preload
 
           // When expansion finishes, complete and unmount preloader UI
           setTimeout(() => {
+            markIntroAsSeen();
             setIsDone(true);
             if (onComplete) onComplete();
           }, 850);
@@ -63,7 +68,7 @@ export default function Preloader({ onExpand, onStartHero, onComplete }: Preload
 
     const animFrame = requestAnimationFrame(updateCounter);
     return () => cancelAnimationFrame(animFrame);
-  }, [onExpand, onStartHero, onComplete]);
+  }, [isDone, onExpand, onStartHero, onComplete]);
 
   if (isDone) return null;
 

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react";
+import { markIntroAsSeen } from "@/lib/introSession";
 
 interface NavItem {
   id: string;
@@ -46,6 +47,13 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
   const [currentLang, setCurrentLang] = useState("ENG");
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const langDropdownRef = useRef<HTMLDivElement>(null);
+
+  // When browsing any subpage, mark session intro as complete so returning to HOME is immediate
+  useEffect(() => {
+    if (pathname !== "/") {
+      markIntroAsSeen();
+    }
+  }, [pathname]);
 
   // Close desktop language dropdown when clicking outside
   useEffect(() => {
@@ -221,6 +229,11 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
           {/* Left: Dedicated Large Logo Container displaying the full brand mark */}
           <Link
             href="/"
+            onClick={() => {
+              if (pathname === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
             className="pointer-events-auto aspect-square rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.55)] flex items-center justify-center transition-transform duration-300 hover:scale-[1.04] active:scale-[0.98] bg-[#0E1224] border border-white/20 group shrink-0 h-22 w-22 sm:h-24 sm:w-24 md:h-26 md:w-26"
             aria-label="Express Transport and Logistics"
           >
@@ -251,6 +264,9 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                       href={item.href}
                       onClick={() => {
                         setScrollTab(item.id);
+                        if (item.href === "/" && pathname === "/") {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }
                       }}
                       onMouseEnter={() => setHoveredTab(item.id)}
                       className={`group relative z-20 flex items-center h-full px-4 xl:px-5 font-headline text-[1.2rem] tracking-wider uppercase transition-colors duration-200 select-none ${
@@ -415,6 +431,9 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                   onClick={() => {
                     setScrollTab(item.id);
                     setMobileMenuOpen(false);
+                    if (item.href === "/" && pathname === "/") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
                   }}
                   className={`py-3 px-4 rounded-xl font-headline text-xl sm:text-2xl tracking-wide uppercase transition-colors ${
                     activeTab === item.id

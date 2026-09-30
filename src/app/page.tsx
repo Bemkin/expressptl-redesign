@@ -12,18 +12,22 @@ import ImpactMetricsStrip from "@/components/ImpactMetricsStrip";
 import PartnersSection from "@/components/PartnersSection";
 import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
+import { hasSeenIntroSession, markIntroAsSeen } from "@/lib/introSession";
 
 export default function Home() {
-  const [isExpanding, setIsExpanding] = useState(false);
-  const [heroActive, setHeroActive] = useState(false);
-  const [preloaderDone, setPreloaderDone] = useState(false);
+  const [alreadySeen, setAlreadySeen] = useState(() => hasSeenIntroSession());
+  const [isExpanding, setIsExpanding] = useState(alreadySeen);
+  const [heroActive, setHeroActive] = useState(alreadySeen);
+  const [preloaderDone, setPreloaderDone] = useState(alreadySeen);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }
-      window.scrollTo(0, 0);
+      if (!alreadySeen) {
+        window.scrollTo(0, 0);
+      }
 
       if (!preloaderDone) {
         document.body.style.overflow = "hidden";
@@ -40,15 +44,21 @@ export default function Home() {
       document.body.style.overflow = "";
       window.__lenis?.start();
     };
-  }, [preloaderDone]);
+  }, [preloaderDone, alreadySeen]);
 
   return (
     <main className="min-h-screen bg-[#070B14] text-white selection:bg-[#FF5A1F] selection:text-white">
-      <Preloader
-        onExpand={() => setIsExpanding(true)}
-        onStartHero={() => setHeroActive(true)}
-        onComplete={() => setPreloaderDone(true)}
-      />
+      {!preloaderDone && (
+        <Preloader
+          onExpand={() => setIsExpanding(true)}
+          onStartHero={() => setHeroActive(true)}
+          onComplete={() => {
+            markIntroAsSeen();
+            setAlreadySeen(true);
+            setPreloaderDone(true);
+          }}
+        />
+      )}
       <Navbar isStarted={heroActive} />
 
       {/* Seamless Unified Hero + About Section Container with Single Shared Video */}
@@ -62,7 +72,11 @@ export default function Home() {
           } overflow-hidden pointer-events-none flex items-center justify-center transition-all`}
         >
           <motion.div
-            initial={{ y: "82vh", rotate: 6, scale: 0.28, borderRadius: "24px" }}
+            initial={
+              alreadySeen
+                ? false
+                : { y: "82vh", rotate: 6, scale: 0.28, borderRadius: "24px" }
+            }
             animate={{
               y: 0,
               rotate: 0,
@@ -70,7 +84,9 @@ export default function Home() {
               borderRadius: isExpanding ? "0px" : "16px",
             }}
             transition={
-              isExpanding
+              alreadySeen
+                ? { duration: 0 }
+                : isExpanding
                 ? {
                     scale: { duration: 0.85, ease: [0.215, 0.61, 0.355, 1] },
                     borderRadius: { duration: 0.85, ease: [0.215, 0.61, 0.355, 1] },
