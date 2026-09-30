@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, MotionValue, AnimatePresence } from "framer-motion";
-import { Plus, X, ArrowUpRight, CheckCircle2, ShieldCheck, Truck, Ship, Warehouse, Thermometer, HeartHandshake } from "lucide-react";
+import { Plus, X, ArrowUpRight, CheckCircle2, Truck, Ship, Warehouse, HardHat, Factory } from "lucide-react";
 
 export interface ServiceDetail {
   id: string;
@@ -14,102 +14,222 @@ export interface ServiceDetail {
   icon: React.ReactNode;
   specs: string[];
   metrics: { label: string; value: string }[];
+  subdivisions?: {
+    heading: string;
+    items: string[];
+  }[];
 }
 
 const SERVICES: ServiceDetail[] = [
   {
-    id: "heavy-haul",
+    id: "construction",
     num: "01",
-    title: "INTERNATIONAL FREIGHT & HEAVY HAULAGE",
-    subtitle: "Fast, safe and without borders.",
-    desc: "Specialized high-tonnage heavy haulage engineered for infrastructure equipment, hydro turbines, transformer substations, and modular industrial plants across East Africa.",
+    title: "CONSTRUCTION",
+    subtitle: "Main contractor, subcontractor & modern plant rental fleet from globally recognized brands.",
+    desc: "Our company is actively engaged in the construction sector, working both as a main contractor and subcontractor for project owners including government institutions, private companies, NGOs, and other organizations.\n\nWe also provide construction machinery rental services, offering high-quality equipment from globally recognized brands. With the growing demand in the construction industry, our company provides a reliable fleet of modern construction equipment, enabling clients to access the machinery they need through a convenient one-stop solution.",
     isAccent: false,
+    icon: <HardHat className="w-6 h-6" />,
+    specs: [
+      "Construction: Main contractor and subcontractor for government institutions, private companies & NGOs",
+      "Services: Road construction, building towers, residential housing, apartments & infrastructure",
+      "Machinery Rental: High-quality modern equipment fleet from globally recognized brands",
+      "One-Stop Solution: Convenient machinery rental enabling rapid turnkey project execution",
+    ],
+    metrics: [
+      { label: "Contracting Role", value: "Main & Subcontractor" },
+      { label: "Machinery Fleet", value: "Global Brand Fleet" },
+    ],
+    subdivisions: [
+      {
+        heading: "CONSTRUCTION SERVICES INCLUDE",
+        items: [
+          "Road construction",
+          "Building towers",
+          "Residential housing projects",
+          "Apartments",
+          "Other infrastructure projects based on client requirements",
+        ],
+      },
+      {
+        heading: "MACHINES AVAILABLE FOR RENTAL",
+        items: [
+          "Rollers",
+          "Graders",
+          "Loaders",
+          "Bulldozers",
+          "Excavators",
+          "Dump trucks",
+          "Crushers",
+        ],
+      },
+    ],
+  },
+  {
+    id: "ground-transport",
+    num: "02",
+    title: "GROUND TRANSPORT",
+    subtitle: "76 active new trucks · 40 MT each · 2,916 MT total synchronous capacity.",
+    desc: "Our company provides reliable, safe, and efficient transport services designed to meet the needs of businesses and individuals. We specialize in the secure movement of goods and materials with a strong focus on punctuality, safety, and customer satisfaction. Regardless of industry, commodity, or market, Express Transport and Logistics provides solutions that support both small and large businesses.",
+    isAccent: true,
     icon: <Truck className="w-6 h-6" />,
     specs: [
-      "Modular hydraulic multi-axles up to 180 MT payload",
-      "Route clearance utility teams for overhead powerlines",
-      "Comprehensive bridge load surveys and police escorts",
-      "Turnkey on-site hydraulic jacking, skidding, and placement",
+      "Currently 76 active trucks (all are new) with 40 MT capacity each (2,916 MT in total)",
+      "Regular cargo transport across major trade routes & inland transport services",
+      "Transports bulk cargo, containerized cargo, commercial shipments & humanitarian aid",
+      "Specialized focus on humanitarian relief (safe cargo transport excluding contraband)",
     ],
     metrics: [
-      { label: "Max Single Lift", value: "180 MT" },
-      { label: "Corridor Safety", value: "99.98%" },
+      { label: "Fleet Capacity", value: "2,916 MT" },
+      { label: "Active Fleet (All New)", value: "76 Trucks" },
+    ],
+    subdivisions: [
+      {
+        heading: "CORE TRANSPORT SOLUTIONS & CARGO TYPES",
+        items: [
+          "Regular cargo transport across major trade routes",
+          "Inland transport services nationwide",
+          "End-to-end logistics solutions for all business scales",
+          "Bulk cargo transport",
+          "Containerized cargo transport",
+          "Commercial shipments & industrial materials (excluding contraband)",
+        ],
+      },
+      {
+        heading: "WHY WE GIVE SPECIAL FOCUS TO HUMANITARIAN AID CARGO",
+        items: [
+          "1. Managed by international, highly professional organizations, improving our professionalism & operational standards.",
+          "2. Working with global organizations develops our management capacity and international operational experience.",
+          "3. Delivering aid cargo provides great satisfaction, as it directly supports people in need.",
+          "Showcase uplifting capacity dedicated for emergency aid cargo.",
+        ],
+      },
     ],
   },
   {
-    id: "multimodal",
-    num: "02",
-    title: "MULTIMODAL PORT-TO-HINTERLAND TRANSIT",
-    subtitle: "Direct vessel discharge to factory gate.",
-    desc: "Direct vessel-to-truck discharge at Mombasa Container Terminal (KPA) and Djibouti with through bill of lading delivery straight to factory consignees across Uganda, Rwanda, and DRC.",
-    isAccent: true,
+    id: "import-export",
+    num: "03",
+    title: "IMPORT AND EXPORT",
+    subtitle: "Supplying international industrial goods & exporting premium Ethiopian agricultural crops.",
+    desc: "We import a wide range of products from international markets including China, Korea, UAE, Europe, and other countries to support domestic infrastructure and industry. Simultaneously, our company exports a variety of agricultural and mining products to international markets including China, Europe, the Middle East, the USA, Canada, and other regions worldwide.",
+    isAccent: false,
     icon: <Ship className="w-6 h-6" />,
     specs: [
-      "FCL & specialized OOG flat rack container handling",
-      "Direct interchange agreements with Maersk, MSC, CMA CGM",
-      "Pre-arrival customs manifestation to eliminate demurrage",
-      "Continuous container seal inspection & GPS security tracking",
+      "Imports from China, Korea, UAE, Europe: trucks, machinery, tires, batteries, steel & parts",
+      "Exports to China, Europe, Middle East, USA, Canada: sesame, mung beans, soybeans, pulses",
+      "Specialized in Humera and Wollega sesame seeds, red kidney beans, white beans, and chickpeas",
+      "Dedicated to sustainable extraction, development, and export of natural mineral resources",
     ],
     metrics: [
-      { label: "Mombasa Clearance", value: "24-48h" },
-      { label: "Container Types", value: "20ft / 40ft / OOG" },
+      { label: "Export Standard", value: "ECX Grade-1 Certified" },
+      { label: "Global Reach", value: "Tri-Continent Trade" },
+    ],
+    subdivisions: [
+      {
+        heading: "IMPORT — MAIN IMPORTED PRODUCTS (China, Korea, UAE, Europe)",
+        items: [
+          "Light trucks",
+          "Heavy trucks",
+          "Construction machinery",
+          "Tires",
+          "Batteries",
+          "Factory raw materials",
+          "Spare parts",
+          "All types of steel",
+          "Other required industrial products",
+        ],
+      },
+      {
+        heading: "EXPORT — MAJOR EXPORT PRODUCTS (China, Europe, M. East, USA, Canada)",
+        items: [
+          "Sesame seeds (Humera and Wollega types)",
+          "Green mung beans",
+          "Soybeans",
+          "Red kidney beans",
+          "Rounded white beans",
+          "Chickpeas",
+          "Other agricultural products",
+          "Natural mineral ores & extracted minerals",
+        ],
+      },
     ],
   },
   {
-    id: "bonded-yard",
-    num: "03",
-    title: "AEO BONDED DEPOT & WAREHOUSING",
-    subtitle: "Authorized Economic Operator priority handling.",
-    desc: "Over 50,000 sq.ft of secure covered bonded warehousing and 4-acre container staging yards located within direct reach of the Mombasa port gates and Nairobi ICD.",
-    isAccent: false,
+    id: "logistic-service",
+    num: "04",
+    title: "LOGISTIC SERVICE",
+    subtitle: "Customs clearance · Cargo forwarding · Warehouse rental · Shipping agency.",
+    desc: "Understanding that transport and logistics go hand in hand, we also provide logistics services designed to meet your business needs. We take pride in catering to a broad range of clientele throughout the country with our warehousing services—comprehensive, reliable, and flexible. Our experienced experts design a supply chain flowchart tailored to meet your business and logistic needs, focused on increasing efficiency and cutting down costs.",
+    isAccent: true,
     icon: <Warehouse className="w-6 h-6" />,
     specs: [
-      "Full Authorized Economic Operator (AEO) certified facility",
-      "24/7 CCTV surveillance, biometric access, and armed security",
-      "Heavy reach-stackers capable of handling 45-ton laden containers",
-      "Customs de-consolidation, palletizing, and long-term bonded staging",
+      "Customs clearance (Galafi, Modjo Dry Port, and Kality terminal)",
+      "Dedicated cargo forwarding and automated shipping documentation",
+      "Comprehensive warehouse rental and nationwide distribution centers",
+      "Shipping agency services (currently under development)",
     ],
     metrics: [
-      { label: "Covered Storage", value: "50,000 sq.ft" },
-      { label: "Yard Capacity", value: "45-Ton Reach" },
+      { label: "Clearance Hubs", value: "Galafi / Modjo / Kality" },
+      { label: "Network Scope", value: "Nationwide Warehousing" },
+    ],
+    subdivisions: [
+      {
+        heading: "CORE LOGISTICS SERVICES",
+        items: [
+          "Customs clearance at major ports & border posts",
+          "Cargo forwarding across global and inland routes",
+          "Warehouse rental with flexible storage terms",
+          "Shipping agency services (currently under development)",
+        ],
+      },
+      {
+        heading: "TAILORED SUPPLY CHAIN & NATIONWIDE WAREHOUSING",
+        items: [
+          "Tailored supply chain flowcharts designed by experienced experts",
+          "Focused on increasing operational efficiency & cutting down costs",
+          "Vast network of warehouses & distribution centers across the country",
+          "Record response times catering to diverse enterprise clientele",
+          "Long-term cost savings giving your business a competitive edge",
+        ],
+      },
     ],
   },
   {
-    id: "cold-chain",
-    num: "04",
-    title: "TEMPERATURE-CONTROLLED COLD CHAIN",
-    subtitle: "Certified pharmaceutical & food climate transit.",
-    desc: "Certified refrigerated trailers offering rigorous climate control from -25°C to +25°C for humanitarian pharmaceutical shipments, vaccines, fresh agricultural produce, and confectionery.",
-    isAccent: true,
-    icon: <Thermometer className="w-6 h-6" />,
-    specs: [
-      "Thermo King active digital temperature loggers",
-      "Dual independent diesel generator backup systems",
-      "GDP compliant sanitization protocols and thermal blankets",
-      "Continuous live telemetry with automatic temperature breach alarms",
-    ],
-    metrics: [
-      { label: "Thermal Range", value: "-25°C to +25°C" },
-      { label: "Compliance", value: "WHO GDP Audited" },
-    ],
-  },
-  {
-    id: "humanitarian",
+    id: "manufacturing",
     num: "05",
-    title: "HUMANITARIAN AID & EMERGENCY RELIEF",
-    subtitle: "UN WFP audited critical lifeline carrier.",
-    desc: "Dedicated rapid-response convoys deploying emergency food rations, medical relief, and shelter supplies into remote and hard-to-reach conflict or disaster-impacted zones.",
+    title: "MANUFACTURING",
+    subtitle: "14,000 m² food processing factory in Addis Ababa, around Bole Bulbula.",
+    desc: "As part of our long-term business expansion, we are currently constructing a food processing factory in Addis Ababa, around Bole Bulbula. The factory covers an area of 14,000 square meters and will focus on food production and processing, contributing to both local supply and export opportunities.",
     isAccent: false,
-    icon: <HeartHandshake className="w-6 h-6" />,
+    icon: <Factory className="w-6 h-6" />,
     specs: [
-      "Over 158,000 MT uplifted across Horn of Africa operations",
-      "Dedicated mobile mechanical teams accompanying every convoy",
-      "Priority green-corridor customs facilitation across land borders",
-      "Satellite phone dispatch communications with 24/7 incident tracking",
+      "Facility Scale: 14,000 square meter food processing factory under active construction",
+      "Strategic Location: Situated in Addis Ababa, around Bole Bulbula with direct arterial access",
+      "Operational Focus: Modern food production, industrial processing, and hygienic packaging",
+      "Market Impact: Contributing significantly to both local supply and international export opportunities",
     ],
     metrics: [
-      { label: "Relief Uplifted", value: "158,636+ MT" },
-      { label: "Partner Agency", value: "UN WFP Certified" },
+      { label: "Factory Area", value: "14,000 m²" },
+      { label: "Location", value: "Bole Bulbula, Addis" },
+    ],
+    subdivisions: [
+      {
+        heading: "FACILITY SPECIFICATIONS & LOCATION",
+        items: [
+          "14,000 square meters factory footprint",
+          "Located in Addis Ababa around Bole Bulbula",
+          "Advanced food production & processing technology",
+          "Hygienic storage and quality-controlled packaging",
+        ],
+      },
+      {
+        heading: "BUSINESS EXPANSION & VALUE CREATION",
+        items: [
+          "Core component of our long-term business expansion",
+          "Contributing directly to domestic and local food supply",
+          "Unlocking high-value international export opportunities",
+          "Industrial job creation and agricultural value addition",
+        ],
+      },
     ],
   },
 ];
@@ -236,6 +356,26 @@ export default function ServicesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedService, setSelectedService] = useState<ServiceDetail | null>(null);
 
+  // Prevent background scroll and pause Lenis smooth scroll while modal is active
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+
+    if (selectedService) {
+      document.body.style.overflow = "hidden";
+      if (lenis) lenis.stop();
+    } else {
+      document.body.style.overflow = "";
+      if (lenis) lenis.start();
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      if (lenis) lenis.start();
+    };
+  }, [selectedService]);
+
   // Pinning Scrub using scroll progress through 350vh total travel distance
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -253,7 +393,7 @@ export default function ServicesSection() {
       <div ref={containerRef} className="hidden lg:block relative h-[380vh]">
         {/* Sticky 100vh Viewport */}
         <div className="sticky top-0 h-screen w-full flex items-center justify-center px-3 sm:px-5 lg:px-6 py-4 sm:py-6 overflow-hidden">
-          <div className="max-w-[1880px] w-full h-[90vh] min-h-[820px] max-h-[960px] flex gap-2.5 sm:gap-3 items-stretch">
+          <div className="max-w-[1880px] w-full h-[90vh] min-h-205 max-h-240 flex gap-2.5 sm:gap-3 items-stretch">
             
             {/* 1. LEFT CARD: Pinned Warehouse Visual with Massive "OUR SERVICES" & Minimalist Progress Rail */}
             <div className="relative w-1/2 rounded-[28px] sm:rounded-[36px] overflow-hidden flex flex-col justify-between p-10 sm:p-14 lg:p-20 shadow-[0_25px_80px_rgba(0,0,0,0.6)]">
@@ -263,7 +403,7 @@ export default function ServicesSection() {
                 style={{ backgroundImage: `url('/assets/services_trucks.jpg')` }}
               />
               {/* Subtle Dark Vignette Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/80 pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/20 to-black/80 pointer-events-none" />
 
               {/* Top: Clean space matching inspo */}
               <div />
@@ -280,7 +420,7 @@ export default function ServicesSection() {
 
               {/* Bottom: Minimalist progress rail matching exact inspo */}
               <div className="relative z-10 w-full pb-2">
-                <div className="w-full h-[2px] bg-white/20 rounded-full overflow-hidden">
+                <div className="w-full h-0.5 bg-white/20 rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-white rounded-full origin-left"
                     style={{ width: progressBarWidth }}
@@ -393,7 +533,12 @@ export default function ServicesSection() {
           ======================================================== */}
       <AnimatePresence>
         {selectedService && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none"
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+          >
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -409,7 +554,10 @@ export default function ServicesSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl bg-[#0E1224] border border-white/20 rounded-[28px] p-6 sm:p-10 shadow-[0_30px_90px_rgba(0,0,0,0.85)] z-10 text-white overflow-hidden"
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto overscroll-contain no-scrollbar scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden bg-[#0E1224] border border-white/20 rounded-[28px] p-6 sm:p-10 shadow-[0_30px_90px_rgba(0,0,0,0.85)] z-10 text-white"
             >
               {/* Accent Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF5A1F]/15 blur-3xl pointer-events-none" />
@@ -417,7 +565,7 @@ export default function ServicesSection() {
               {/* Close Button */}
               <button
                 onClick={() => setSelectedService(null)}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer transition-colors"
+                className="sticky top-0 float-right -mt-2 -mr-2 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer transition-colors backdrop-blur-md"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -437,9 +585,13 @@ export default function ServicesSection() {
                 {selectedService.title}
               </h2>
 
-              <p className="text-sm text-slate-300 leading-relaxed mb-6 font-sans">
-                {selectedService.desc}
-              </p>
+              <div className="space-y-3 mb-6">
+                {selectedService.desc.split("\n\n").map((para, pIdx) => (
+                  <p key={pIdx} className="text-sm text-slate-300 leading-relaxed font-sans">
+                    {para}
+                  </p>
+                ))}
+              </div>
 
               {/* Key Metrics Row */}
               <div className="grid grid-cols-2 gap-3 mb-6">
@@ -455,9 +607,30 @@ export default function ServicesSection() {
                 ))}
               </div>
 
+              {/* Structured Production Subdivisions Breakdown */}
+              {selectedService.subdivisions && selectedService.subdivisions.length > 0 && (
+                <div className="space-y-4 mb-6">
+                  {selectedService.subdivisions.map((sub, idx) => (
+                    <div key={idx} className="bg-white/4 border border-white/10 rounded-2xl p-4 sm:p-5">
+                      <span className="text-[11px] font-bold tracking-[0.2em] text-[#FF5A1F] uppercase font-headline block mb-2.5">
+                        {sub.heading}
+                      </span>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-[13px] text-slate-300 font-sans">
+                        {sub.items.map((item, itemIdx) => (
+                          <li key={itemIdx} className="flex items-start gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] shrink-0 mt-1.5" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* Technical Capabilities */}
               <div className="space-y-3 mb-8">
-                <span className="text-xs font-bold tracking-wider text-slate-400 uppercase block">
+                <span className="text-xs font-bold tracking-wider text-slate-400 uppercase block font-headline">
                   DEPLOYED OPERATIONAL PROTOCOLS
                 </span>
                 {selectedService.specs.map((spec, i) => (

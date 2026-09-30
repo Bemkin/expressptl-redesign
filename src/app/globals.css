@@ -44,6 +44,17 @@
   background: #FF5A1F;
 }
 
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
 /* Subtle glassmorphism */
 .glass-panel {
   background: rgba(13, 19, 34, 0.75);

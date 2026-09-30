@@ -78,7 +78,7 @@ export default function PartnersWall() {
           {PARTNERS.map((partner, index) => (
             <div
               key={index}
-              className="flex items-center justify-center p-4 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-300 hover:scale-[1.03] group"
+              className="flex items-center justify-center p-4 rounded-lg bg-white/2 border border-white/5 hover:border-white/20 transition-all duration-300 hover:scale-[1.03] group"
               title={partner.desc}
             >
               <div className="opacity-80 group-hover:opacity-100 transition-opacity">

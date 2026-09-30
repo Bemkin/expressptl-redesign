@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Warehouse, ShieldCheck, Check, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ShieldCheck, Check, ArrowRight } from "lucide-react";
 
 export default function FacilitySection() {
   return (
@@ -12,13 +13,15 @@ export default function FacilitySection() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
             
             {/* Visual media */}
-            <div className="lg:col-span-6 relative min-h-[380px] lg:min-h-full">
-              <img
+            <div className="lg:col-span-6 relative min-h-95 lg:min-h-full">
+              <Image
                 src="/assets/facility.jpg"
                 alt="Express PTL Inland Container Depot & Bonded Facility"
-                className="w-full h-full object-cover filter brightness-[0.88]"
+                fill
+                className="object-cover filter brightness-[0.88]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-[#0D1322] via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t lg:bg-linear-to-r from-[#0D1322] via-transparent to-transparent pointer-events-none" />
               
               <div className="absolute bottom-6 left-6 bg-[#070B14]/85 backdrop-blur-md border border-white/10 p-4 rounded-xl">
                 <span className="font-headline text-3xl text-white block leading-none">50,000 SQ.FT</span>

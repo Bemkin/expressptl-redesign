@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calculator, ArrowRight, ShieldCheck, Clock, DollarSign } from "lucide-react";
+import { ArrowRight, ShieldCheck, Clock } from "lucide-react";
 
 export default function RateCalculator() {
   const [origin, setOrigin] = useState("Mombasa Port (KE)");
@@ -142,7 +142,7 @@ export default function RateCalculator() {
           </div>
 
           {/* Customs Checkbox */}
-          <div className="p-4 bg-white/[0.02] border border-white/10 rounded-xl mb-8 flex items-center justify-between">
+          <div className="p-4 bg-white/2 border border-white/10 rounded-xl mb-8 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-[#FF5A1F]" />
               <div>
@@ -163,7 +163,7 @@ export default function RateCalculator() {
           </div>
 
           {/* Results Display */}
-          <div className="p-6 bg-white/[0.04] border border-white/15 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="p-6 bg-white/4 border border-white/15 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block mb-1">
                 ESTIMATED FREIGHT COST

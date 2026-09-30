@@ -17,40 +17,40 @@ interface AdvantageItem {
 const ADVANTAGES_LIST: AdvantageItem[] = [
   {
     id: "01",
-    title: "13+ YEARS OF OVERLAND MASTERY",
-    desc: "in international and cross-border heavy haulage across the Horn of Africa's most demanding corridors.",
+    title: "OPERATING CONTINUOUSLY SINCE 2013",
+    desc: "over a decade of proven reputation for quality, transparency, and operational reliability across Ethiopia and regional trade corridors.",
     icon: <Compass className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "02",
-    title: "76 HEAVY PRIME MOVERS",
-    desc: "100% company-owned European specification fleet eliminating volatile third-party sub-haulier dependency.",
+    title: "76 ACTIVE HEAVY TRUCKS",
+    desc: "100% company-owned late-model prime movers with 40 MT payload each, real-time GPS telemetry, and dual-driver shifts.",
     icon: <Truck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "03",
     title: "2,916 MT SYNCHRONOUS LIFT",
-    desc: "the largest private heavy-lift capability in Ethiopia for bulk, breakbulk & mega industrial projects.",
+    desc: "the largest private single-dispatch heavy lift capability in Ethiopia, transporting bulk, containerized, and emergency relief cargo.",
     isKey: true,
-    stat: "180 MT Single Rigging",
+    stat: "40 MT Per Unit",
     icon: <ShieldCheck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "04",
-    title: "IN-HOUSE BONDED CONTAINER DEPOT",
-    desc: "licensed AEO status enabling 48–72h fast-track customs clearance and secure container staging.",
+    title: "CUSTOMS CLEARANCE & BONDED TRANSIT",
+    desc: "seamless, compliant customs clearance and container staging at Galafi, Modjo Dry Port, and Kality logistics terminal.",
     icon: <Warehouse className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "05",
-    title: "24/7 SATELLITE COMMAND CENTER",
-    desc: "real-time GPS geofencing, axle load telemetry, and a verified 99.98% zero-incident security record.",
+    title: "HUMANITARIAN RELIEF CARRIER",
+    desc: "audited and trusted long-haul carrier for UN agencies, meeting international operational standards for emergency food and medical aid.",
     icon: <Radio className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "06",
-    title: "COLD CHAIN & SPECIALIZED RIGGING",
-    desc: "precision -25°C to +25°C pharma reefers and hydraulic multi-axle modular trailers up to 180 MT.",
+    title: "DIVERSIFIED INDUSTRIAL CAPABILITY",
+    desc: "end-to-end integration uniting overland freight, global commodity trade, heavy civil construction, and agro-manufacturing.",
     icon: <ThermometerSnowflake className="w-5 h-5 text-[#FF5A1F]" />,
   },
 ];
@@ -89,7 +89,7 @@ export default function AdvantagesSection() {
               LEFT COLUMN: STICKY MONUMENTAL TITLE & PROGRESS BAR
               Matches MVP's giant stacked typography and bottom rail
              ======================================================== */}
-          <div className="lg:col-span-5 lg:sticky lg:top-36 flex flex-col justify-between min-h-[300px] lg:min-h-[580px]">
+          <div className="lg:col-span-5 lg:sticky lg:top-36 flex flex-col justify-between min-h-75 lg:min-h-145">
             <div>
               {/* Subtle Eyebrow */}
               <div className="flex items-center gap-2 mb-4">
@@ -124,7 +124,7 @@ export default function AdvantagesSection() {
               </div>
 
               {/* Progress Rail matching MVP track */}
-              <div className="w-full max-w-[460px] h-[3px] bg-white/10 rounded-full relative overflow-hidden">
+              <div className="w-full max-w-115 h-0.75 bg-white/10 rounded-full relative overflow-hidden">
                 <motion.div
                   className="h-full bg-[#FF5A1F] rounded-full"
                   initial={false}
@@ -152,14 +152,14 @@ export default function AdvantagesSection() {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, margin: "-10% 0px" }}
                     transition={{ duration: 0.85, ease: [0.77, 0, 0.175, 1] }}
-                    className={`adv-card-row relative rounded-3xl p-10 sm:p-14 lg:p-16 min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] flex flex-col justify-between overflow-hidden transition-all duration-500 border ${
+                    className={`adv-card-row relative rounded-3xl p-10 sm:p-14 lg:p-16 min-h-95 sm:min-h-110 lg:min-h-120 flex flex-col justify-between overflow-hidden transition-all duration-500 border ${
                       isActive
-                        ? "bg-gradient-to-b from-[#1F234B] via-[#1B1E3D] to-[#151833] border-[#FF5A1F]/60 shadow-[0_25px_60px_rgba(255,90,31,0.18)] scale-[1.01]"
-                        : "bg-gradient-to-b from-[#1B1E3D]/90 via-[#181B38]/90 to-[#13152C]/90 border-white/15 opacity-85 hover:opacity-100 hover:border-[#FF5A1F]/40"
+                        ? "bg-linear-to-b from-[#1F234B] via-[#1B1E3D] to-[#151833] border-[#FF5A1F]/60 shadow-[0_25px_60px_rgba(255,90,31,0.18)] scale-[1.01]"
+                        : "bg-linear-to-b from-[#1B1E3D]/90 via-[#181B38]/90 to-[#13152C]/90 border-white/15 opacity-85 hover:opacity-100 hover:border-[#FF5A1F]/40"
                     }`}
                   >
                     {/* Giant Watermark Number */}
-                    <span className="absolute right-8 bottom-0 font-headline text-[130px] sm:text-[200px] text-white/[0.04] leading-none select-none pointer-events-none">
+                    <span className="absolute right-8 bottom-0 font-headline text-[130px] sm:text-[200px] text-white/4 leading-none select-none pointer-events-none">
                       {item.id}
                     </span>
 
@@ -195,7 +195,7 @@ export default function AdvantagesSection() {
                         whileInView={{ width: "100%" }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.1, delay: 0.2, ease: [0.77, 0, 0.175, 1] }}
-                        className="h-[1px] bg-gradient-to-r from-[#FF5A1F]/50 via-white/20 to-transparent"
+                        className="h-px bg-linear-to-r from-[#FF5A1F]/50 via-white/20 to-transparent"
                       />
                     </div>
 
@@ -225,14 +225,14 @@ export default function AdvantagesSection() {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, margin: "-10% 0px" }}
                   transition={{ duration: 0.85, ease: [0.77, 0, 0.175, 1] }}
-                  className={`adv-card-row relative rounded-3xl p-10 sm:p-14 lg:p-16 min-h-[340px] sm:min-h-[400px] lg:min-h-[440px] flex flex-col justify-between overflow-hidden transition-all duration-500 border ${
+                  className={`adv-card-row relative rounded-3xl p-10 sm:p-14 lg:p-16 min-h-85 sm:min-h-100 lg:min-h-110 flex flex-col justify-between overflow-hidden transition-all duration-500 border ${
                     isActive
                       ? "bg-[#0E1424] border-white/25 shadow-[0_20px_50px_rgba(0,0,0,0.55)] scale-[1.01]"
                       : "bg-[#0A0F1A]/85 border-white/10 opacity-70 hover:opacity-95 hover:border-white/20"
                   }`}
                 >
                   {/* Giant Watermark Number */}
-                  <span className="absolute right-8 bottom-0 font-headline text-[130px] sm:text-[200px] text-white/[0.03] leading-none select-none pointer-events-none">
+                  <span className="absolute right-8 bottom-0 font-headline text-[130px] sm:text-[200px] text-white/3 leading-none select-none pointer-events-none">
                     {item.id}
                   </span>
 
@@ -272,7 +272,7 @@ export default function AdvantagesSection() {
                       whileInView={{ width: "100%" }}
                       viewport={{ once: true }}
                       transition={{ duration: 1.1, delay: 0.2, ease: [0.77, 0, 0.175, 1] }}
-                      className="h-[1px] bg-gradient-to-r from-white/25 via-white/10 to-transparent"
+                      className="h-px bg-linear-to-r from-white/25 via-white/10 to-transparent"
                     />
                   </div>
 

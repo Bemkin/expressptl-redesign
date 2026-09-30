@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X, Phone, Mail, MapPin, CheckCircle2, ShieldCheck, Send } from "lucide-react";
+import { ArrowUpRight, X, Phone, Mail, CheckCircle2, Send } from "lucide-react";
 import AnimatedText from "./AnimatedText";
 
 export default function FeedbackSection() {
@@ -61,8 +61,17 @@ export default function FeedbackSection() {
 
           {/* 3. BOTTOM CONTENT BLOCK (.contact__container-inner) */}
           <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-8 pt-4">
-            <div className="max-w-md">
-              <p className="font-headline text-2xl sm:text-3xl text-[#1B1E3D] uppercase leading-[1.05] tracking-tight mb-2">
+            <div className="max-w-xl">
+              <div className="mb-5 pl-4 border-l-2 border-[#FF5A1F]">
+                <p className="text-xs sm:text-sm italic text-[#1B1E3D]/80 font-sans leading-relaxed">
+                  &ldquo;In the logistics industry, speed is important, but reliability is everything. Express Transport has been our trusted logistics partner for over three years, and they have never missed a deadline. Their team treats our cargo with the same care we do, and their proactive communication keeps us informed every step of the way. They aren&apos;t just a vendor—they are a true extension of our supply chain.&rdquo;
+                </p>
+                <span className="text-[11px] font-bold tracking-wider text-[#FF5A1F] uppercase font-headline block mt-2">
+                  — Verified Enterprise Client Testimonial
+                </span>
+              </div>
+
+              <p className="font-headline text-xl sm:text-2xl text-[#1B1E3D] uppercase leading-[1.05] tracking-tight mb-1.5">
                 Write to us — our specialist will offer the optimal logistics solution just for you.
               </p>
               <span className="text-xs sm:text-sm text-slate-500 font-sans">
@@ -73,7 +82,7 @@ export default function FeedbackSection() {
             {/* MVP Reverse-Engineered Action Button with Liquid Bubble & Split Roll */}
             <button
               onClick={() => setModalOpen(true)}
-              className="group mvp-bubble-btn px-8 sm:px-12 py-5 sm:py-6 rounded-2xl shadow-[0_15px_40px_rgba(27,30,61,0.25)] font-headline text-xl sm:text-2xl tracking-[0.05em] uppercase flex items-center justify-center gap-3 bg-[#1B1E3D] text-white cursor-pointer select-none"
+              className="group mvp-bubble-btn px-8 sm:px-12 py-5 sm:py-6 rounded-2xl shadow-[0_15px_40px_rgba(27,30,61,0.25)] font-headline text-xl sm:text-2xl tracking-wider uppercase flex items-center justify-center gap-3 bg-[#1B1E3D] text-white cursor-pointer select-none"
             >
               <span className="mvp-text-clip">
                 <span className="inline-flex">
@@ -150,7 +159,7 @@ export default function FeedbackSection() {
                 LEAVE A FREIGHT REQUEST
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 font-sans">
-                Our logistics coordinators in Mombasa and Addis Ababa will review your specifications and contact you directly with a route plan.
+                Our logistics coordinators at our Wollo Sefer headquarters and Bole Bulbula dispatch desk will review your specifications and contact you directly with a route plan.
               </p>
 
               {submitted ? (
@@ -184,7 +193,7 @@ export default function FeedbackSection() {
                       <input
                         required
                         type="text"
-                        placeholder="e.g. David Mwangi"
+                        placeholder="e.g. Temesgen Yohannes"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
                     </div>
@@ -195,7 +204,7 @@ export default function FeedbackSection() {
                       <input
                         required
                         type="text"
-                        placeholder="e.g. Kenya Power / Aid Agency"
+                        placeholder="e.g. Enterprise Client / Aid Agency"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
                     </div>
@@ -209,7 +218,7 @@ export default function FeedbackSection() {
                       <input
                         required
                         type="tel"
-                        placeholder="+254 700 000 000"
+                        placeholder="+251 91 124 8830"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
                     </div>
@@ -220,7 +229,7 @@ export default function FeedbackSection() {
                       <input
                         required
                         type="email"
-                        placeholder="operations@company.com"
+                        placeholder="client@company.com"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
                     </div>

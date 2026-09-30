@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useRef } from "react";
-import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, ShieldCheck, Truck, Clock } from "lucide-react";
+import { ShieldCheck, Truck, Clock } from "lucide-react";
 import MvpButton from "./MvpButton";
 import AnimatedText from "./AnimatedText";
 import ReadingScrubText from "./ReadingScrubText";
@@ -28,7 +27,7 @@ export default function AboutSection() {
         <motion.div
           ref={cardRef}
           style={{ scale: cardScale, opacity: cardOpacity }}
-          className="relative rounded-[28px] sm:rounded-[36px] overflow-hidden border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.65)] bg-gradient-to-b from-[#1F234B] via-[#1B1E3D] to-[#151733] px-6 sm:px-12 lg:px-20 pt-10 sm:pt-16 pb-20 sm:pb-32 will-change-transform"
+          className="relative rounded-[28px] sm:rounded-[36px] overflow-hidden border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.65)] bg-linear-to-b from-[#1F234B] via-[#1B1E3D] to-[#151733] px-6 sm:px-12 lg:px-20 pt-10 sm:pt-16 pb-20 sm:pb-32 will-change-transform"
         >
           {/* Subtle Ambient Radial Highlight matching the brand glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-64 bg-radial from-[#FF5A1F]/10 via-transparent to-transparent pointer-events-none blur-2xl" />
@@ -54,7 +53,7 @@ export default function AboutSection() {
               whileInView={{ width: "100%" }}
               viewport={{ once: true }}
               transition={{ duration: 1.4, delay: 0.2, ease: [0.77, 0, 0.175, 1] }}
-              className="h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              className="h-px bg-linear-to-r from-transparent via-white/20 to-transparent"
             />
           </div>
 
@@ -62,7 +61,7 @@ export default function AboutSection() {
           <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
             {/* Monumental Headline with MVP Character Peel & Elastic Drop */}
             <AnimatedText
-              text="EXPRESS COMPANY"
+              text="WELCOME TO EXPRESS"
               as="h2"
               delay={0.1}
               stagger={0.03}
@@ -72,8 +71,8 @@ export default function AboutSection() {
 
             {/* Reverse-Engineered MVP Reading Scrub Block: Words illuminate from 18% dim watermark to 100% white */}
             <ReadingScrubText
-              text="For over 13+ years, Express PTL has been a trusted benchmark in East African heavy haulage and multimodal freight logistics. We unite an experienced team of logistics engineers, route dispatchers, and bonded customs specialists to ensure stable, safe, and on-time deliveries worldwide, continuously raising service standards in regional supply chains."
-              className="text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-3xl mb-10 sm:mb-12"
+              text="Over the last ten years we have built a reputation for quality, transparency, and reliability. We are proud to support some of the most prominent multinational organizations in Ethiopia to achieve supply chain excellence and provide crucial strategic partnerships. Our commitment to our customers is to provide world class service in a challenging environment. We specialize in and are uniquely positioned to provide globally integrated logistics solutions to ensure seamless service from anywhere in the world to your location in Ethiopia. We provide services in global freight forwarding, customs clearing, transport, warehousing, and distribution. Express Transport and Logistics is managed dynamically and efficiently by professional staff who are well prepared to meet customer logistics requirements and provide our customers the most reliable and extensive services. We welcome you to join our network in Ethiopia and worldwide."
+              className="text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-4xl mb-10 sm:mb-12"
             />
 
             {/* CTA Button with Reliable Entrance Animation */}
@@ -100,17 +99,17 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2">
                 <Truck className="w-4 h-4 text-[#FF5A1F]" />
-                <span>76 Heavy Prime Movers</span>
+                <span>76 Active Heavy Trucks</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-white/20 hidden sm:block" />
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#FF5A1F]" />
-                <span>2,916 MT Lift Capacity</span>
+                <span>2,916 MT Synchronous Lift</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-white/20 hidden sm:block" />
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#FF5A1F]" />
-                <span>24/7 Satellite Telematics</span>
+                <span>10+ Years of Reliability</span>
               </div>
             </motion.div>
           </div>
@@ -121,39 +120,39 @@ export default function AboutSection() {
               className="flex whitespace-nowrap will-change-transform"
               animate={{ x: ["0%", "-50%"] }}
               transition={{
-                duration: 12,
+                duration: 14,
                 ease: "linear",
                 repeat: Infinity,
               }}
             >
               {/* Loop Block 1 */}
               <div className="flex items-center gap-10 sm:gap-16 shrink-0 pr-10 sm:pr-16">
-                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/[0.055] tracking-tight uppercase">
-                  YEARS ON THE MARKET
+                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
+                  10 YEARS ON THE MARKET
                 </span>
-                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/[0.04]">
+                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •
                 </span>
-                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/[0.055] tracking-tight uppercase">
-                  YEARS ON THE MARKET
+                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
+                  10 YEARS ON THE MARKET
                 </span>
-                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/[0.04]">
+                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •
                 </span>
               </div>
 
               {/* Loop Block 2 (identical clone for seamless infinite loop) */}
               <div className="flex items-center gap-10 sm:gap-16 shrink-0 pr-10 sm:pr-16">
-                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/[0.055] tracking-tight uppercase">
-                  YEARS ON THE MARKET
+                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
+                  10 YEARS ON THE MARKET
                 </span>
-                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/[0.04]">
+                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •
                 </span>
-                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/[0.055] tracking-tight uppercase">
-                  YEARS ON THE MARKET
+                <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
+                  10 YEARS ON THE MARKET
                 </span>
-                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/[0.04]">
+                <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •
                 </span>
               </div>

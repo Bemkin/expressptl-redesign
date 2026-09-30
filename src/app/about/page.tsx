@@ -12,10 +12,7 @@ import {
   CheckCircle2,
   MapPin,
   Award,
-  Clock,
   Compass,
-  FileCheck,
-  TrendingUp,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -195,7 +192,7 @@ export default function AboutPage() {
 
             {/* Right Column: Visual Showcase Card styled with brand #1B1E3D */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-gradient-to-b from-[#1F234B] via-[#1B1E3D] to-[#151733] p-8 sm:p-10 shadow-2xl">
+              <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-linear-to-b from-[#1F234B] via-[#1B1E3D] to-[#151733] p-8 sm:p-10 shadow-2xl">
                 <div className="flex items-center justify-between pb-6 border-b border-white/10 mb-8">
                   <div className="flex items-center gap-3">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
@@ -317,7 +314,7 @@ export default function AboutPage() {
             {CERTIFICATIONS.map((cert, index) => (
               <div
                 key={index}
-                className="p-6 rounded-xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between"
+                className="p-6 rounded-xl bg-white/2 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between"
               >
                 <div>
                   <Award className="w-6 h-6 text-[#FF5A1F] mb-4" />
@@ -342,7 +339,7 @@ export default function AboutPage() {
       <PartnersWall />
 
       {/* 7. CALL TO ACTION SECTION */}
-      <section className="py-24 bg-gradient-to-b from-[#080C16] to-[#05080E] relative overflow-hidden">
+      <section className="py-24 bg-linear-to-b from-[#080C16] to-[#05080E] relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-5 text-center relative z-10">
           <span className="text-xs font-extrabold tracking-[0.25em] text-[#FF5A1F] uppercase block mb-4">
             INITIATE HIGH-TONNAGE FREIGHT DISPATCH

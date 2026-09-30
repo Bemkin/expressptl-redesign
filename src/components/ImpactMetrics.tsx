@@ -33,7 +33,7 @@ export default function ImpactMetrics() {
           {METRICS.map((metric, i) => (
             <div
               key={i}
-              className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/15 transition-all duration-300"
+              className="p-8 rounded-2xl bg-white/2 border border-white/5 hover:border-white/15 transition-all duration-300"
             >
               <span className="font-headline text-5xl sm:text-6xl text-white font-normal block leading-none mb-3">
                 {metric.num}

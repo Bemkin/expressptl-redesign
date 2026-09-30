@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Gauge, Shield, Wrench, Radio } from "lucide-react";
 
 interface FleetVehicle {
@@ -66,12 +67,14 @@ export default function FleetSection() {
               className="bg-[#0D1322] border border-white/10 rounded-2xl overflow-hidden hover:border-[#FF5A1F]/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col justify-between"
             >
               <div className="relative h-64 w-full overflow-hidden">
-                <img
+                <Image
                   src={vehicle.img}
                   alt={vehicle.name}
-                  className="w-full h-full object-cover filter brightness-90 hover:scale-105 transition-transform duration-500"
+                  fill
+                  className="object-cover filter brightness-90 hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
                 />
-                <div className="absolute top-4 left-4 bg-[#070B14]/80 backdrop-blur-md px-3 py-1.5 rounded text-[10px] font-extrabold tracking-widest text-[#FF5A1F] uppercase border border-white/10">
+                <div className="absolute top-4 left-4 z-10 bg-[#070B14]/80 backdrop-blur-md px-3 py-1.5 rounded text-[10px] font-extrabold tracking-widest text-[#FF5A1F] uppercase border border-white/10">
                   {vehicle.category}
                 </div>
               </div>
@@ -101,7 +104,7 @@ export default function FleetSection() {
                       <span className="text-slate-400 flex items-center gap-2">
                         <Radio className="w-4 h-4 text-[#FF5A1F]" /> Telemetry:
                       </span>
-                      <span className="font-bold text-white truncate max-w-[200px]" title={vehicle.telemetry}>
+                      <span className="font-bold text-white truncate max-w-50" title={vehicle.telemetry}>
                         {vehicle.telemetry}
                       </span>
                     </div>

@@ -1,103 +1,136 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import AnimatedText from "./AnimatedText";
+import { ShieldCheck } from "lucide-react";
 
 interface PartnerItem {
   num: string;
   name: string;
+  shortName: string;
   category: string;
-  badge: React.ReactNode;
+  sectorTag: string;
+  logo: string;
+  scope: string;
 }
 
-const PARTNERS: PartnerItem[] = [
+const FLAGSHIP_PARTNERS: PartnerItem[] = [
   {
     num: "01",
-    name: "UN WFP",
-    category: "HUMANITARIAN LIFELINE PARTNER",
-    badge: (
-      <div className="flex flex-col items-center justify-center text-center">
-        <svg viewBox="0 0 160 55" fill="currentColor" className="h-12 sm:h-14 w-auto text-white">
-          <circle cx="26" cy="27" r="20" fill="none" stroke="currentColor" strokeWidth="2.5" />
-          <path d="M26 12v30M14 27h24M18 19l16 16M34 19L18 35" stroke="currentColor" strokeWidth="2" />
-          <text x="56" y="27" fontFamily="var(--font-headline), sans-serif" fontWeight="700" fontSize="22" fill="#FFFFFF" letterSpacing="0.05em">
-            UN WFP
-          </text>
-          <text x="56" y="42" fontFamily="var(--font-body), sans-serif" fontSize="10" fill="#CBD5E1" letterSpacing="0.08em" fontWeight="600">
-            WORLD FOOD PROGRAMME
-          </text>
-        </svg>
-      </div>
-    ),
+    name: "UN World Food Programme",
+    shortName: "UN WFP",
+    category: "HUMANITARIAN LIFELINE ALLIANCE",
+    sectorTag: "EMERGENCY RELIEF",
+    logo: "/assets/partners/wfp.png",
+    scope: "Priority food security & emergency humanitarian cargo carriage across the Horn of Africa.",
   },
   {
     num: "02",
-    name: "MAERSK",
+    name: "A.P. Moller - Maersk",
+    shortName: "MAERSK",
     category: "GLOBAL OCEAN & INTERMODAL ALLIANCE",
-    badge: (
-      <div className="flex flex-col items-center justify-center text-center">
-        <svg viewBox="0 0 180 55" fill="currentColor" className="h-11 sm:h-13 w-auto text-white">
-          <polygon points="26,10 30,22 42,22 32,30 36,42 26,34 16,42 20,30 10,22 22,22" fill="#40B4E5" />
-          <text x="52" y="36" fontFamily="var(--font-headline), sans-serif" fontWeight="800" fontSize="28" fill="#FFFFFF" letterSpacing="0.1em">
-            MAERSK
-          </text>
-        </svg>
-      </div>
-    ),
+    sectorTag: "GLOBAL CARRIER",
+    logo: "/assets/partners/maersk.png",
+    scope: "Direct carrier haulage and intermodal containerized transit from global deepwater hubs.",
   },
   {
     num: "03",
-    name: "MSC",
-    category: "MEDITERRANEAN SHIPPING COMPANY",
-    badge: (
-      <div className="flex flex-col items-center justify-center text-center">
-        <svg viewBox="0 0 160 55" fill="currentColor" className="h-12 sm:h-14 w-auto text-white">
-          <text x="25" y="38" fontFamily="var(--font-headline), sans-serif" fontWeight="900" fontSize="42" fill="#FFC82C" letterSpacing="0.06em">
-            msc
-          </text>
-          <text x="105" y="28" fontFamily="var(--font-body), sans-serif" fontSize="9" fill="#94A3B8" fontWeight="700" letterSpacing="0.12em">
-            CARGO
-          </text>
-          <text x="105" y="40" fontFamily="var(--font-body), sans-serif" fontSize="9" fill="#94A3B8" fontWeight="700" letterSpacing="0.12em">
-            LOGISTICS
-          </text>
-        </svg>
-      </div>
-    ),
+    name: "Mediterranean Shipping Co.",
+    shortName: "MSC",
+    category: "GLOBAL MARITIME CONTAINER ALLIANCE",
+    sectorTag: "DEEPWATER LINER",
+    logo: "/assets/partners/msc.png",
+    scope: "Vessel discharge coordination and end-to-end container delivery through Red Sea lanes.",
   },
   {
     num: "04",
-    name: "CMA CGM",
-    category: "TRANS-CONTINENTAL SHIPPING ALLIANCE",
-    badge: (
-      <div className="flex flex-col items-center justify-center text-center">
-        <svg viewBox="0 0 190 55" fill="currentColor" className="h-11 sm:h-13 w-auto text-white">
-          <text x="20" y="37" fontFamily="var(--font-headline), sans-serif" fontWeight="800" fontSize="30" fill="#FFFFFF" letterSpacing="0.08em">
-            CMA CGM
-          </text>
-        </svg>
-      </div>
-    ),
-  },
-  {
-    num: "05",
-    name: "BOLLORÉ AGL",
-    category: "AFRICA GLOBAL LOGISTICS NETWORK",
-    badge: (
-      <div className="flex flex-col items-center justify-center text-center">
-        <svg viewBox="0 0 190 55" fill="currentColor" className="h-11 sm:h-13 w-auto text-white">
-          <text x="20" y="36" fontFamily="var(--font-headline), sans-serif" fontWeight="800" fontSize="26" fill="#FFFFFF" letterSpacing="0.14em">
-            BOLLORÉ
-          </text>
-          <text x="145" y="24" fontFamily="var(--font-body), sans-serif" fontSize="10" fill="#FF5A1F" fontWeight="800">
-            AGL
-          </text>
-        </svg>
-      </div>
-    ),
+    name: "World Health Organization",
+    shortName: "WHO",
+    category: "INTERNATIONAL HEALTH LOGISTICS",
+    sectorTag: "COLD CHAIN & MEDICAL",
+    logo: "/assets/partners/who.png",
+    scope: "Temperature-controlled medical supply transit and emergency pandemic response transport.",
   },
 ];
+
+const NATIONAL_PARTNERS: PartnerItem[] = [
+  {
+    num: "05",
+    name: "Ethiopian Commodity Exchange",
+    shortName: "ECX",
+    category: "COMMODITIES TRADING HUB",
+    sectorTag: "NATIONAL EXCHANGE",
+    logo: "/assets/partners/ecx.png",
+    scope: "Secured export transit for Ethiopian coffee, oilseeds, sesame, and high-value agricultural produce.",
+  },
+  {
+    num: "06",
+    name: "Ethiopian Shipping & Logistics",
+    shortName: "ESLSE",
+    category: "NATIONAL MULTIMODAL ALLIANCE",
+    sectorTag: "MULTIMODAL CORRIDOR",
+    logo: "/assets/partners/ethiopian_shipping.png",
+    scope: "Seamless road-rail multimodal coordination between Djibouti seaports and Mojo dry port terminal.",
+  },
+  {
+    num: "07",
+    name: "Commercial Bank of Ethiopia",
+    shortName: "CBE",
+    category: "FINANCIAL & TRADE SETTLEMENT",
+    sectorTag: "STATE BANK",
+    logo: "/assets/partners/cbe.png",
+    scope: "Institutional import/export letters of credit, customs guarantees, and cargo collateral assurance.",
+  },
+  {
+    num: "08",
+    name: "Bank of Abyssinia",
+    shortName: "BANK OF ABYSSINIA",
+    category: "COMMERCIAL BANKING PARTNER",
+    sectorTag: "TRADE FINANCE",
+    logo: "/assets/partners/abyssinia.png",
+    scope: "Commercial cross-border financing, merchant banking, and fast-track trade documentary credit.",
+  },
+  {
+    num: "09",
+    name: "Ministry of Agriculture (FDRE)",
+    shortName: "MIN. OF AGRICULTURE",
+    category: "FEDERAL GOVERNMENT STRATEGIC PARTNER",
+    sectorTag: "FOOD SECURITY",
+    logo: "/assets/partners/ministry_agriculture.png",
+    scope: "Nationwide seasonal distribution of bulk agricultural fertilizer, seed stock, and agrarian machinery.",
+  },
+  {
+    num: "10",
+    name: "Ministry of Trade & Regional Integration",
+    shortName: "MIN. OF TRADE",
+    category: "FEDERAL REGULATORY PARTNER",
+    sectorTag: "TRADE CORRIDOR",
+    logo: "/assets/partners/ministry_trade.png",
+    scope: "Regulatory border compliance, regional trade agreement facilitation, and transit cargo clearance.",
+  },
+  {
+    num: "11",
+    name: "Agricultural Transformation Institute",
+    shortName: "ATI (ETHIOPIA)",
+    category: "AGRI-DEVELOPMENT & TECH",
+    sectorTag: "RURAL AGRI-TECH",
+    logo: "/assets/partners/agriculture.png",
+    scope: "Value-chain logistics connecting cooperative smallholders with international export corridors.",
+  },
+  {
+    num: "12",
+    name: "MASGI Industrial Logistics",
+    shortName: "MASGI",
+    category: "MANUFACTURING & HEAVY INDUSTRY",
+    sectorTag: "HEAVY INDUSTRIAL",
+    logo: "/assets/partners/masgi.png",
+    scope: "Industrial raw material supply chains, heavy machinery transport, and factory floor distribution.",
+  },
+];
+
+const ALL_PARTNERS = [...FLAGSHIP_PARTNERS, ...NATIONAL_PARTNERS];
 
 interface PartnersSectionProps {
   hideBackground?: boolean;
@@ -109,10 +142,7 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
 
   return (
     <section ref={sectionRef} className="relative w-full overflow-hidden bg-transparent py-16 sm:py-24 lg:py-32 select-none">
-      {/* ========================================================
-          BACKGROUND: SEAMLESS 4K TRUCK VIDEO LOOP WITH BRAND LOGO
-          (Rendered only if not hosted in a shared continuous viewport)
-          ======================================================== */}
+      {/* Background 4K Video Loop (when standalone) */}
       {!hideBackground && (
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
           <video
@@ -125,120 +155,196 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
           >
             <source src="/assets/gemini_generated_video_1adefa94.mp4" type="video/mp4" />
           </video>
-
-          {/* Ambient Dark Industrial Vignette Overlays matching #070B14 */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070B14] via-[#070B14]/40 to-[#070B14]/85" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#070B14] via-[#070B14]/40 to-[#070B14]/85" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80" />
         </div>
       )}
 
-      {/* ========================================================
-          CONTENT: ASYMMETRIC STAGGERED FROSTED GLASS GRID
-          ======================================================== */}
       <div className="relative z-10 max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ========================================================
-            DESKTOP LAYOUT (lg & above): EXACT MVP LOGISTICS ASYMMETRY
-            Row 1: Title (left) + Card 01 & Card 02 (right)
-            Row 2: Card 03 + Card 04 + Card 05 (spanning full width)
+            DESKTOP LAYOUT (lg & above)
+            Tier 1: Monumental Title (left) + 4 Flagship Global Cards (right)
+            Tier 2: 8 National & Industrial Enterprise Cards (4 cols x 2 rows)
             ======================================================== */}
-        <div className="hidden lg:flex flex-col gap-3 xl:gap-3.5">
+        <div className="hidden lg:flex flex-col gap-6 xl:gap-8">
           
-          {/* TOP ROW: Monumental Headline on left + Cards 01 & 02 on right */}
-          <div className="flex gap-3 xl:gap-3.5 items-stretch">
+          {/* TIER 1: Monumental Title + Flagship 4 */}
+          <div className="flex gap-4 xl:gap-6 items-stretch">
             
             {/* Top-Left: Massive Stacked "PARTNERS CLIENTS" */}
-            <div className="w-[43%] xl:w-[42%] flex flex-col justify-between pr-8 xl:pr-12 pt-4">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
-                <span className="text-xs font-bold tracking-[0.25em] text-white/80 uppercase font-headline">
-                  STRATEGIC ALLIANCES
-                </span>
+            <div className="w-[40%] xl:w-[38%] flex flex-col justify-between pr-6 xl:pr-10 pt-2">
+              <div>
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
+                  <span className="text-xs font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
+                    STRATEGIC ALLIANCES & CARRIER ROSTER
+                  </span>
+                </div>
+
+                <AnimatedText
+                  text={"PARTNERS\nCLIENTS"}
+                  as="h2"
+                  delay={0.15}
+                  stagger={0.035}
+                  className="font-headline text-7xl xl:text-8xl 2xl:text-[10rem] text-white leading-[0.8] tracking-[-0.03em] uppercase drop-shadow-[0_12px_40px_rgba(0,0,0,0.9)]"
+                />
+
+                <p className="text-sm xl:text-base text-slate-300 font-sans max-w-md leading-relaxed mt-6">
+                  Direct contractual carriage for international humanitarian relief agencies, global shipping lines, and leading Ethiopian industrial and financial institutions.
+                </p>
               </div>
 
-              <AnimatedText
-                text={"PARTNERS\nCLIENTS"}
-                as="h2"
-                delay={0.15}
-                stagger={0.035}
-                className="font-headline text-8xl xl:text-[10.5rem] 2xl:text-[12.5rem] text-white leading-[0.78] tracking-[-0.03em] uppercase drop-shadow-[0_12px_40px_rgba(0,0,0,0.9)]"
-              />
+              {/* Express PTL 3-Part Operational Philosophy */}
+              <div className="mt-6 pt-5 border-t border-white/10 space-y-2.5 max-w-md text-xs text-slate-300 font-sans">
+                <div className="flex items-start gap-2.5">
+                  <span className="text-[#FF5A1F] font-bold">01.</span>
+                  <span>Managed by global institutions, elevating our team&apos;s operational standards.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="text-[#FF5A1F] font-bold">02.</span>
+                  <span>International cooperation sharpens our cross-border logistics capacity.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="text-[#FF5A1F] font-bold">03.</span>
+                  <span>Uplifting critical emergency aid provides meaningful human impact.</span>
+                </div>
+              </div>
 
-              <p className="text-sm xl:text-base text-slate-300 font-sans max-w-md leading-relaxed mt-6">
-                Direct contractual carriage for premier ocean carriers, international food aid programs, and regional infrastructure leaders across East Africa.
-              </p>
+              {/* Verified Count Pill */}
+              <div className="mt-6 flex items-center gap-3">
+                <div className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 flex items-center gap-2 text-xs font-headline tracking-wider text-white">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                  <span>12 VERIFIED INSTITUTIONAL PARTNERS</span>
+                </div>
+              </div>
             </div>
 
-            {/* Top-Right: Card 01 & Card 02 */}
-            <div className="w-[57%] xl:w-[58%] grid grid-cols-2 gap-3 xl:gap-3.5">
-              {PARTNERS.slice(0, 2).map((partner, index) => (
+            {/* Top-Right: 4 Flagship Global Cards in a 2x2 Grid */}
+            <div className="w-[60%] xl:w-[62%] grid grid-cols-2 gap-4 xl:gap-5">
+              {FLAGSHIP_PARTNERS.map((partner, index) => (
                 <motion.div
                   key={partner.num}
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{
                     duration: 0.8,
-                    delay: 0.2 + index * 0.12,
+                    delay: 0.15 + index * 0.1,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="group relative rounded-[24px] sm:rounded-[28px] h-[340px] xl:h-[375px] p-8 xl:p-10 flex flex-col justify-between overflow-hidden transition-all duration-300 hover:scale-[1.015] hover:border-[#FF5A1F]/60 cursor-default bg-[#F4F4F7]/[0.05] border border-white/15 backdrop-blur-[45px] shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
+                  className="group relative rounded-3xl p-6 xl:p-8 flex flex-col justify-between overflow-hidden transition-all duration-300 hover:scale-[1.015] hover:border-[#FF5A1F]/60 cursor-default bg-[#F4F4F7]/5 border border-white/15 backdrop-blur-[45px] shadow-[0_20px_60px_rgba(0,0,0,0.45)] min-h-75"
                 >
                   {/* Subtle hover radial reflection */}
                   <div className="absolute inset-0 bg-radial from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                  {/* Top-left number */}
-                  <span className="text-white/50 group-hover:text-white font-headline text-2xl xl:text-3xl tracking-widest transition-colors">
-                    {partner.num}
-                  </span>
-
-                  {/* Center Brand Mark */}
-                  <div className="flex items-center justify-center my-auto transition-transform duration-300 group-hover:scale-105">
-                    {partner.badge}
+                  {/* Card Header: Number & Sector Badge */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/40 group-hover:text-white font-headline text-2xl xl:text-3xl tracking-widest transition-colors">
+                      {partner.num}
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold tracking-wider text-[#FF5A1F] uppercase font-headline">
+                      {partner.sectorTag}
+                    </span>
                   </div>
 
-                  {/* Bottom partner category descriptor */}
-                  <span className="text-[11px] font-bold tracking-[0.2em] text-white/60 group-hover:text-[#FF5A1F] uppercase transition-colors">
-                    {partner.category}
-                  </span>
+                  {/* Center: Real Logo on Pristine White Emblem Card */}
+                  <div className="my-auto py-4 flex flex-col items-center justify-center">
+                    <div className="w-full max-w-52.5 h-20 xl:h-22 bg-white rounded-2xl p-3.5 flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.35)] border border-white/20 transition-transform duration-300 group-hover:scale-105">
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name}
+                        width={180}
+                        height={60}
+                        className="max-h-full max-w-full object-contain filter contrast-[1.05]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Card Footer: Partner Name & Category */}
+                  <div>
+                    <h3 className="font-headline text-base xl:text-lg text-white uppercase tracking-wider group-hover:text-[#FF5A1F] transition-colors line-clamp-1">
+                      {partner.name}
+                    </h3>
+                    <p className="text-[11px] font-bold tracking-[0.15em] text-white/50 uppercase mt-0.5">
+                      {partner.category}
+                    </p>
+                    <p className="text-xs text-slate-400 font-sans mt-2 line-clamp-2 leading-relaxed">
+                      {partner.scope}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
 
           </div>
 
-          {/* BOTTOM ROW: Cards 03, 04, 05 Spanning Edge-to-Edge */}
-          <div className="grid grid-cols-3 gap-3 xl:gap-3.5">
-            {PARTNERS.slice(2, 5).map((partner, index) => (
-              <motion.div
-                key={partner.num}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.4 + index * 0.12,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="group relative rounded-[24px] sm:rounded-[28px] h-[340px] xl:h-[375px] p-8 xl:p-10 flex flex-col justify-between overflow-hidden transition-all duration-300 hover:scale-[1.015] hover:border-[#FF5A1F]/60 cursor-default bg-[#F4F4F7]/[0.05] border border-white/15 backdrop-blur-[45px] shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
-              >
-                {/* Subtle hover radial reflection */}
-                <div className="absolute inset-0 bg-radial from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          {/* TIER 2: National Enterprise & Government Alliances (8 Cards in 4x2 Grid) */}
+          <div className="mt-4 pt-8 border-t border-white/10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
+                <h4 className="text-xs font-bold tracking-[0.25em] text-white/70 uppercase font-headline">
+                  DOMESTIC INSTITUTIONS & REGIONAL ENTERPRISE NETWORK
+                </h4>
+              </div>
+              <span className="text-[11px] font-bold tracking-[0.2em] text-white/40 uppercase font-headline">
+                CROSS-BORDER & COMMODITY CORRIDORS
+              </span>
+            </div>
 
-                {/* Top-left number */}
-                <span className="text-white/50 group-hover:text-white font-headline text-2xl xl:text-3xl tracking-widest transition-colors">
-                  {partner.num}
-                </span>
+            <div className="grid grid-cols-4 gap-4 xl:gap-5">
+              {NATIONAL_PARTNERS.map((partner, index) => (
+                <motion.div
+                  key={partner.num}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{
+                    duration: 0.75,
+                    delay: 0.35 + index * 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="group relative rounded-2xl xl:rounded-3xl p-5 xl:p-6 flex flex-col justify-between overflow-hidden transition-all duration-300 hover:scale-[1.015] hover:border-[#FF5A1F]/60 cursor-default bg-[#F4F4F7]/5 border border-white/15 backdrop-blur-[35px] shadow-[0_15px_45px_rgba(0,0,0,0.4)] min-h-65"
+                >
+                  <div className="absolute inset-0 bg-radial from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                {/* Center Brand Mark */}
-                <div className="flex items-center justify-center my-auto transition-transform duration-300 group-hover:scale-105">
-                  {partner.badge}
-                </div>
+                  {/* Card Header: Number & Sector Badge */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/40 group-hover:text-white font-headline text-xl tracking-widest transition-colors">
+                      {partner.num}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-bold tracking-wider text-[#FF5A1F] uppercase font-headline">
+                      {partner.sectorTag}
+                    </span>
+                  </div>
 
-                {/* Bottom partner category descriptor */}
-                <span className="text-[11px] font-bold tracking-[0.2em] text-white/60 group-hover:text-[#FF5A1F] uppercase transition-colors">
-                  {partner.category}
-                </span>
-              </motion.div>
-            ))}
+                  {/* Center: Real Logo on Pristine White Emblem Card */}
+                  <div className="my-auto py-3 flex flex-col items-center justify-center">
+                    <div className="w-full max-w-42.5 h-16 xl:h-18 bg-white rounded-xl p-2.5 flex items-center justify-center shadow-md border border-white/20 transition-transform duration-300 group-hover:scale-105">
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name}
+                        width={150}
+                        height={50}
+                        className="max-h-full max-w-full object-contain filter contrast-[1.05]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Card Footer: Partner Name & Category */}
+                  <div>
+                    <h3 className="font-headline text-sm xl:text-base text-white uppercase tracking-wider group-hover:text-[#FF5A1F] transition-colors line-clamp-1">
+                      {partner.name}
+                    </h3>
+                    <p className="text-[10px] font-bold tracking-[0.15em] text-white/50 uppercase mt-0.5">
+                      {partner.category}
+                    </p>
+                    <p className="text-[11px] text-slate-400 font-sans mt-1.5 line-clamp-2 leading-relaxed">
+                      {partner.scope}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
         </div>
@@ -250,32 +356,56 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
           {/* Header */}
           <div className="mb-2">
             <span className="text-xs font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline block mb-2">
-              STRATEGIC ALLIANCES
+              STRATEGIC ALLIANCES & CARRIERS
             </span>
-            <h2 className="font-headline text-6xl sm:text-7xl text-white uppercase leading-[0.85] tracking-tight">
+            <h2 className="font-headline text-5xl sm:text-6xl text-white uppercase leading-[0.85] tracking-tight">
               PARTNERS <br />
               CLIENTS
             </h2>
+            <p className="text-xs sm:text-sm text-slate-300 font-sans mt-4 max-w-lg leading-relaxed">
+              Direct contractual carriage for international humanitarian relief agencies, global shipping lines, and leading Ethiopian industrial partners.
+            </p>
           </div>
 
-          {/* Cards Grid */}
+          {/* 12 Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {PARTNERS.map((partner) => (
+            {ALL_PARTNERS.map((partner) => (
               <div
                 key={partner.num}
-                className="relative rounded-2xl h-[240px] sm:h-[260px] p-6 flex flex-col justify-between overflow-hidden bg-[#F4F4F7]/[0.06] border border-white/15 backdrop-blur-[30px] shadow-xl"
+                className="relative rounded-2xl p-5 flex flex-col justify-between overflow-hidden bg-[#F4F4F7]/6 border border-white/15 backdrop-blur-[30px] shadow-xl min-h-55"
               >
-                <span className="text-white/50 font-headline text-xl tracking-widest">
-                  {partner.num}
-                </span>
-
-                <div className="flex items-center justify-center my-auto">
-                  {partner.badge}
+                <div className="flex items-center justify-between">
+                  <span className="text-white/40 font-headline text-lg tracking-widest">
+                    {partner.num}
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-bold tracking-wider text-[#FF5A1F] uppercase font-headline">
+                    {partner.sectorTag}
+                  </span>
                 </div>
 
-                <span className="text-[10px] font-bold tracking-widest text-white/60 uppercase">
-                  {partner.category}
-                </span>
+                <div className="my-auto py-3 flex items-center justify-center">
+                  <div className="w-full max-w-42.5 h-16 bg-white rounded-xl p-2.5 flex items-center justify-center shadow-md">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      width={150}
+                      height={50}
+                      className="max-h-full max-w-full object-contain filter contrast-[1.05]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-headline text-sm text-white uppercase tracking-wider line-clamp-1">
+                    {partner.name}
+                  </h3>
+                  <span className="text-[10px] font-bold tracking-widest text-[#FF5A1F] uppercase block mt-0.5">
+                    {partner.category}
+                  </span>
+                  <p className="text-[11px] text-slate-400 font-sans mt-1 line-clamp-2 leading-relaxed">
+                    {partner.scope}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

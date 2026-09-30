@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion, HTMLMotionProps, Variants } from "framer-motion";
 
 interface AnimatedTextProps {
   text: string;
@@ -37,7 +37,7 @@ export default function AnimatedText({
   // Support multi-line headlines using \n
   const lines = text.split("\n");
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -47,7 +47,7 @@ export default function AnimatedText({
     },
   };
 
-  const charVariants = {
+  const charVariants: Variants = {
     hidden: {
       opacity: 0,
       scaleY: 0,
@@ -66,7 +66,7 @@ export default function AnimatedText({
     },
   };
 
-  const MotionComponent = motion[Component] as React.ComponentType<HTMLMotionProps<any>>;
+  const MotionComponent = motion[Component] as React.ComponentType<HTMLMotionProps<"div">>;
 
   return (
     <MotionComponent
@@ -74,7 +74,7 @@ export default function AnimatedText({
       initial="hidden"
       whileInView={explicitAnimate === undefined ? "visible" : undefined}
       animate={explicitAnimate !== undefined ? (explicitAnimate ? "visible" : "hidden") : undefined}
-      viewport={{ once, margin: viewportMargin as any }}
+      viewport={{ once, margin: viewportMargin }}
       className={`inline-block ${className}`}
     >
       {lines.map((line, lineIdx) => (

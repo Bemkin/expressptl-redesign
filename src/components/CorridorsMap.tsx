@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { MapPin, Navigation, Clock, Shield, CheckCircle } from "lucide-react";
+import { Navigation, Clock, Shield, CheckCircle } from "lucide-react";
 
 interface Corridor {
   id: string;
@@ -92,7 +92,7 @@ export default function CorridorsMap() {
                 className={`p-5 rounded-xl text-left border transition-all duration-200 cursor-pointer ${
                   isSelected
                     ? "bg-[#0D1322] border-[#FF5A1F] shadow-lg shadow-black/50"
-                    : "bg-white/[0.02] border-white/10 hover:border-white/20 text-slate-400 hover:text-white"
+                    : "bg-white/2 border-white/10 hover:border-white/20 text-slate-400 hover:text-white"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
@@ -141,7 +141,7 @@ export default function CorridorsMap() {
             </div>
 
             {/* Quick Metrics Col */}
-            <div className="lg:col-span-5 bg-white/[0.03] border border-white/10 rounded-xl p-8 flex flex-col gap-6">
+            <div className="lg:col-span-5 bg-white/3 border border-white/10 rounded-xl p-8 flex flex-col gap-6">
               
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-lg bg-[#FF5A1F]/10 border border-[#FF5A1F]/30 flex items-center justify-center shrink-0">

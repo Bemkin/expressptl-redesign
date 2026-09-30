@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
@@ -8,6 +8,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import AdvantagesSection from "@/components/AdvantagesSection";
 import ServicesSection from "@/components/ServicesSection";
+import ImpactMetricsStrip from "@/components/ImpactMetricsStrip";
 import PartnersSection from "@/components/PartnersSection";
 import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
@@ -16,6 +17,24 @@ export default function Home() {
   const [isExpanding, setIsExpanding] = useState(false);
   const [heroActive, setHeroActive] = useState(false);
   const [preloaderDone, setPreloaderDone] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+
+      if (!preloaderDone) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [preloaderDone]);
 
   return (
     <main className="min-h-screen bg-[#070B14] text-white selection:bg-[#FF5A1F] selection:text-white">
@@ -28,11 +47,13 @@ export default function Home() {
 
       {/* Seamless Unified Hero + About Section Container with Single Shared Video */}
       <div className="relative w-full bg-[#070B14]">
-        {/* Sticky 100vh Video Viewport: starts scaled at 0.35 in preloader center, expands to 1.0, pins seamlessly */}
+        {/* Sticky/Fixed 100vh Video Viewport: fixed during preloader so it ALWAYS shows in center regardless of scroll position, then sticky once preloader completes */}
         <div
-          className={`sticky top-0 h-screen w-full overflow-hidden pointer-events-none -mb-[100vh] flex items-center justify-center transition-all ${
-            preloaderDone ? "z-0" : "z-[90]"
-          }`}
+          className={`${
+            preloaderDone
+              ? "sticky top-0 h-screen w-full mb-[-100vh] z-0"
+              : "fixed inset-0 w-full h-screen z-90"
+          } overflow-hidden pointer-events-none flex items-center justify-center transition-all`}
         >
           <motion.div
             initial={{ y: "82vh", rotate: 6, scale: 0.28, borderRadius: "24px" }}
@@ -69,7 +90,7 @@ export default function Home() {
               <source src="/assets/gemini_generated_video_40cb6d4f.mp4" type="video/mp4" />
             </video>
             {/* Subtle cinematic gradient overlays that keep readability crisp */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#070B14]/50 via-transparent via-50% to-[#070B14]/85 z-1" />
+            <div className="absolute inset-0 bg-linear-to-b from-[#070B14]/50 via-transparent via-50% to-[#070B14]/85 z-1" />
           </motion.div>
         </div>
 
@@ -78,12 +99,13 @@ export default function Home() {
           <HeroSection hideBackground isStarted={heroActive} />
           <AboutSection />
           {/* Bottom gradient fade smoothly transitioning into AdvantagesSection */}
-          <div className="w-full h-24 bg-gradient-to-b from-transparent to-[#070B14] pointer-events-none" />
+          <div className="w-full h-24 bg-linear-to-b from-transparent to-[#070B14] pointer-events-none" />
         </div>
       </div>
 
       <AdvantagesSection />
       <ServicesSection />
+      <ImpactMetricsStrip />
       {/* Seamless Unified Partners + Feedback Section with Single Continuing 4K Truck Video */}
       <div className="relative w-full bg-[#070B14]">
         {/* Sticky 100vh Video: Unzoomed at native 16:9 viewport ratio, pins behind Partners and Feedback */}
@@ -99,12 +121,12 @@ export default function Home() {
             <source src="/assets/gemini_generated_video_1adefa94.mp4" type="video/mp4" />
           </video>
           {/* Ambient Dark Industrial Vignette Overlays matching #070B14 */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070B14] via-[#070B14]/30 to-[#070B14]/85 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80 pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#070B14] via-[#070B14]/30 to-[#070B14]/85 pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80 pointer-events-none" />
         </div>
 
         {/* Scrolling Content Layer pulled over the sticky 100vh video */}
-        <div className="relative z-10 -mt-[100vh]">
+        <div className="relative z-10 mt-[-100vh]">
           <PartnersSection hideBackground />
           <FeedbackSection />
           <Footer hideBackground />

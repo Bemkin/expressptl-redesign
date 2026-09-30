@@ -16,6 +16,12 @@ import "lenis/dist/lenis.css";
  * - wheelMultiplier: 0.75 (speed: 0.7 dampening)
  * - easing: exponential decay curve matching GSAP power4.out
  */
+declare global {
+  interface Window {
+    __lenis?: Lenis;
+  }
+}
+
 export default function SmoothScroll() {
   useEffect(() => {
     const isMobile = window.innerWidth <= 1024;
@@ -35,7 +41,7 @@ export default function SmoothScroll() {
       smoothWheel: true,
     });
 
-    (window as any).__lenis = lenis;
+    window.__lenis = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -47,7 +53,7 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(animFrame);
       lenis.destroy();
-      delete (window as any).__lenis;
+      delete window.__lenis;
     };
   }, []);
 

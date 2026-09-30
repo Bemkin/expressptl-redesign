@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react";
@@ -32,7 +34,15 @@ const LANGUAGES = [
 
 export default function Navbar({ isStarted = true }: NavbarProps) {
   const pathname = usePathname();
-  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const routeTab = pathname !== "/" ? (
+    pathname.startsWith("/about") ? "about" :
+    pathname.startsWith("/corridors") ? "corridors" :
+    pathname.startsWith("/fleet") ? "fleet" :
+    pathname.startsWith("/calculator") ? "calculator" :
+    pathname.startsWith("/contact") ? "contacts" : null
+  ) : null;
+  const [scrollTab, setScrollTab] = useState<string | null>(null);
+  const activeTab = routeTab ?? scrollTab;
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("ENG");
@@ -52,17 +62,9 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
     }
   }, [langDropdownOpen]);
 
-  // Synchronize active tab with current page route & homepage scroll sections
+  // Synchronize active tab with homepage scroll sections
   useEffect(() => {
-    if (pathname !== "/") {
-      if (pathname.startsWith("/about")) setActiveTab("about");
-      else if (pathname.startsWith("/corridors")) setActiveTab("corridors");
-      else if (pathname.startsWith("/fleet")) setActiveTab("fleet");
-      else if (pathname.startsWith("/calculator")) setActiveTab("calculator");
-      else if (pathname.startsWith("/contact")) setActiveTab("contacts");
-      else setActiveTab(null);
-      return;
-    }
+    if (pathname !== "/") return;
 
     // On homepage: dynamically activate based on current scroll position
     const handleScroll = () => {
@@ -73,7 +75,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
       if (servicesEl) {
         const rect = servicesEl.getBoundingClientRect();
         if (rect.top <= viewportMid && rect.bottom >= 150) {
-          setActiveTab("services");
+          setScrollTab("services");
           return;
         }
       }
@@ -81,13 +83,13 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
       if (aboutEl) {
         const rect = aboutEl.getBoundingClientRect();
         if (rect.top <= viewportMid && rect.bottom >= 150) {
-          setActiveTab("about");
+          setScrollTab("about");
           return;
         }
       }
 
       // Default at top of homepage: clean state with no tab selected
-      setActiveTab(null);
+      setScrollTab(null);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -152,7 +154,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
     // 1. Hook directly into Lenis smooth flywheel scroll if present
     let cleanupLenis: (() => void) | null = null;
     const bindLenis = () => {
-      const lenis = (window as any).__lenis;
+      const lenis = (window as unknown as { __lenis?: { on: (event: string, cb: (e: { scroll: number; direction: number }) => void) => void; off: (event: string, cb: (e: { scroll: number; direction: number }) => void) => void } }).__lenis;
       if (lenis && !cleanupLenis) {
         const onLenisScroll = (e: { scroll: number; direction: number }) => {
           updateVisibility(e.scroll, e.direction);
@@ -219,21 +221,23 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
         >
           
           {/* Left: Dedicated Large Logo Container displaying the full brand mark */}
-          <a
+          <Link
             href="/"
-            className="pointer-events-auto aspect-square rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.55)] flex items-center justify-center transition-transform duration-300 hover:scale-[1.04] active:scale-[0.98] bg-[#0E1224] border border-white/20 group shrink-0 h-[88px] w-[88px] sm:h-[96px] sm:w-[96px] md:h-[104px] md:w-[104px]"
+            className="pointer-events-auto aspect-square rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.55)] flex items-center justify-center transition-transform duration-300 hover:scale-[1.04] active:scale-[0.98] bg-[#0E1224] border border-white/20 group shrink-0 h-22 w-22 sm:h-24 sm:w-24 md:h-26 md:w-26"
             aria-label="Express Transport and Logistics"
           >
-            <img
+            <Image
               src="/assets/Gemini_Generated_Image_nmde0znmde0znmde.jpg"
               alt="Express Transport & Logistics Logo"
+              width={104}
+              height={104}
               className="w-full h-full object-cover scale-[1.12] transition-transform duration-300 group-hover:scale-120"
             />
-          </a>
+          </Link>
 
           {/* Center: Desktop Navigation with Animated Sliding Pill Hover */}
           <nav
-            className="pointer-events-auto hidden lg:flex items-center bg-white p-1 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] relative h-[52px] mt-1.5"
+            className="pointer-events-auto hidden lg:flex items-center bg-white p-1 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] relative h-13 mt-1.5"
             onMouseLeave={() => setHoveredTab(null)}
           >
             <ul className="flex items-center gap-0.5 relative z-10 m-0 p-0 list-none h-full">
@@ -248,10 +252,10 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                     <a
                       href={item.href}
                       onClick={() => {
-                        setActiveTab(item.id);
+                        setScrollTab(item.id);
                       }}
                       onMouseEnter={() => setHoveredTab(item.id)}
-                      className={`group relative z-20 flex items-center h-full px-4 xl:px-5 font-headline text-[1.2rem] tracking-[0.05em] uppercase transition-colors duration-200 select-none ${
+                      className={`group relative z-20 flex items-center h-full px-4 xl:px-5 font-headline text-[1.2rem] tracking-wider uppercase transition-colors duration-200 select-none ${
                         isActive ? "text-white" : "text-[#0D1322]"
                       }`}
                     >
@@ -290,7 +294,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                           stiffness: 420,
                           damping: 34,
                         }}
-                        className="absolute inset-y-1 inset-x-0.5 bg-[#FF5A1F] rounded-[4px] z-10 pointer-events-none shadow-[0_2px_12px_rgba(255,90,31,0.4)]"
+                        className="absolute inset-y-1 inset-x-0.5 bg-[#FF5A1F] rounded-sm z-10 pointer-events-none shadow-[0_2px_12px_rgba(255,90,31,0.4)]"
                       />
                     )}
                   </li>
@@ -303,7 +307,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
           <div className="pointer-events-auto flex items-center gap-3 mt-1.5">
             <a
               href="/contact"
-              className="group mvp-bubble-btn px-5 md:px-7 h-[52px] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-[0.05em] uppercase flex items-center gap-2"
+              className="group mvp-bubble-btn px-5 md:px-7 h-13 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-wider uppercase flex items-center gap-2"
             >
               <span className="mvp-text-clip">
                 <span className="inline-flex">
@@ -337,7 +341,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="group mvp-bubble-btn flex items-center gap-1.5 px-4 h-[52px] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-[0.05em] uppercase cursor-pointer"
+                className="group mvp-bubble-btn flex items-center gap-1.5 px-4 h-13 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-wider uppercase cursor-pointer"
                 aria-label="Select Language"
               >
                 <span className="relative z-10">{currentLang}</span>
@@ -384,7 +388,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex lg:hidden items-center justify-center w-11 h-[52px] bg-white hover:bg-[#FF5A1F] hover:text-white transition-colors duration-200 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] text-[#0D1322] focus:outline-none"
+              className="flex lg:hidden items-center justify-center w-11 h-13 bg-white hover:bg-[#FF5A1F] hover:text-white transition-colors duration-200 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] text-[#0D1322] focus:outline-none"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -411,7 +415,7 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                   key={item.id}
                   href={item.href}
                   onClick={() => {
-                    setActiveTab(item.id);
+                    setScrollTab(item.id);
                     setMobileMenuOpen(false);
                   }}
                   className={`py-3 px-4 rounded-xl font-headline text-xl sm:text-2xl tracking-wide uppercase transition-colors ${

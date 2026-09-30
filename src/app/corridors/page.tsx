@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CorridorsMap from "@/components/CorridorsMap";
-import { Compass, ShieldCheck, Clock, MapPin, Truck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Strategic Trade Corridors | Express Transport & Logistics",
@@ -16,7 +15,7 @@ export default function CorridorsPage() {
       <Navbar isStarted={true} />
 
       {/* Header Banner */}
-      <section className="relative pt-36 sm:pt-44 pb-16 sm:pb-20 bg-gradient-to-b from-[#0E1224] to-[#070B14] border-b border-white/10 overflow-hidden">
+      <section className="relative pt-36 sm:pt-44 pb-16 sm:pb-20 bg-linear-to-b from-[#0E1224] to-[#070B14] border-b border-white/10 overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#FF5A1F]/10 blur-3xl rounded-full pointer-events-none" />
         <div className="max-w-[1720px] mx-auto px-6 md:px-12 relative z-10">
           <div className="flex items-center gap-3 mb-4">

@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue, UseScrollOptions } from "framer-motion";
 
 interface ReadingScrubTextProps {
   text: string;
   className?: string;
-  offset?: [string, string];
+  offset?: NonNullable<UseScrollOptions["offset"]>;
 }
 
 interface WordProps {
@@ -50,7 +50,7 @@ export default function ReadingScrubText({
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: offset as any,
+    offset,
   });
 
   const words = text.split(" ");

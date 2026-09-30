@@ -31,7 +31,7 @@ export default function ContactSection() {
             </p>
 
             <div className="space-y-6">
-              <div className="flex items-start gap-4 p-5 rounded-xl bg-white/[0.03] border border-white/10">
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-white/3 border border-white/10">
                 <div className="w-10 h-10 rounded-lg bg-[#FF5A1F]/15 flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5 text-[#FF5A1F]" />
                 </div>
@@ -46,7 +46,7 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-5 rounded-xl bg-white/[0.03] border border-white/10">
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-white/3 border border-white/10">
                 <div className="w-10 h-10 rounded-lg bg-[#FF5A1F]/15 flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5 text-[#FF5A1F]" />
                 </div>
@@ -61,7 +61,7 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-5 rounded-xl bg-white/[0.03] border border-white/10">
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-white/3 border border-white/10">
                 <div className="w-10 h-10 rounded-lg bg-[#FF5A1F]/15 flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5 text-[#FF5A1F]" />
                 </div>

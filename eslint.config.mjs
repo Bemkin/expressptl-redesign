@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "scratch/**",
+    "legacy-backup/**",
+    ".kilo/**",
+    "fetch_footer.js",
+    "*.js",
   ]),
 ]);
 

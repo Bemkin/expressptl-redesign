@@ -16,31 +16,31 @@ const SERVICES_DATA: ServiceDivision[] = [
   {
     id: "01",
     total: "05",
-    title: "INTERNATIONAL FREIGHT TRANSPORTATION",
+    title: "CONSTRUCTION",
     progress: 20,
   },
   {
     id: "02",
     total: "05",
-    title: "CROSS-BORDER CUSTOMS & BONDED CLEARANCE",
+    title: "GROUND TRANSPORT",
     progress: 40,
   },
   {
     id: "03",
     total: "05",
-    title: "HEAVY HAUL & PROJECT CARGO LOGISTICS",
+    title: "IMPORT AND EXPORT",
     progress: 60,
   },
   {
     id: "04",
     total: "05",
-    title: "TEMPERATURE-CONTROLLED PHARMA & COLD CHAIN",
+    title: "LOGISTIC SERVICE",
     progress: 80,
   },
   {
     id: "05",
     total: "05",
-    title: "DOOR-TO-DOOR MULTIMODAL DISTRIBUTION",
+    title: "MANUFACTURING",
     progress: 100,
   },
 ];
@@ -72,7 +72,7 @@ export default function HeroSection({
   };
 
   return (
-    <section className={`relative w-full h-screen min-h-[720px] overflow-hidden ${hideBackground ? "bg-transparent" : "bg-[#070B14]"} flex flex-col justify-end select-none`}>
+    <section className={`relative w-full h-screen min-h-180 overflow-hidden ${hideBackground ? "bg-transparent" : "bg-[#070B14]"} flex flex-col justify-end select-none`}>
       
       {/* 1. BACKGROUND & BASE LAYER: CINEMATIC TRUCK VIDEO ON WET HIGHWAY + DUAL GRADIENT OVERLAYS */}
       {!hideBackground && (
@@ -88,7 +88,7 @@ export default function HeroSection({
             <source src="/assets/gemini_generated_video_40cb6d4f.mp4" type="video/mp4" />
           </video>
           {/* Dark cinematic gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#070B14]/50 via-[#070B14]/20 to-[#070B14]/75" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#070B14]/50 via-[#070B14]/20 to-[#070B14]/75" />
         </div>
       )}
 
@@ -150,7 +150,7 @@ export default function HeroSection({
             initial={{ width: "0%" }}
             animate={isStarted ? { width: "100%" } : { width: "0%" }}
             transition={{ duration: 1.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-0 bottom-0 h-[1px] bg-white/20 origin-left"
+            className="absolute left-0 bottom-0 h-px bg-white/20 origin-left"
           />
         </div>
 
@@ -177,7 +177,7 @@ export default function HeroSection({
           transition={{ duration: 0.85, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          className="w-full sm:w-[420px] lg:w-[440px] bg-white rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(0,0,0,0.75)]"
+          className="w-full sm:w-105 lg:w-110 bg-white rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(0,0,0,0.75)]"
         >
           {/* Card Meta Row: Counter & Tag */}
           <div className="flex items-baseline justify-between mb-6">
@@ -204,7 +204,7 @@ export default function HeroSection({
 
           {/* Service Title & Cycle Button */}
           <div className="flex items-center justify-between gap-4">
-            <div className="min-h-[46px] flex items-center flex-1">
+            <div className="min-h-11.5 flex items-center flex-1">
               <AnimatePresence mode="wait">
                 <motion.h3
                   key={activeService.id}

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import AnimatedText from "./AnimatedText";
 
 interface PreloaderProps {
   onExpand?: () => void;
@@ -23,6 +22,9 @@ export default function Preloader({ onExpand, onStartHero, onComplete }: Preload
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
     const duration = 2200; // 2.2s count up
     const startTime = performance.now();
 
@@ -73,7 +75,7 @@ export default function Preloader({ onExpand, onStartHero, onComplete }: Preload
           initial={{ opacity: 1 }}
           animate={{ opacity: isExpanding ? 0 : 1 }}
           transition={{ duration: 0.75, delay: 0.1, ease: "easeInOut" }}
-          className="fixed inset-0 z-[80] bg-white flex flex-col justify-between overflow-hidden select-none pointer-events-none"
+          className="fixed inset-0 z-80 bg-white flex flex-col justify-between overflow-hidden select-none pointer-events-none"
         >
           {/* Top buffer */}
           <div className="w-full h-12" />
@@ -88,7 +90,7 @@ export default function Preloader({ onExpand, onStartHero, onComplete }: Preload
             initial={{ opacity: 1 }}
             animate={{ opacity: isExpanding ? 0 : 1 }}
             transition={{ duration: 0.3 }}
-            className="relative z-[100] w-full max-w-[1880px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pb-8 sm:pb-12"
+            className="relative z-100 w-full max-w-[1880px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pb-8 sm:pb-12"
           >
             {/* Meta Row: Brand monogram E. P. T. L. (left) + Percentage (right) */}
             <div className="flex items-end justify-between mb-4">
@@ -108,7 +110,7 @@ export default function Preloader({ onExpand, onStartHero, onComplete }: Preload
             </div>
 
             {/* Bottom Hairline Progress Track matching MVP */}
-            <div className="w-full h-[2px] bg-[#1B1E3D]/15 rounded-full overflow-hidden relative">
+            <div className="w-full h-0.5 bg-[#1B1E3D]/15 rounded-full overflow-hidden relative">
               <motion.div
                 className="h-full bg-[#1B1E3D] rounded-full"
                 style={{ width: `${progress}%` }}
