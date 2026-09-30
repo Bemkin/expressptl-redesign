@@ -38,8 +38,8 @@ export default function ContactHero() {
   return (
     <section className="relative pt-36 sm:pt-44 lg:pt-48 pb-16 sm:pb-24 bg-[#070B14] text-white border-b border-white/10 select-none overflow-hidden">
       {/* Subtle ambient orange/navy background glows */}
-      <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-[#FF5A1F]/5 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute top-40 right-10 w-[600px] h-[600px] bg-[#1F1F61]/15 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute top-20 left-10 w-125 h-125 bg-[#FF5A1F]/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-40 right-10 w-150 h-150 bg-[#1F1F61]/15 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -48,7 +48,7 @@ export default function ContactHero() {
               LEFT COLUMN: MONUMENTAL TITLE & DIRECT MESSAGING
               (MVP .hero-contacts__container-inner)
              ======================================================== */}
-          <div className="lg:col-span-4 flex flex-col justify-between min-h-[500px] lg:min-h-[660px]">
+          <div className="lg:col-span-4 flex flex-col justify-between min-h-125 lg:min-h-165">
             <div>
               {/* Eyebrow Tag */}
               <motion.div
@@ -70,7 +70,7 @@ export default function ContactHero() {
                   as="h1"
                   delay={0.3}
                   stagger={0.04}
-                  className="font-headline text-7xl sm:text-8xl lg:text-[8.5rem] xl:text-[10rem] 2xl:text-[11.5rem] uppercase leading-[0.80] tracking-[-0.03em] text-white"
+                  className="font-headline text-5xl sm:text-7xl md:text-8xl lg:text-[8.5rem] xl:text-[10rem] 2xl:text-[11.5rem] uppercase leading-[0.80] tracking-[-0.03em] text-white"
                 />
               </div>
 
@@ -152,18 +152,18 @@ export default function ContactHero() {
                 className="group flex flex-col justify-between border-b border-white/15 pb-6"
               >
                 {/* Photo with Floating Badge Overlay */}
-                <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-[#0E1528] border border-white/10 mb-6 shadow-2xl">
+                <div className="relative w-full aspect-4/5 rounded-2xl overflow-hidden bg-[#0E1528] border border-white/10 mb-6 shadow-2xl">
                   <Image
                     src={person.photo}
                     alt={person.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 40vw"
                     priority
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110 filter blur-[12px] scale-105"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110 filter blur-md scale-105"
                   />
 
                   {/* Subtle Gradient Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
                   {/* MVP Signature Floating Badge Overlay (.hero-contacts__person-heading) */}
                   <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-md text-[#1B1E3D] px-5 py-3 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/40 max-w-[85%] select-none">

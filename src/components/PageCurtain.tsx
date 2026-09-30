@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { hasSeenIntroSession } from "@/lib/introSession";
 
 type CurtainStatus = "idle" | "exiting" | "entering";
 
@@ -102,11 +101,6 @@ export default function PageCurtain() {
     }
   }, [pathname]);
 
-  // If on homepage and initial intro preloader has not been completed, don't show curtain
-  if (pathname === "/" && !hasSeenIntroSession() && status === "idle") {
-    return null;
-  }
-
   const isVisible = status !== "idle";
 
   return (
@@ -149,7 +143,7 @@ export default function PageCurtain() {
                 animate={{ opacity: 1, scale: 1.0 }}
                 exit={{ opacity: 0, scale: 1.04 }}
                 transition={{ duration: 0.25 }}
-                className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md shadow-2xl"
+                className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/4 border border-white/10 backdrop-blur-md shadow-2xl"
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-ping" />
                 <span className="font-headline text-lg sm:text-2xl tracking-[0.25em] text-white uppercase font-bold">

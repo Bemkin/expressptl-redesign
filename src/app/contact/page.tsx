@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[#070B14] text-white selection:bg-[#FF5A1F] selection:text-white">
+    <main className="min-h-screen bg-[#070B14] text-white selection:bg-[#FF5A1F] selection:text-white overflow-x-hidden">
       {/* 1. Global Navigation */}
       <Navbar isStarted={true} />
 

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import TextHoverRoll from "@/components/ui/TextHoverRoll";
 
 interface InfoRow {
@@ -105,21 +106,51 @@ export default function ContactInfoList() {
 
               {/* Right Column: Monumental Data Items (.info-contacts__data) */}
               <div className="lg:col-span-9 flex flex-col space-y-6 sm:space-y-8">
-                {row.items.map((item) => (
-                  <div key={item.text} className="flex flex-col">
-                    <TextHoverRoll
-                      text={item.text}
-                      href={item.href}
-                      target={item.target}
-                      className="font-headline text-3xl sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl tracking-tight text-white uppercase leading-[0.92] hover:text-[#FF5A1F] transition-colors"
-                    />
-                    {item.sublabel && (
-                      <span className="text-xs sm:text-sm text-slate-400 font-sans mt-2 tracking-normal">
-                        {item.sublabel}
-                      </span>
-                    )}
-                  </div>
-                ))}
+                {row.items.map((item) => {
+                  const isLongText = item.text.length > 25;
+
+                  if (isLongText) {
+                    const Element = item.href ? "a" : "div";
+                    return (
+                      <div key={item.text} className="flex flex-col">
+                        <Element
+                          href={item.href}
+                          target={item.target}
+                          rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                          className="group inline-flex items-start gap-2 sm:gap-3 font-headline text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white uppercase leading-none hover:text-[#FF5A1F] transition-colors"
+                        >
+                          <span className="wrap-break-word">{item.text}</span>
+                          {item.href && (
+                            <ArrowUpRight className="w-5 h-5 sm:w-7 sm:h-7 shrink-0 text-[#FF5A1F] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 mt-1" />
+                          )}
+                        </Element>
+                        {item.sublabel && (
+                          <span className="text-xs sm:text-sm text-slate-400 font-sans mt-2 tracking-normal">
+                            {item.sublabel}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div key={item.text} className="flex flex-col">
+                      <div className="overflow-x-auto max-w-full">
+                        <TextHoverRoll
+                          text={item.text}
+                          href={item.href}
+                          target={item.target}
+                          className="font-headline text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl tracking-tight text-white uppercase leading-[0.92] hover:text-[#FF5A1F] transition-colors"
+                        />
+                      </div>
+                      {item.sublabel && (
+                        <span className="text-xs sm:text-sm text-slate-400 font-sans mt-2 tracking-normal">
+                          {item.sublabel}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </motion.li>
           ))}

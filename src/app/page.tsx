@@ -12,13 +12,18 @@ import ImpactMetricsStrip from "@/components/ImpactMetricsStrip";
 import PartnersSection from "@/components/PartnersSection";
 import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
-import { hasSeenIntroSession, markIntroAsSeen } from "@/lib/introSession";
+import { useHasSeenIntro, markIntroAsSeen } from "@/lib/introSession";
 
 export default function Home() {
-  const [alreadySeen, setAlreadySeen] = useState(() => hasSeenIntroSession());
-  const [isExpanding, setIsExpanding] = useState(alreadySeen);
-  const [heroActive, setHeroActive] = useState(alreadySeen);
-  const [preloaderDone, setPreloaderDone] = useState(alreadySeen);
+  const introSeen = useHasSeenIntro();
+  const [animExpanding, setAnimExpanding] = useState(false);
+  const [animHeroActive, setAnimHeroActive] = useState(false);
+  const [animPreloaderDone, setAnimPreloaderDone] = useState(false);
+
+  const isExpanding = introSeen || animExpanding;
+  const heroActive = introSeen || animHeroActive;
+  const preloaderDone = introSeen || animPreloaderDone;
+  const alreadySeen = introSeen;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -50,12 +55,11 @@ export default function Home() {
     <main className="min-h-screen bg-[#070B14] text-white selection:bg-[#FF5A1F] selection:text-white">
       {!preloaderDone && (
         <Preloader
-          onExpand={() => setIsExpanding(true)}
-          onStartHero={() => setHeroActive(true)}
+          onExpand={() => setAnimExpanding(true)}
+          onStartHero={() => setAnimHeroActive(true)}
           onComplete={() => {
             markIntroAsSeen();
-            setAlreadySeen(true);
-            setPreloaderDone(true);
+            setAnimPreloaderDone(true);
           }}
         />
       )}

@@ -195,5 +195,7 @@ a.group:hover .mvp-char-secondary {
   animation-play-state: paused;
 }
 
-
-
+/* Zero-flash protection: immediately hides preloader on hard refresh if session is already seen */
+html[data-intro-seen="true"] #preloader-overlay {
+  display: none !important;
+}

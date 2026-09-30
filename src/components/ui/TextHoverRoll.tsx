@@ -33,7 +33,7 @@ export default function TextHoverRoll({
     <span
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`inline-block relative overflow-hidden select-none cursor-pointer ${className}`}
+      className={`inline-block relative overflow-hidden select-none cursor-pointer whitespace-nowrap ${className}`}
     >
       {/* Primary line rolling up out of frame */}
       <span className="inline-flex">

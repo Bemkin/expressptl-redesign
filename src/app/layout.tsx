@@ -57,6 +57,13 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${barlowCondensed.variable} ${outfit.variable} ${jakarta.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem('express_ptl_preloader_seen')==='true'){document.documentElement.dataset.introSeen='true';}}catch(e){}`,
+          }}
+        />
+      </head>
       <body
         className="bg-[#070B14] text-white font-sans antialiased min-h-screen selection:bg-[#FF5A1F] selection:text-white"
         suppressHydrationWarning

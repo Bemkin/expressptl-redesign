@@ -318,10 +318,10 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
           </nav>
 
           {/* Right: Solid White Action Pills Group with MVP Reverse-Engineered Hover */}
-          <div className="pointer-events-auto flex items-center gap-3 mt-1.5">
+          <div className="pointer-events-auto flex items-center gap-2 sm:gap-3 mt-1.5 shrink-0">
             <a
               href="/contact"
-              className="group mvp-bubble-btn px-5 md:px-7 h-13 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-wider uppercase flex items-center gap-2"
+              className="hidden sm:flex group mvp-bubble-btn px-5 md:px-7 h-13 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-wider uppercase items-center gap-2"
             >
               <span className="mvp-text-clip">
                 <span className="inline-flex">
