@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Outfit, Plus_Jakarta_Sans, Barlow_Condensed } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import PageCurtain from "@/components/PageCurtain";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -61,6 +62,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <SmoothScroll />
+        <PageCurtain />
         {children}
       </body>
     </html>
