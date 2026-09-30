@@ -31,18 +31,42 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://expressptl.com"),
   title: "Express Transport & Logistics (Express PTL) | Premier Ethiopian Heavy Haulage & Multimodal Freight",
   description:
     "Operating continuously since 2013, Express PTL provides 76 company-owned heavy prime movers (2,916 MT synchronous lift), licensed AEO customs clearance, and strategic Djibouti–Addis trade corridor logistics across Ethiopia and East Africa.",
   keywords:
-    "Express PTL, Ethiopia logistics, heavy haulage Ethiopia, Djibouti Addis corridor transport, 76 prime movers, Bole Bulbula terminal, customs clearance Addis Ababa, UN WFP transport partner, Ambasel building",
+    "Express PTL, Express Transport & Logistics, Ethiopia logistics, heavy haulage Ethiopia, Djibouti Addis corridor transport, 76 prime movers, Bole Bulbula terminal, customs clearance Addis Ababa, UN WFP transport partner, Ambasel building",
   icons: {
-    icon: "/assets/Gemini_Generated_Image_nmde0znmde0znmde.jpg",
+    icon: [
+      { url: "/assets/Gemini_Generated_Image_1ppnm1ppnm1ppnm1 (1).jpg" },
+      { url: "/favicon.ico" },
+    ],
+    apple: [
+      { url: "/assets/Gemini_Generated_Image_1ppnm1ppnm1ppnm1 (1).jpg" },
+    ],
+    shortcut: "/assets/Gemini_Generated_Image_1ppnm1ppnm1ppnm1 (1).jpg",
   },
   openGraph: {
     title: "Express Transport & Logistics (Express PTL) | Premier Heavy Haulage",
-    description: "76 owned prime movers, 2,916 MT lift capacity, and licensed customs clearance across Ethiopia and the Horn of Africa.",
+    description: "76 company-owned prime movers, 2,916 MT lift capacity, and licensed customs clearance across Ethiopia and the Horn of Africa.",
+    url: "https://expressptl.com/",
+    siteName: "Express Transport & Logistics",
+    images: [
+      {
+        url: "/assets/Gemini_Generated_Image_1ppnm1ppnm1ppnm1 (1).jpg",
+        width: 2048,
+        height: 2048,
+        alt: "Express Transport & Logistics (Express PTL) Official Brand Emblem",
+      },
+    ],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Express Transport & Logistics (Express PTL)",
+    description: "Premier Ethiopian Heavy Haulage & Multimodal Freight Operations. 76 prime movers, 2,916 MT lift capacity, UN WFP carrier.",
+    images: ["/assets/Gemini_Generated_Image_1ppnm1ppnm1ppnm1 (1).jpg"],
   },
 };
 
