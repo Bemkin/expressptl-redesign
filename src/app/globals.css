@@ -199,3 +199,19 @@ a.group:hover .mvp-char-secondary {
 html[data-intro-seen="true"] #preloader-overlay {
   display: none !important;
 }
+
+/* ========================================================
+   WEBKIT & MOBILE SAFARI MEDIA CONTROLS SUPPRESSION
+   Prevents iOS Low Power Mode and paused ambient background
+   videos from showing ugly native OS play buttons
+   ======================================================== */
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

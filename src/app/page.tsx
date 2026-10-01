@@ -12,6 +12,7 @@ import ImpactMetricsStrip from "@/components/ImpactMetricsStrip";
 import PartnersSection from "@/components/PartnersSection";
 import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
+import SafeBackgroundVideo from "@/components/ui/SafeBackgroundVideo";
 import { useHasSeenIntro, markIntroAsSeen } from "@/lib/introSession";
 
 export default function Home() {
@@ -105,16 +106,13 @@ export default function Home() {
             }
             className="w-full h-full relative overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.65)] will-change-transform"
           >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
+            <SafeBackgroundVideo
+              src="/assets/gemini_generated_video_40cb6d4f.mp4"
               poster="/assets/hero_truck_poster.jpg"
-              className="w-full h-full object-cover object-[center_65%] filter brightness-[0.90] contrast-[1.05]"
-            >
-              <source src="/assets/gemini_generated_video_40cb6d4f.mp4" type="video/mp4" />
-            </video>
+              className="w-full h-full object-cover object-[center_65%]"
+              filterClass="filter brightness-[0.90] contrast-[1.05]"
+              alt="Express Transport Heavy Freight Prime Mover"
+            />
             {/* Subtle cinematic gradient overlays that keep readability crisp */}
             <div className="absolute inset-0 bg-linear-to-b from-[#070B14]/50 via-transparent via-50% to-[#070B14]/85 z-1" />
           </motion.div>
@@ -136,16 +134,13 @@ export default function Home() {
       <div className="relative w-full bg-[#070B14]">
         {/* Sticky 100vh Video: Unzoomed at native 16:9 viewport ratio, pins behind Partners and Feedback */}
         <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <SafeBackgroundVideo
+            src="/assets/gemini_generated_video_1adefa94.mp4"
             poster="/assets/partners_truck.jpg"
-            className="w-full h-full object-cover object-[center_45%] filter brightness-[0.72] contrast-[1.12]"
-          >
-            <source src="/assets/gemini_generated_video_1adefa94.mp4" type="video/mp4" />
-          </video>
+            className="w-full h-full object-cover object-[center_45%]"
+            filterClass="filter brightness-[0.72] contrast-[1.12]"
+            alt="Express Transport Multimodal Fleet Corridor"
+          />
           {/* Ambient Dark Industrial Vignette Overlays matching #070B14 */}
           <div className="absolute inset-0 bg-linear-to-t from-[#070B14] via-[#070B14]/30 to-[#070B14]/85 pointer-events-none" />
           <div className="absolute inset-0 bg-linear-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80 pointer-events-none" />

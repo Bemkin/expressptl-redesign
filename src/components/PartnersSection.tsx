@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import AnimatedText from "./AnimatedText";
 import { ShieldCheck } from "lucide-react";
+import SafeBackgroundVideo from "./ui/SafeBackgroundVideo";
 
 interface PartnerItem {
   num: string;
@@ -145,18 +146,15 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
       {/* Background 4K Video Loop (when standalone) */}
       {!hideBackground && (
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <SafeBackgroundVideo
+            src="/assets/gemini_generated_video_1adefa94.mp4"
             poster="/assets/partners_truck.jpg"
-            className="w-full h-full object-cover object-[center_45%] filter brightness-[0.72] contrast-[1.12]"
-          >
-            <source src="/assets/gemini_generated_video_1adefa94.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-linear-to-t from-[#070B14] via-[#070B14]/40 to-[#070B14]/85" />
-          <div className="absolute inset-0 bg-linear-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80" />
+            className="w-full h-full object-cover object-[center_45%]"
+            filterClass="filter brightness-[0.72] contrast-[1.12]"
+            alt="Express Transport Multimodal Fleet Partner Operations"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-[#070B14] via-[#070B14]/40 to-[#070B14]/85 z-2" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80 z-2" />
         </div>
       )}
 

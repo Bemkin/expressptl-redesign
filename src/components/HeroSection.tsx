@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import AnimatedText from "./AnimatedText";
+import SafeBackgroundVideo from "./ui/SafeBackgroundVideo";
 
 interface ServiceDivision {
   id: string;
@@ -77,18 +78,15 @@ export default function HeroSection({
       {/* 1. BACKGROUND & BASE LAYER: CINEMATIC TRUCK VIDEO ON WET HIGHWAY + DUAL GRADIENT OVERLAYS */}
       {!hideBackground && (
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <SafeBackgroundVideo
+            src="/assets/gemini_generated_video_40cb6d4f.mp4"
             poster="/assets/hero_truck_poster.jpg"
-            className="w-full h-full object-cover object-[center_65%] filter brightness-[0.92] contrast-[1.05]"
-          >
-            <source src="/assets/gemini_generated_video_40cb6d4f.mp4" type="video/mp4" />
-          </video>
+            className="w-full h-full object-cover object-[center_65%]"
+            filterClass="filter brightness-[0.92] contrast-[1.05]"
+            alt="Express Transport Heavy Haul Fleet"
+          />
           {/* Dark cinematic gradient overlays */}
-          <div className="absolute inset-0 bg-linear-to-b from-[#070B14]/50 via-[#070B14]/20 to-[#070B14]/75" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#070B14]/50 via-[#070B14]/20 to-[#070B14]/75 z-2 pointer-events-none" />
         </div>
       )}
 
