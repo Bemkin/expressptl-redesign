@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FeedbackSection from "@/components/FeedbackSection";
@@ -31,8 +32,9 @@ export const metadata: Metadata = {
     title: "About Us | Express Transport & Logistics (Express PTL)",
     description:
       "Operating continuously since 2013, Express PTL is Ethiopia's premier heavy haulage enterprise with 76 owned prime movers, 2,916 MT lift, and licensed AEO customs clearance.",
-    url: "https://expressptl.com/about-us/",
+    url: "/about",
     siteName: "Express Transport & Logistics",
+    images: [shareImage],
     type: "website",
   },
 };

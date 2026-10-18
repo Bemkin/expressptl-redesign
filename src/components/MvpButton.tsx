@@ -23,7 +23,8 @@ export default function MvpButton({
 
   const content = (
     <>
-      <span className="mvp-text-clip">
+      <span className="sr-only">{text}</span>
+      <span className="mvp-text-clip" aria-hidden="true">
         {/* Line 1: Visible characters rolling UP and out on hover */}
         <span className="inline-flex">
           {characters.map((char, i) => (

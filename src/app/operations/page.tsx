@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FeedbackSection from "@/components/FeedbackSection";
@@ -27,8 +28,9 @@ export const metadata: Metadata = {
     title: "Fleet & Operations | Express Transport & Logistics (Express PTL)",
     description:
       "76 company-owned heavy prime movers, 2,916 MT capacity, strategic Horn of Africa corridors, and real-time freight estimation.",
-    url: "https://expressptl.com/operations/",
+    url: "/operations",
     siteName: "Express Transport & Logistics",
+    images: [shareImage],
     type: "website",
   },
 };

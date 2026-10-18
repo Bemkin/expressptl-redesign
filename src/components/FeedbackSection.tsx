@@ -1,14 +1,51 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X, Phone, Mail, CheckCircle2, Send } from "lucide-react";
 import AnimatedText from "./AnimatedText";
+import { submitInquiry } from "@/lib/submitInquiry";
+
+const EMPTY_FORM = {
+  fullName: "",
+  company: "",
+  phone: "",
+  email: "",
+  cargo: "",
+  website: "", // honeypot
+};
 
 export default function FeedbackSection() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSubmitted(false);
+    setError(null);
+  };
+
+  // Close the dialog with Escape
+  useEffect(() => {
+    if (!modalOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setModalOpen(false);
+        setSubmitted(false);
+        setError(null);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [modalOpen]);
+
+  const update = (field: keyof typeof EMPTY_FORM) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
 
   // Reverse-Engineered MVP .scale-block Scroll Scrub:
   // Starts growing at top-bottom (scale ~0.76), reaches full scale 1.0 at center-center
@@ -20,9 +57,19 @@ export default function FeedbackSection() {
   const cardScale = useTransform(scrollYProgress, [0, 1], [0.76, 1]);
   const cardOpacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.4, 0.85, 1]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+    try {
+      await submitInquiry({ ...formData, source: "home-feedback" });
+      setSubmitted(true);
+      setFormData(EMPTY_FORM);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -82,9 +129,11 @@ export default function FeedbackSection() {
             {/* MVP Reverse-Engineered Action Button with Liquid Bubble & Split Roll */}
             <button
               onClick={() => setModalOpen(true)}
+              aria-label="Leave a request — we will call you back"
+              aria-haspopup="dialog"
               className="group mvp-bubble-btn px-8 sm:px-12 py-5 sm:py-6 rounded-2xl shadow-[0_15px_40px_rgba(27,30,61,0.25)] font-headline text-xl sm:text-2xl tracking-wider uppercase flex items-center justify-center gap-3 bg-[#1B1E3D] text-white cursor-pointer select-none"
             >
-              <span className="mvp-text-clip">
+              <span className="mvp-text-clip" aria-hidden="true">
                 <span className="inline-flex">
                   {"LEAVE A REQUEST — WE WILL CALL YOU BACK!".split("").map((c, i) => (
                     <span
@@ -126,7 +175,7 @@ export default function FeedbackSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setModalOpen(false)}
+              onClick={closeModal}
               className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
 
@@ -136,11 +185,16 @@ export default function FeedbackSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="freight-request-title"
+              data-lenis-prevent
               className="relative w-full max-w-2xl bg-[#0E1224] border border-white/20 rounded-[28px] p-6 sm:p-10 shadow-[0_30px_90px_rgba(0,0,0,0.9)] z-10 text-white overflow-hidden max-h-[90vh] overflow-y-auto"
             >
               {/* Close Button */}
               <button
-                onClick={() => setModalOpen(false)}
+                onClick={closeModal}
+                autoFocus
                 className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer transition-colors"
                 aria-label="Close modal"
               >
@@ -155,7 +209,7 @@ export default function FeedbackSection() {
                 </span>
               </div>
 
-              <h2 className="font-headline text-3xl sm:text-4xl text-white uppercase leading-tight mb-2">
+              <h2 id="freight-request-title" className="font-headline text-3xl sm:text-4xl text-white uppercase leading-tight mb-2">
                 LEAVE A FREIGHT REQUEST
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 font-sans">
@@ -163,7 +217,7 @@ export default function FeedbackSection() {
               </p>
 
               {submitted ? (
-                <div className="py-12 text-center">
+                <div className="py-12 text-center" role="status">
                   <div className="w-16 h-16 rounded-full bg-[#FF5A1F]/20 text-[#FF5A1F] flex items-center justify-center mx-auto mb-4">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
@@ -174,36 +228,48 @@ export default function FeedbackSection() {
                     A senior operations dispatcher will contact your team within 2 hours.
                   </p>
                   <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setModalOpen(false);
-                    }}
+                    onClick={closeModal}
                     className="py-3 px-8 rounded-xl bg-white text-[#0E1224] font-headline text-lg uppercase tracking-wider hover:bg-[#FF5A1F] hover:text-white transition-colors"
                   >
                     CLOSE WINDOW
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4" aria-busy={isLoading}>
+                  {/* Honeypot: off-screen and hidden from assistive tech; only bots fill it */}
+                  <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                    <label htmlFor="fb-website">Website</label>
+                    <input id="fb-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={formData.website} onChange={update("website")} />
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
+                      <label htmlFor="fb-fullName" className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
                         FULL NAME
                       </label>
                       <input
-                        required
+                        id="fb-fullName"
+                        name="fullName"
                         type="text"
+                        autoComplete="name"
+                        required
+                        value={formData.fullName}
+                        onChange={update("fullName")}
                         placeholder="e.g. Temesgen Yohannes"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
+                      <label htmlFor="fb-company" className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
                         COMPANY / ORGANIZATION
                       </label>
                       <input
-                        required
+                        id="fb-company"
+                        name="company"
                         type="text"
+                        autoComplete="organization"
+                        value={formData.company}
+                        onChange={update("company")}
                         placeholder="e.g. Enterprise Client / Aid Agency"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
@@ -212,23 +278,32 @@ export default function FeedbackSection() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
+                      <label htmlFor="fb-phone" className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
                         PHONE NUMBER
                       </label>
                       <input
-                        required
+                        id="fb-phone"
+                        name="phone"
                         type="tel"
+                        autoComplete="tel"
+                        required
+                        value={formData.phone}
+                        onChange={update("phone")}
                         placeholder="+251 91 124 8830"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
+                      <label htmlFor="fb-email" className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
                         EMAIL ADDRESS
                       </label>
                       <input
-                        required
+                        id="fb-email"
+                        name="email"
                         type="email"
+                        autoComplete="email"
+                        value={formData.email}
+                        onChange={update("email")}
                         placeholder="client@company.com"
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
                       />
@@ -236,23 +311,33 @@ export default function FeedbackSection() {
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
+                    <label htmlFor="fb-cargo" className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
                       ROUTE CORRIDOR & CARGO SPECIFICATION
                     </label>
                     <textarea
+                      id="fb-cargo"
+                      name="cargo"
                       rows={3}
-                      required
+                      value={formData.cargo}
+                      onChange={update("cargo")}
                       placeholder="e.g. 8x 40ft containers from Mombasa Port to Kigali, or 90 MT transformer lift."
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors resize-none"
                     />
                   </div>
 
+                  {error && (
+                    <p role="alert" className="rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                      {error}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 text-white font-headline text-xl tracking-wider uppercase text-center transition-colors shadow-lg shadow-[#FF5A1F]/30 flex items-center justify-center gap-2 cursor-pointer mt-2"
+                    disabled={isLoading}
+                    className="w-full py-4 rounded-xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 disabled:opacity-60 disabled:cursor-wait text-white font-headline text-xl tracking-wider uppercase text-center transition-colors shadow-lg shadow-[#FF5A1F]/30 flex items-center justify-center gap-2 cursor-pointer mt-2"
                   >
-                    <span>SUBMIT ALLOCATION REQUEST</span>
-                    <Send className="w-4 h-4" />
+                    <span>{isLoading ? "SENDING…" : "SUBMIT ALLOCATION REQUEST"}</span>
+                    <Send className="w-4 h-4" aria-hidden="true" />
                   </button>
 
                   {/* Direct Contact Links */}

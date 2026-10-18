@@ -33,8 +33,9 @@ function TextHoverRoll({
       onMouseLeave={() => setHovered(false)}
       className={`inline-block relative overflow-hidden select-none cursor-pointer ${className}`}
     >
+      <span className="sr-only">{text}</span>
       {/* Primary line rolling up out of frame */}
-      <span className="inline-flex">
+      <span className="inline-flex" aria-hidden="true">
         {chars.map((char, i) => (
           <span
             key={`r1-${i}`}
@@ -50,7 +51,7 @@ function TextHoverRoll({
       </span>
 
       {/* Secondary line rolling in from bottom */}
-      <span className="inline-flex absolute top-0 left-0 w-full pointer-events-none">
+      <span aria-hidden="true" className="inline-flex absolute top-0 left-0 w-full pointer-events-none">
         {chars.map((char, i) => (
           <span
             key={`r2-${i}`}

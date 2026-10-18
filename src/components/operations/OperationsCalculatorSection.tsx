@@ -302,7 +302,8 @@ export default function OperationsCalculatorSection() {
                 onClick={() => setModalOpen(true)}
                 className="group mvp-bubble-btn w-full py-5 rounded-2xl shadow-[0_15px_40px_rgba(255,90,31,0.25)] font-headline text-xl sm:text-2xl tracking-wider uppercase flex items-center justify-center gap-3 bg-[#FF5A1F] text-white cursor-pointer select-none transition-all"
               >
-                <span className="mvp-text-clip">
+                <span className="sr-only">{"REQUEST FORMAL TENDER ALLOCATION"}</span>
+                <span className="mvp-text-clip" aria-hidden="true">
                   <span className="inline-flex">
                     {"REQUEST FORMAL TENDER ALLOCATION".split("").map((c, i) => (
                       <span

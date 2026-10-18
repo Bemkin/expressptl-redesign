@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServicesHeroSlider from "@/components/services/ServicesHeroSlider";
@@ -22,8 +23,9 @@ export const metadata: Metadata = {
     title: "Services | Express Transport & Logistics (Express PTL)",
     description:
       "Explore Express PTL's full-cycle logistics solutions: 76 new prime movers, 2,916 MT lift, construction plant rentals, import/export trade, customs brokerage, and UN WFP relief carrier.",
-    url: "https://expressptl.com/services/",
+    url: "/services",
     siteName: "Express Transport & Logistics",
+    images: [shareImage],
     type: "website",
   },
 };

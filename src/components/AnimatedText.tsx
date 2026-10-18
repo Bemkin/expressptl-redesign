@@ -77,8 +77,10 @@ export default function AnimatedText({
       viewport={{ once, margin: viewportMargin }}
       className={`inline-block ${className}`}
     >
+      {/* Readable copy for screen readers and crawlers; the per-character layer below is visual only */}
+      <span className="sr-only">{lines.join(" ")}</span>
       {lines.map((line, lineIdx) => (
-        <span key={lineIdx} className="block overflow-hidden">
+        <span key={lineIdx} aria-hidden="true" className="block overflow-hidden">
           {line.split(" ").map((word, wordIdx) => (
             <span key={wordIdx} className="inline-block whitespace-nowrap mr-[0.25em]">
               {Array.from(word).map((char, charIdx) => (

@@ -273,7 +273,8 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
                         isActive ? "text-white" : "text-[#0D1322]"
                       }`}
                     >
-                      <span className="mvp-text-clip">
+                      <span className="sr-only">{item.label}</span>
+                      <span className="mvp-text-clip" aria-hidden="true">
                         <span className="inline-flex">
                           {item.label.split("").map((c, i) => (
                             <span
@@ -323,7 +324,8 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
               href="/contact"
               className="hidden sm:flex group mvp-bubble-btn px-5 md:px-7 h-13 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-wider uppercase items-center gap-2"
             >
-              <span className="mvp-text-clip">
+              <span className="sr-only">{"CONTACT US"}</span>
+              <span className="mvp-text-clip" aria-hidden="true">
                 <span className="inline-flex">
                   {"CONTACT US".split("").map((c, i) => (
                     <span

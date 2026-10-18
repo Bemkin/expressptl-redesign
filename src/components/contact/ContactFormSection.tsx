@@ -4,17 +4,22 @@ import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { CheckCircle2, Phone, Mail, ArrowUpRight } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
+import { submitInquiry } from "@/lib/submitInquiry";
+
+const EMPTY_FORM = {
+  fullName: "",
+  phone: "",
+  email: "",
+  cargo: "",
+  website: "", // honeypot
+};
 
 export default function ContactFormSection() {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    email: "",
-    cargo: "",
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Reverse-Engineered MVP .scale-block Scroll Scrub:
   // Starts at scale 0.76 at bottom of viewport, scales up to 1.0 smoothly
@@ -26,14 +31,19 @@ export default function ContactFormSection() {
   const cardScale = useTransform(scrollYProgress, [0, 1], [0.76, 1]);
   const cardOpacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.4, 0.85, 1]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.phone) return;
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+    setError(null);
+    try {
+      await submitInquiry({ ...formData, source: "contact-page" });
       setIsSubmitted(true);
-    }, 500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -87,6 +97,7 @@ export default function ContactFormSection() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
+              role="status"
               className="py-16 sm:py-20 px-8 rounded-2xl bg-white border border-slate-200 text-center shadow-lg"
             >
               <div className="w-16 h-16 rounded-full bg-[#FF5A1F]/15 text-[#FF5A1F] flex items-center justify-center mx-auto mb-4">
@@ -100,21 +111,41 @@ export default function ContactFormSection() {
               </p>
               <button
                 type="button"
-                onClick={() => setIsSubmitted(false)}
+                onClick={() => {
+                  setFormData(EMPTY_FORM);
+                  setIsSubmitted(false);
+                }}
                 className="py-3 px-8 rounded-xl bg-[#1B1E3D] hover:bg-[#FF5A1F] text-white font-headline text-lg uppercase tracking-wider transition-colors cursor-pointer"
               >
                 SEND ANOTHER REQUEST
               </button>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 pt-4">
+            <form onSubmit={handleSubmit} className="space-y-6 pt-4" aria-busy={isLoading}>
+              {/* Honeypot: off-screen and hidden from assistive tech; only bots fill it */}
+              <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                <label htmlFor="contact-website">Website</label>
+                <input
+                  id="contact-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                />
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Full Name */}
                 <div className="flex flex-col">
-                  <label className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
-                    FULL NAME <span className="text-[#FF5A1F]">*</span>
+                  <label htmlFor="contact-fullName" className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
+                    FULL NAME <span className="text-[#FF5A1F]" aria-hidden="true">*</span>
                   </label>
                   <input
+                    id="contact-fullName"
+                    name="fullName"
+                    autoComplete="name"
                     required
                     type="text"
                     value={formData.fullName}
@@ -126,10 +157,13 @@ export default function ContactFormSection() {
 
                 {/* Phone Number */}
                 <div className="flex flex-col">
-                  <label className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
-                    PHONE NUMBER <span className="text-[#FF5A1F]">*</span>
+                  <label htmlFor="contact-phone" className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
+                    PHONE NUMBER <span className="text-[#FF5A1F]" aria-hidden="true">*</span>
                   </label>
                   <input
+                    id="contact-phone"
+                    name="phone"
+                    autoComplete="tel"
                     required
                     type="tel"
                     value={formData.phone}
@@ -141,10 +175,13 @@ export default function ContactFormSection() {
 
                 {/* E-mail */}
                 <div className="flex flex-col">
-                  <label className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
+                  <label htmlFor="contact-email" className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
                     E-MAIL ADDRESS
                   </label>
                   <input
+                    id="contact-email"
+                    name="email"
+                    autoComplete="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -156,10 +193,12 @@ export default function ContactFormSection() {
 
               {/* Route Corridor & Cargo Requirements */}
               <div className="flex flex-col">
-                <label className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
+                <label htmlFor="contact-cargo" className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
                   ROUTE CORRIDOR &amp; CARGO SPECIFICATIONS (OPTIONAL)
                 </label>
                 <input
+                  id="contact-cargo"
+                  name="cargo"
                   type="text"
                   value={formData.cargo}
                   onChange={(e) => setFormData({ ...formData, cargo: e.target.value })}
@@ -167,6 +206,12 @@ export default function ContactFormSection() {
                   className="w-full px-5 py-4 rounded-xl bg-white border border-slate-300 text-[#1B1E3D] placeholder-slate-400 text-sm focus:border-[#1B1E3D] focus:ring-1 focus:ring-[#1B1E3D] focus:outline-none transition-all"
                 />
               </div>
+
+              {error && (
+                <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 font-sans">
+                  {error}
+                </p>
+              )}
 
               {/* Submit Row & Hotlines */}
               <div className="flex flex-col lg:flex-row items-center justify-between gap-6 pt-4">
@@ -185,9 +230,10 @@ export default function ContactFormSection() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="group mvp-bubble-btn w-full lg:w-auto px-10 sm:px-14 py-5 sm:py-6 rounded-2xl shadow-[0_15px_40px_rgba(27,30,61,0.25)] font-headline text-xl sm:text-2xl tracking-wider uppercase flex items-center justify-center gap-3 bg-[#1B1E3D] text-white cursor-pointer select-none transition-all"
+                  aria-label={isLoading ? "Sending request" : "Send a request"}
+                  className="group mvp-bubble-btn disabled:opacity-60 disabled:cursor-wait w-full lg:w-auto px-10 sm:px-14 py-5 sm:py-6 rounded-2xl shadow-[0_15px_40px_rgba(27,30,61,0.25)] font-headline text-xl sm:text-2xl tracking-wider uppercase flex items-center justify-center gap-3 bg-[#1B1E3D] text-white cursor-pointer select-none transition-all"
                 >
-                  <span className="mvp-text-clip">
+                  <span className="mvp-text-clip" aria-hidden="true">
                     <span className="inline-flex">
                       {"SEND A REQUEST".split("").map((c, i) => (
                         <span

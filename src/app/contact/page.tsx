@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactHero from "@/components/contact/ContactHero";
@@ -24,8 +25,9 @@ export const metadata: Metadata = {
     title: "Contacts | Express Transport & Logistics (Express PTL)",
     description:
       "Direct communications for heavy haulage, cross-border multimodal transport, and project cargo across Ethiopia and East Africa.",
-    url: "https://expressptl.com/contact/",
+    url: "/contact",
     siteName: "Express Transport & Logistics",
+    images: [shareImage],
     type: "website",
   },
 };
