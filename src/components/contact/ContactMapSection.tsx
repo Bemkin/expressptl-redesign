@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Navigation, Clock, Building, Warehouse, ExternalLink, Copy, Check } from "lucide-react";
+import { MapPin, Navigation, Clock, Building, ExternalLink, Copy, Check } from "lucide-react";
 
 interface HubLocation {
-  id: "headquarters" | "depot";
+  id: "headquarters";
   tag: string;
   name: string;
   subname: string;
@@ -13,7 +13,6 @@ interface HubLocation {
   floor: string;
   address: string;
   city: string;
-  gps: string;
   hours: string;
   specialty: string;
   embedUrl: string;
@@ -21,51 +20,30 @@ interface HubLocation {
   icon: React.ReactNode;
 }
 
-const HUBS: HubLocation[] = [
-  {
-    id: "headquarters",
-    tag: "EXECUTIVE HEADQUARTERS",
-    name: "Wollo Sefer Corporate Office",
-    subname: "Executive Directorate & Commercial Dispatch",
-    building: "Ambasel Building",
-    floor: "6th Floor (607–610) & 7th Floor (701–702)",
-    address: "Ethio-China Friendship Ring Road, Wollo Sefer",
-    city: "Addis Ababa, Ethiopia",
-    gps: '8°59\'08.7"N 38°45\'56.2"E',
-    hours: "Mon – Fri: 08:30 – 17:30 EAT | Sat: 08:30 – 12:30 EAT",
-    specialty: "Cross-Border Customs Clearing, Corridor Contracts, Project Tenders & Multilateral Accounts",
-    embedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3313.8484673626003!2d38.76560083991744!3d8.985747200383535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8444d1af7dbb%3A0x6c196562a07654ec!2zQW1iYXNzZWwgQnVpbGRpbmcgfCB3b2xsbyBzZWZlciB8IOGKoOGIneGJo-GIsOGIjSDhiIXhipXhjYMgfCDhi4jhiI7hiKDhjYjhiK0!5e0!3m2!1sen!2set!4v1786603200377!5m2!1sen!2set",
-    mapsUrl: "https://maps.google.com/?q=Ambassel+Building+Wollo+Sefer+Addis+Ababa",
-    icon: <Building className="w-5 h-5 text-[#FF5A1F]" />,
-  },
-  {
-    id: "depot",
-    tag: "HEAVY FLEET TERMINAL",
-    name: "Bole Bulbula Logistics Hub",
-    subname: "14,000 m² Staging Yard & Engineering Yard",
-    building: "Express PTL Heavy Transport Complex",
-    floor: "Ground Operations & Workshop Yard",
-    address: "Bole Bulbula Industrial Access Corridor",
-    city: "Addis Ababa, Ethiopia",
-    gps: '8°56\'53.5"N 38°47\'20.8"E',
-    hours: "24/7 Gate Security, Continuous Loading & GPS Ops Room",
-    specialty: "76 Prime Movers Marshalling, 2,916 MT Synchronous Lift Rigging, Bonded Storage & Mobile Workshop",
-    embedUrl:
-      "https://maps.google.com/maps?q=Bole+Bulbula+Addis+Ababa&t=&z=14&ie=UTF8&iwloc=&output=embed",
-    mapsUrl: "https://maps.google.com/?q=Bole+Bulbula+Addis+Ababa",
-    icon: <Warehouse className="w-5 h-5 text-[#FF5A1F]" />,
-  },
-];
+const HQ: HubLocation = {
+  id: "headquarters",
+  tag: "HEADQUARTERS",
+  name: "Wollo Sefer Head Office",
+  subname: "Express Transport and Logistics headquarters",
+  building: "Ambasel Building",
+  floor: "6th Floor (607–610) & 7th Floor (701–702)",
+  address: "Wollo Sefer",
+  city: "Addis Ababa, Ethiopia",
+  hours: "Mon–Sat 8:00–18:30, Sunday closed",
+  specialty: "Global freight forwarding, customs clearing, transport, warehousing and distribution",
+  embedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3313.8484673626003!2d38.76560083991744!3d8.985747200383535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8444d1af7dbb%3A0x6c196562a07654ec!2zQW1iYXNzZWwgQnVpbGRpbmcgfCB3b2xsbyBzZWZlciB8IOGKoOGIneGJo-GIsOGIjSDhiIXhipXhjYMgfCDhi4jhiI7hiKDhjYjhiK0!5e0!3m2!1sen!2set!4v1786603200377!5m2!1sen!2set",
+  mapsUrl: "https://maps.google.com/?q=Ambassel+Building+Wollo+Sefer+Addis+Ababa",
+  icon: <Building className="w-5 h-5 text-[#FF5A1F]" />,
+};
 
 export default function ContactMapSection() {
-  const [activeHubId, setActiveHubId] = useState<"headquarters" | "depot">("headquarters");
   const [copied, setCopied] = useState(false);
 
-  const activeHub = HUBS.find((h) => h.id === activeHubId) || HUBS[0];
+  const activeHub = HQ;
 
   const handleCopyAddress = () => {
-    const fullText = `${activeHub.building}, ${activeHub.floor}, ${activeHub.address}, ${activeHub.city} (GPS: ${activeHub.gps})`;
+    const fullText = `${activeHub.building}, ${activeHub.floor}, ${activeHub.address}, ${activeHub.city}`;
     navigator.clipboard.writeText(fullText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2200);
@@ -79,47 +57,19 @@ export default function ContactMapSection() {
       <div className="max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         
         {/* ========================================================
-            HEADER ROW: SECTION TITLE & DUAL-HUB TOGGLE TABS
+            HEADER ROW: SECTION TITLE
            ======================================================== */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-10 sm:mb-14">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
               <span className="text-xs sm:text-[13px] font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
-                PHYSICAL HUBS &amp; DISPATCH TERMINALS
+                OUR OFFICE
               </span>
             </div>
             <h2 className="font-headline text-4xl sm:text-6xl lg:text-7xl text-white uppercase tracking-tight leading-[0.92]">
-              VISIT OUR HEADQUARTERS &amp; <br className="hidden sm:inline" />
-              HEAVY FLEET DEPOT.
+              VISIT OUR HEADQUARTERS.
             </h2>
-          </div>
-
-          {/* Segmented Location Tabs */}
-          <div className="flex items-center p-1.5 rounded-2xl bg-[#0E1528] border border-white/15 w-full sm:w-auto">
-            <button
-              onClick={() => setActiveHubId("headquarters")}
-              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-headline text-sm sm:text-base uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                activeHubId === "headquarters"
-                  ? "bg-[#FF5A1F] text-white shadow-lg shadow-[#FF5A1F]/30 font-bold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              <Building className="w-4 h-4" />
-              <span>AMBASEL BUILDING (HQ)</span>
-            </button>
-
-            <button
-              onClick={() => setActiveHubId("depot")}
-              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-headline text-sm sm:text-base uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                activeHubId === "depot"
-                  ? "bg-[#FF5A1F] text-white shadow-lg shadow-[#FF5A1F]/30 font-bold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              <Warehouse className="w-4 h-4" />
-              <span>BOLE BULBULA (14,000 M²)</span>
-            </button>
           </div>
         </div>
 
@@ -175,7 +125,7 @@ export default function ContactMapSection() {
                         <Clock className="w-4 h-4" />
                       </div>
                       <div>
-                        <span className="font-bold text-white block">Operational Hours</span>
+                        <span className="font-bold text-white block">Office Hours</span>
                         <span className="text-slate-400 text-xs block mt-0.5">
                           {activeHub.hours}
                         </span>
@@ -188,7 +138,7 @@ export default function ContactMapSection() {
                         <Navigation className="w-4 h-4" />
                       </div>
                       <div>
-                        <span className="font-bold text-white block">Facility Focus</span>
+                        <span className="font-bold text-white block">Services</span>
                         <span className="text-slate-400 text-xs block mt-0.5 leading-relaxed">
                           {activeHub.specialty}
                         </span>
@@ -199,11 +149,11 @@ export default function ContactMapSection() {
               </AnimatePresence>
             </div>
 
-            {/* Bottom Actions: Google Maps Link & Copy GPS */}
+            {/* Bottom Actions: Google Maps Link & Copy Address */}
             <div className="pt-6 border-t border-white/10 space-y-3">
               <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
-                <span>GPS: {activeHub.gps}</span>
-                <span className="text-[#FF5A1F] uppercase font-headline tracking-wider">Verified Location</span>
+                <span>{activeHub.building}, {activeHub.address}</span>
+                <span className="text-[#FF5A1F] uppercase font-headline tracking-wider">Headquarters</span>
               </div>
 
               <div className="flex items-center gap-3">
@@ -262,10 +212,10 @@ export default function ContactMapSection() {
             <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#0D1322]/80 to-transparent pointer-events-none" />
             <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-r from-[#0D1322]/80 to-transparent pointer-events-none hidden lg:block" />
 
-            {/* Live GPS Status Pill */}
+            {/* Location Pill */}
             <div className="absolute top-4 right-4 bg-[#0A0F1D]/90 backdrop-blur-md border border-white/15 px-4 py-2 rounded-xl text-xs font-mono text-slate-300 flex items-center gap-2 shadow-lg pointer-events-none">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>LIVE PINPOINT: {activeHub.city}</span>
+              <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
+              <span>{activeHub.city}</span>
             </div>
           </div>
 

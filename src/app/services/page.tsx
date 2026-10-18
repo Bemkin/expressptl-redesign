@@ -8,21 +8,21 @@ import FeedbackSection from "@/components/FeedbackSection";
 export const metadata: Metadata = {
   title: "Services | Express Transport & Logistics (Express PTL)",
   description:
-    "Explore Express PTL's full-cycle logistics solutions: 76 new prime movers, 2,916 MT synchronous heavy haulage, construction machinery rental, tri-continent import/export, customs brokerage at Galafi & Modjo, 14,000 m² Bole Bulbula facility, and UN WFP humanitarian aid carrier.",
+    "Express PTL services: cargo transport with 76 new trucks (40 MT each, 2,916 MT at a time), construction and machinery rental, import and export, customs clearance, cargo forwarding, warehousing, humanitarian aid cargo, and a 14,000 m² food processing factory under construction in Addis Ababa.",
   keywords: [
     "Express PTL services",
-    "Ethiopia heavy transport",
-    "Djibouti corridor haulage",
+    "Ethiopia cargo transport",
+    "Ethiopia trucking",
     "machinery rental Ethiopia",
-    "customs clearance Galafi Modjo",
+    "customs clearance Ethiopia",
     "sesame export Ethiopia",
-    "UN WFP humanitarian logistics",
-    "Bole Bulbula manufacturing plant",
+    "humanitarian aid cargo Ethiopia",
+    "food processing factory Addis Ababa",
   ],
   openGraph: {
     title: "Services | Express Transport & Logistics (Express PTL)",
     description:
-      "Explore Express PTL's full-cycle logistics solutions: 76 new prime movers, 2,916 MT lift, construction plant rentals, import/export trade, customs brokerage, and UN WFP relief carrier.",
+      "Cargo transport with 76 new trucks, construction and machinery rental, import and export, customs clearance, warehousing and humanitarian aid cargo across Ethiopia.",
     url: "/services",
     siteName: "Express Transport & Logistics",
     images: [shareImage],

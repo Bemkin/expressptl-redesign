@@ -12,37 +12,32 @@ export const SERVICES_DATA: ModalServiceData[] = [
     id: "ground-transport",
     num: "01",
     title: "Ground Transport & Heavy Haulage",
-    category: "Heavy Fleet Operations",
+    category: "Cargo Transport",
     description:
-      "Express Transport & Logistics is Ethiopia's premier heavy haulage enterprise, specializing in safe, punctual, and high-capacity freight transit across all primary national trade arteries and sea-to-inland transit corridors.",
-    routes: [
-      ["Djibouti Port", "Galafi Customs Border", "Semera Terminal", "Modjo Dry Port", "Addis Ababa Kality"],
-      ["Berbera Port", "Togochale Border", "Jijiga Hub", "Dire Dawa Dry Port", "Addis Ababa"],
-      ["Moyale Border (Kenya)", "Hawassa Industrial Belt", "Modjo Dry Port"],
-    ],
+      "Since 2013, Express Transport and Logistics has provided cargo transport across major trade routes and inland transport across Ethiopia, with a new fleet of 76 active trucks carrying bulk, containerized, commercial and humanitarian aid cargo.",
     metrics: [
-      { label: "Active Fleet", value: "76 Prime Movers" },
-      { label: "Synchronous Lift", value: "2,916 MT" },
-      { label: "Single Payload", value: "40 MT Per Unit" },
-      { label: "Telemetry", value: "24/7 Live GPS" },
+      { label: "Active Fleet", value: "76 Trucks" },
+      { label: "Total Capacity", value: "2,916 MT" },
+      { label: "Per Truck", value: "40 MT" },
+      { label: "Fleet Condition", value: "All New" },
     ],
     subservices: [
       {
         heading: "Core Transport Solutions & Cargo Types",
         points: [
-          "Full Truckload (FTL) and Less-Than-Truckload (LTL) scheduled regional transit",
-          "Dry bulk cargo and international containerized shipping lines haulage",
-          "Project cargo, heavy engineering plant, and oversized industrial freight",
-          "Dual-driver rotations and active GPS anti-tamper tracking on all convoys",
+          "Regular cargo transport across major trade routes",
+          "Bulk cargo and containerized cargo transport",
+          "Commercial shipments and humanitarian aid cargo",
+          "Inland transport and end-to-end logistics solutions",
         ],
       },
       {
-        heading: "Safety & Compliance Standards",
+        heading: "Our Fleet",
         points: [
-          "Zero-compromise non-contraband freight policy across all routes",
-          "In-house certified mobile mechanical escorts on all major corridors",
-          "Comprehensive transit insurance covering major international haulage risks",
-          "Fully licensed under Ethiopian Ministry of Transport and regional authorities",
+          "76 active trucks, all new",
+          "40 MT capacity per truck",
+          "2,916 MT total capacity at a time",
+          "Special focus on humanitarian aid cargo",
         ],
       },
     ],
@@ -51,35 +46,35 @@ export const SERVICES_DATA: ModalServiceData[] = [
     id: "construction",
     num: "02",
     title: "Construction & Machinery Rental",
-    category: "Civil Works & Equipment Rental",
+    category: "Construction & Equipment Rental",
     description:
-      "Actively engaged in the construction sector as both a reliable main contractor and specialized subcontractor for government ministries, private developers, and NGOs. Backed by an extensive modern heavy plant rental fleet.",
+      "Active in the construction sector as both main contractor and subcontractor for government institutions, private companies and NGOs, with construction machinery available for rental.",
     metrics: [
       { label: "Contracting Roles", value: "Main & Subcontractor" },
-      { label: "Plant Fleet", value: "Tier-1 Global Brands" },
-      { label: "Operators", value: "100% Certified Crew" },
-      { label: "Maintenance", value: "Rapid On-Site Support" },
+      { label: "Clients", value: "Government, Private, NGOs" },
+      { label: "Rental Machinery", value: "7 Machine Types" },
+      { label: "Project Types", value: "Roads & Buildings" },
     ],
     subservices: [
       {
-        heading: "Civil Contracting Capabilities",
+        heading: "Construction Services",
         points: [
-          "Heavy highway and asphalt arterial road construction",
-          "High-rise commercial towers and industrial steel structures",
-          "Residential housing estates, gated communities, and apartment complexes",
-          "Earthworks, site leveling, and industrial drainage systems",
+          "Road construction",
+          "Building towers",
+          "Residential housing and apartments",
+          "Other infrastructure projects",
         ],
       },
       {
-        heading: "Modern Machinery Available for Rental",
+        heading: "Machinery Available for Rental",
         points: [
-          "Hydraulic Excavators (Track & Wheel configurations)",
-          "Motor Graders for precision leveling and roadbed grading",
-          "Wheel Loaders and heavy-duty front-end shovel units",
-          "Track Bulldozers (D6, D7, D8 equivalent capacity)",
-          "Vibratory Single and Double Drum Soil Compaction Rollers",
-          "Heavy-duty multi-axle Dump Trucks for aggregate haulage",
-          "Mobile high-output stone crushers and screening plants",
+          "Rollers",
+          "Graders",
+          "Loaders",
+          "Bulldozers",
+          "Excavators",
+          "Dump trucks",
+          "Crushers",
         ],
       },
     ],
@@ -90,36 +85,31 @@ export const SERVICES_DATA: ModalServiceData[] = [
     title: "Import & Export Commodities",
     category: "International Trade",
     description:
-      "Connecting East Africa with global economic hubs including China, South Korea, UAE, Europe, and North America. Importing critical industrial capital equipment and exporting premium Ethiopian agricultural products.",
-    routes: [
-      ["China / Korea / UAE", "Djibouti Free Zone", "Ethiopian Assembly Hubs"],
-      ["Humera / Gondar Belt", "Central Export Silos", "Djibouti Port", "Global Buyers"],
-      ["Wollega Belt", "ECX Processing Depots", "Middle East / North America"],
-    ],
+      "We import industrial goods from China, Korea, UAE, Europe and other countries, and export Ethiopian agricultural and mining products to China, Europe, the Middle East, the USA, Canada and other markets.",
     metrics: [
-      { label: "Export Grading", value: "ECX Grade-1 Quality" },
-      { label: "Global Reach", value: "Tri-Continent Trade" },
-      { label: "Import Origin", value: "Asia, UAE, Europe" },
-      { label: "Clearance", value: "Turnkey Port Transit" },
+      { label: "Import Origins", value: "China, Korea, UAE, Europe" },
+      { label: "Export Markets", value: "China, Europe, Middle East" },
+      { label: "Also Exporting To", value: "USA & Canada" },
+      { label: "Key Export", value: "Sesame Seeds" },
     ],
     subservices: [
       {
-        heading: "Major Industrial Imports",
+        heading: "Main Imported Products",
         points: [
-          "Commercial light and heavy-duty transport trucks",
-          "Construction machinery, excavators, and road-building equipment",
-          "Heavy industrial tires, batteries, and genuine automotive spare parts",
-          "Structural steel reinforcement bars, beams, and factory raw materials",
+          "Light trucks and heavy trucks",
+          "Construction machinery",
+          "Tires, batteries and spare parts",
+          "Factory raw materials and all types of steel",
         ],
       },
       {
-        heading: "Major Agricultural Exports",
+        heading: "Major Export Products",
         points: [
-          "Sesame Seeds: Certified Humera and Wollega premium white varieties",
-          "Green Mung Beans: High-purity sorting for Asian food markets",
-          "Soybeans: High-protein grade for industrial processing and oil production",
-          "Pulses: Red kidney beans, rounded white pea beans, and desi chickpeas",
-          "Natural Minerals: Sustainable extraction and export of certified mineral ores",
+          "Sesame seeds (Humera and Wollega types)",
+          "Green mung beans",
+          "Soybeans",
+          "Red kidney beans, round white beans and chickpeas",
+          "Mining products",
         ],
       },
     ],
@@ -128,35 +118,32 @@ export const SERVICES_DATA: ModalServiceData[] = [
     id: "logistics-warehousing",
     num: "04",
     title: "Logistics & Warehousing Services",
-    category: "Supply Chain & Depots",
+    category: "Logistics & Warehousing",
     description:
-      "Full-cycle supply chain management combining expedited customs clearance, multimodal freight forwarding, and nationwide secure warehousing across Ethiopia's principal industrial growth poles.",
-    routes: [
-      ["Galafi Border Customs Station", "Modjo Dry Port Container Terminal", "Kality Freight Depot"],
-    ],
+      "Logistics services covering customs clearance, cargo forwarding and warehouse rental, with shipping agency services currently under development. Our warehousing and distribution operations are regularly audited.",
     metrics: [
-      { label: "Customs Hubs", value: "Galafi, Modjo, Kality" },
-      { label: "Accreditation", value: "Licensed AEO Broker" },
-      { label: "Storage", value: "Bonded & Dry Depots" },
-      { label: "Security", value: "24/7 Guarded & CCTV" },
+      { label: "Customs", value: "Customs Clearance" },
+      { label: "Forwarding", value: "Cargo Forwarding" },
+      { label: "Storage", value: "Warehouse Rental" },
+      { label: "Shipping Agency", value: "Under Development" },
     ],
     subservices: [
       {
-        heading: "Customs Brokerage & Clearance",
+        heading: "Logistics Services",
         points: [
-          "Expedited customs clearance at Galafi border post and Modjo Dry Port",
-          "Fast-track documentation and cargo release at Kality inland freight terminal",
-          "Accurate HS code classification and duty pre-assessment to prevent demurrage",
-          "Full transit customs bond issuance and direct customs declaration filing",
+          "Customs clearance",
+          "Cargo forwarding",
+          "Warehouse rental",
+          "Shipping agency services (currently under development)",
         ],
       },
       {
-        heading: "Tailored Supply Chain & Nationwide Warehousing",
+        heading: "Warehousing & Distribution",
         points: [
-          "Flexible short and long-term bonded and non-bonded warehouse rentals",
-          "Tailored supply chain flowcharts engineered to cut demurrage and cycle times",
-          "Comprehensive inventory logging, palletizing, shrink-wrapping, and labeling",
-          "Shipping agency operations (currently under strategic development)",
+          "Inventory control and management",
+          "Load building",
+          "Yard management",
+          "Regularly audited warehousing operations",
         ],
       },
     ],
@@ -164,33 +151,31 @@ export const SERVICES_DATA: ModalServiceData[] = [
   {
     id: "manufacturing",
     num: "05",
-    title: "Manufacturing & Agro-Processing",
-    category: "Industrial Infrastructure",
+    title: "Manufacturing & Food Processing",
+    category: "Factory Under Construction",
     description:
-      "Driving industrial value addition through our flagship 14,000 square meter food processing facility currently under construction in Addis Ababa, strategically positioned around Bole Bulbula.",
+      "We are currently constructing a 14,000 square meter food processing factory around Bole Bulbula, Addis Ababa, for food production and processing for local supply and export.",
     metrics: [
-      { label: "Facility Area", value: "14,000 m²" },
-      { label: "Location", value: "Bole Bulbula, Addis" },
-      { label: "Operational Role", value: "Agro-Processing Plant" },
-      { label: "Target Market", value: "Domestic & Global" },
+      { label: "Factory Area", value: "14,000 m²" },
+      { label: "Location", value: "Bole Bulbula, Addis Ababa" },
+      { label: "Status", value: "Under Construction" },
+      { label: "Market", value: "Local & Export" },
     ],
     subservices: [
       {
-        heading: "Facility Specifications & Capabilities",
+        heading: "The Factory",
         points: [
-          "14,000 square meter state-of-the-art agro-industrial processing footprint",
-          "Direct arterial connectivity to the Addis Ababa–Adama Expressway",
-          "Automated sorting, hygienic cleaning, and industrial food processing lines",
-          "Climate-controlled storage and hermetically sealed export packaging units",
+          "Food processing factory currently under construction",
+          "14,000 square meter site",
+          "Located around Bole Bulbula, Addis Ababa",
+          "Food production and processing",
         ],
       },
       {
-        heading: "Strategic Economic Impact",
+        heading: "Purpose",
         points: [
-          "Supplying premium processed foods to stabilize domestic consumer markets",
-          "Transforming raw Ethiopian harvests into high-margin packaged exports",
-          "Creating sustainable technical manufacturing employment in the capital",
-          "Transferring modern food safety and automated processing technology",
+          "Food supply for the local market",
+          "Processed food for export",
         ],
       },
     ],
@@ -199,36 +184,31 @@ export const SERVICES_DATA: ModalServiceData[] = [
     id: "humanitarian",
     num: "06",
     title: "Humanitarian Aid Logistics",
-    category: "Emergency Relief Transport",
+    category: "Humanitarian Aid Cargo",
     description:
-      "Priority relief carrier for global institutions including the UN World Food Programme (WFP) and World Health Organization (WHO), mobilizing dedicated freight convoys for life-saving missions.",
-    routes: [
-      ["Djibouti Humanitarian Hub", "Semera Relief Corridor", "Northern Regional Silos"],
-      ["Adama Central WFP Silos", "Southern Oromia & Somali Region Distribution Points"],
-    ],
+      "Humanitarian aid cargo is a special focus of our transport services. Between 2022 and 2026 we delivered 158,636 MT of bulk aid cargo and 2,188 containers to destinations across Ethiopia.",
     metrics: [
-      { label: "Relief Uplifted", value: "158,636 MT" },
-      { label: "Containers Moved", value: "2,188 Units" },
-      { label: "Primary Partners", value: "UN WFP / WHO" },
-      { label: "Neutrality", value: "100% Non-Contraband" },
+      { label: "Bulk Aid Delivered", value: "158,636 MT" },
+      { label: "Containers Delivered", value: "2,188" },
+      { label: "Destinations", value: "10 Cities" },
+      { label: "Period", value: "2022–2026" },
     ],
     subservices: [
       {
-        heading: "Audited Regional Dispatch Reach (2022–2026)",
+        heading: "Aid Cargo Delivered (2022–2026)",
         points: [
-          "158,636 MT of emergency relief delivered across 10 primary destinations",
-          "Major corridors: Kombolcha (71,683 MT), Adama (28,215 MT), Mekelle (26,136 MT), Hawassa (14,185 MT)",
-          "2,188 containerized dispatches to regional dry ports and distribution stations",
-          "Dedicated prime movers on permanent standby for rapid humanitarian mobilization",
+          "158,636 MT of bulk aid cargo delivered to 10 destinations",
+          "2,188 containers delivered",
+          "Largest destinations: Kombolcha (71,683 MT), Adama (28,215 MT), Mekelle (26,136 MT), Hawassa (14,185 MT)",
+          "Also Addis Ababa, Dire Dawa, Bahir Dar, Nefas Mewcha, Semera and Dessie",
         ],
       },
       {
-        heading: "Why We Prioritize Humanitarian Logistics",
+        heading: "Why We Focus on Humanitarian Aid Cargo",
         points: [
-          "Delivering life-saving aid cargo provides immense humanitarian purpose and pride",
-          "Operating in direct partnership with global agencies sharpens our operational rigor",
-          "Continuous institutional development in compliance with United Nations standards",
-          "Demonstrating verified heavy haulage capacity when communities need it most",
+          "Aid cargo is handled by professional international organizations",
+          "Working with them builds our own capability",
+          "Delivering aid cargo helps people in need",
         ],
       },
     ],
@@ -320,7 +300,7 @@ export default function ServicesHeroSlider() {
               >
                 <Image
                   src={SLIDE_IMAGES[0]}
-                  alt="Express PTL Heavy Transport Services"
+                  alt="Express PTL Transport Services"
                   fill
                   priority
                   className="object-cover object-center brightness-75"
@@ -339,7 +319,7 @@ export default function ServicesHeroSlider() {
                   className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs uppercase tracking-widest text-[#FF5A1F] font-semibold mb-6"
                 >
                   <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
-                  <span>COMPREHENSIVE INDUSTRIAL LOGISTICS & INFRASTRUCTURE</span>
+                  <span>TRANSPORT, LOGISTICS, TRADE & CONSTRUCTION</span>
                 </motion.div>
 
                 {/* 2. Monumental "OUR SERVICES" Title with Character Peel & Elastic Drop */}
@@ -369,7 +349,7 @@ export default function ServicesHeroSlider() {
                   transition={{ duration: 1.0, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
                   className="text-base sm:text-xl lg:text-2xl text-slate-300 font-sans max-w-3xl leading-relaxed mb-8"
                 >
-                  From 76 new heavy prime movers and cross-border port corridors to large-scale construction plant rentals, turnkey customs clearance, and modern agro-processing facilities.
+                  From a new fleet of 76 trucks moving cargo across major trade routes to construction machinery rental, customs clearance, warehousing and a food processing factory under construction.
                 </motion.p>
 
                 {/* 5. Scroll Prompt Indicator */}
@@ -433,7 +413,7 @@ export default function ServicesHeroSlider() {
                     {/* Sub-services Section (.hero-services__wrapper) */}
                     <div>
                       <h3 className="text-xs uppercase tracking-widest text-[#FF5A1F] font-bold mb-3">
-                        KEY HIGHLIGHTS & TECHNICAL SPECS:
+                        KEY HIGHLIGHTS:
                       </h3>
 
                       {/* List (.hero-services__list) */}

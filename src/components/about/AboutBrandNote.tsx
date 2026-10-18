@@ -41,13 +41,13 @@ export default function AboutBrandNote() {
 
           {/* Monumental Headline (.note__title) */}
           <h2 className="relative z-10 font-headline text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] text-white uppercase tracking-tight leading-[0.98] max-w-5xl mx-auto drop-shadow-lg">
-            HEAVY HAULAGE & MULTIMODAL LIFELINES ENGINEERED FOR EAST AFRICA.
+            TRANSPORT, CUSTOMS CLEARING, WAREHOUSING & DISTRIBUTION ACROSS ETHIOPIA.
           </h2>
 
           <div className="mt-10 flex items-center justify-center gap-3 relative z-10">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]" />
             <span className="text-xs sm:text-sm font-extrabold tracking-[0.25em] text-slate-300 uppercase">
-              ETHIOPIA • DJIBOUTI • KENYA • REGIONAL CORRIDORS
+              ETHIOPIA • WORLDWIDE • MAJOR TRADE ROUTES
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]" />
           </div>

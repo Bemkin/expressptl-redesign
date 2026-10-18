@@ -28,7 +28,7 @@ const EXECUTIVES: ExecutiveContact[] = [
     post: "Import Export & Port Operations",
     name: "Melaku Yenew",
     photo: "/assets/team/melaku_portrait.jpg",
-    email: "operations@expressptl.com",
+    email: "express@expressptl.com",
     phone: "+251 91 124 8830",
     phoneRaw: "+251911248830",
   },
@@ -59,7 +59,7 @@ export default function ContactHero() {
               >
                 <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
                 <span className="text-xs sm:text-[13px] font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
-                  REGIONAL CONTACT DIRECTORY
+                  CONTACT DIRECTORY
                 </span>
               </motion.div>
 
@@ -80,7 +80,7 @@ export default function ContactHero() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="text-sm sm:text-base text-slate-300 font-sans max-w-sm leading-relaxed mb-8"
               >
-                Direct access to our senior logistics commanders and 24/7 Horn of Africa heavy fleet dispatch control room.
+                Reach our team at our Addis Ababa headquarters by phone or e-mail.
               </motion.p>
             </div>
 
@@ -91,19 +91,17 @@ export default function ContactHero() {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="border-t border-white/15 pt-2"
             >
-              {/* Telegram */}
+              {/* Office phone */}
               <a
-                href="https://t.me/expressptl"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="tel:+251114702031"
                 className="group flex items-center justify-between py-4 border-b border-white/10 transition-colors hover:border-[#FF5A1F]/50"
               >
                 <div className="flex items-baseline gap-4 sm:gap-6">
                   <span className="text-xs sm:text-sm uppercase tracking-widest text-slate-400 font-headline w-24">
-                    Telegram:
+                    Office:
                   </span>
                   <span className="font-headline text-2xl sm:text-3xl lg:text-4xl text-white tracking-wide group-hover:text-[#FF5A1F] transition-colors">
-                    +251 91 124 8830
+                    +251 11 470 2031
                   </span>
                 </div>
                 <div className="w-10 h-10 rounded-lg bg-[#0E1528] border border-white/15 text-white group-hover:bg-[#FF5A1F] group-hover:text-white group-hover:border-[#FF5A1F] transition-all flex items-center justify-center overflow-hidden">
@@ -111,16 +109,14 @@ export default function ContactHero() {
                 </div>
               </a>
 
-              {/* WhatsApp */}
+              {/* Mobile phone */}
               <a
-                href="https://wa.me/251911248830"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="tel:+251911248830"
                 className="group flex items-center justify-between py-4 border-b border-white/10 transition-colors hover:border-[#FF5A1F]/50"
               >
                 <div className="flex items-baseline gap-4 sm:gap-6">
                   <span className="text-xs sm:text-sm uppercase tracking-widest text-slate-400 font-headline w-24">
-                    WhatsApp:
+                    Mobile:
                   </span>
                   <span className="font-headline text-2xl sm:text-3xl lg:text-4xl text-white tracking-wide group-hover:text-[#FF5A1F] transition-colors">
                     +251 91 124 8830
@@ -132,8 +128,8 @@ export default function ContactHero() {
               </a>
 
               <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-sans gap-1.5">
-                <span>Hours: Mon – Sat 08:00 – 18:00 EAT</span>
-                <span className="text-[#FF5A1F] font-semibold">24/7 Operations Desk</span>
+                <span>Hours: Mon–Sat 8:00–18:30</span>
+                <span className="text-[#FF5A1F] font-semibold">Sunday closed</span>
               </div>
             </motion.div>
           </div>

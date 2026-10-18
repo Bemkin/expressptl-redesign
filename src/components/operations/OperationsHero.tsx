@@ -16,22 +16,22 @@ const MONOGRAM_ITEMS: MonogramItem[] = [
   {
     letter: "E",
     tag: "EQUIPMENT & FLEET",
-    desc: "76 Company-Owned Prime Movers",
+    desc: "76 Active Trucks, All New",
   },
   {
     letter: "P",
-    tag: "PAYLOAD LIFT",
-    desc: "2,916 MT Synchronous Capacity",
+    tag: "CAPACITY",
+    desc: "2,916 MT at a Time",
   },
   {
     letter: "T",
-    tag: "TRADE CORRIDORS",
-    desc: "Djibouti Lifeline & Regional Arcs",
+    tag: "AID DELIVERIES",
+    desc: "158,636 MT Delivered (2022–2026)",
   },
   {
     letter: "L",
-    tag: "LOGISTICS HUB",
-    desc: "14,000 m² Bole Bulbula Terminal",
+    tag: "CUSTOMS & FORWARDING",
+    desc: "Clearance, Forwarding, Warehousing",
   },
 ];
 
@@ -78,7 +78,7 @@ export default function OperationsHero() {
         >
           <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
           <span className="text-xs sm:text-[13px] font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
-            HEAVY ROLLING STOCK • REGIONAL CORRIDORS • TARIFF ESTIMATOR
+            FLEET • DELIVERIES • QUOTE REQUEST
           </span>
         </motion.div>
 
@@ -110,7 +110,7 @@ export default function OperationsHero() {
             className="max-w-2xl"
           >
             <p className="font-sans text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed">
-              Express PTL delivers integrated heavy haulage, bonded customs clearance, and out-of-gauge industrial transport across Ethiopia and the Horn of Africa. Explore our 76-truck fleet, verified trade corridor arteries, and interactive freight tariff estimator.
+              Express PTL provides transport, customs clearing, forwarding and warehousing across Ethiopia. Explore our 76-truck fleet, see where we have delivered, and request a quote for your shipment.
             </p>
           </motion.div>
 
@@ -126,7 +126,7 @@ export default function OperationsHero() {
               className="group px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#FF5A1F]/50 text-white font-headline text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2.5 transition-all cursor-pointer shadow-lg"
             >
               <Truck className="w-4 h-4 text-[#FF5A1F] transition-transform duration-300 group-hover:scale-110" />
-              <span>01. Fleet &amp; Depot</span>
+              <span>01. Fleet</span>
               <ArrowDown className="w-3.5 h-3.5 text-slate-400 group-hover:translate-y-0.5 transition-transform" />
             </button>
 
@@ -135,7 +135,7 @@ export default function OperationsHero() {
               className="group px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#FF5A1F]/50 text-white font-headline text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2.5 transition-all cursor-pointer shadow-lg"
             >
               <Compass className="w-4 h-4 text-[#FF5A1F] transition-transform duration-300 group-hover:scale-110" />
-              <span>02. Trade Corridors</span>
+              <span>02. Deliveries</span>
               <ArrowDown className="w-3.5 h-3.5 text-slate-400 group-hover:translate-y-0.5 transition-transform" />
             </button>
 
@@ -144,7 +144,7 @@ export default function OperationsHero() {
               className="group px-5 py-3 rounded-xl bg-[#FF5A1F]/15 hover:bg-[#FF5A1F] border border-[#FF5A1F]/30 hover:border-[#FF5A1F] text-white font-headline text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2.5 transition-all cursor-pointer shadow-lg"
             >
               <Calculator className="w-4 h-4 text-[#FF5A1F] group-hover:text-white transition-colors" />
-              <span>03. Rate Calculator</span>
+              <span>03. Request a Quote</span>
               <ArrowDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-white group-hover:translate-y-0.5 transition-all" />
             </button>
           </motion.div>

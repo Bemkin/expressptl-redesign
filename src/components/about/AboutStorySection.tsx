@@ -16,7 +16,7 @@ export default function AboutStorySection() {
   const cardScale = useTransform(scrollYProgress, [0, 1], [0.82, 1]);
   const cardOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 0.88, 1]);
 
-  const tickerText = "OPERATING CONTINUOUSLY SINCE 2013 • 76 HEAVY PRIME MOVERS • 2,916 MT SYNCHRONOUS LIFT • UN WFP AUDITED CARRIER • ZERO-HIJACK ESCORT PROTOCOL • ";
+  const tickerText = "OPERATING SINCE 2013 • 76 NEW TRUCKS • 2,916 MT AT A TIME • HUMANITARIAN AID CARGO • CUSTOMS CLEARANCE & FORWARDING • ";
 
   return (
     <section className="py-20 sm:py-32 bg-[#070B14] relative select-none">
@@ -46,14 +46,14 @@ export default function AboutStorySection() {
             <div className="lg:col-span-6 flex flex-col justify-between lg:border-r lg:border-white/10 lg:pr-16">
               <div>
                 <h2 className="font-headline text-3xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[0.98] mb-6 sm:mb-8">
-                  BUILT ON QUALITY, TRANSPARENCY & AFRICAN RESILIENCE.
+                  BUILT ON QUALITY, TRANSPARENCY & RELIABILITY.
                 </h2>
                 <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
                   <p>
-                    Over the last ten years, Express Transport and Logistics has forged a stellar reputation as an agile, reliable partner to multinational corporations, UN humanitarian agencies, and governmental bodies navigating complex East African terrains.
+                    Since 2013, Express Transport and Logistics has built a reputation for quality, transparency, and reliability, supporting some of the most prominent multinational organizations in Ethiopia.
                   </p>
                   <p>
-                    Where conventional forwarders rely on unpredictable third-party brokerage, Express PTL operates with 100% owned asset autonomy. Every heavy prime mover undergoes rigorous preventive maintenance in our specialized depot, eliminating dispatch delays along critical trade arteries.
+                    Our fleet of 76 active trucks is all new, each carrying 40 MT, so we can move 2,916 MT of cargo at a time across major trade routes.
                   </p>
                 </div>
               </div>
@@ -63,14 +63,14 @@ export default function AboutStorySection() {
             <div className="lg:col-span-6 flex flex-col justify-between">
               <div>
                 <h3 className="font-headline text-2xl sm:text-3xl lg:text-4xl text-white uppercase tracking-tight leading-snug mb-6 text-balance">
-                  Operating continuously since 2013, with over a decade of proven heavy haul reliability.
+                  Operating since 2013, from port to destination across Ethiopia.
                 </h3>
                 <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
                   <p>
-                    Our operational team unites international-level logisticians, mechanical rigging engineers, and veteran drivers dedicated to one core objective: ensuring safe, punctual cargo transit across rugged rift valleys and desert corridors.
+                    Our professional staff are prepared to meet demanding logistics requirements, moving bulk, containerized, commercial, and humanitarian aid cargo to its destination.
                   </p>
                   <p>
-                    We continuously optimize efficiency through dual-redundant GPS telematics, live axle-load sensors, and personalized account management for every client.
+                    Beyond transport, we provide customs clearance, cargo forwarding, warehousing, and distribution, as well as construction and machinery rental.
                   </p>
                 </div>
               </div>
@@ -78,7 +78,7 @@ export default function AboutStorySection() {
               <div className="pt-4">
                 <MvpButton
                   href="/corridors"
-                  text="Explore Regional Corridors"
+                  text="See Where We Deliver"
                   showArrow
                 />
               </div>

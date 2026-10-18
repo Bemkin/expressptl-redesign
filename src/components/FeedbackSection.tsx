@@ -114,7 +114,7 @@ export default function FeedbackSection() {
                   &ldquo;In the logistics industry, speed is important, but reliability is everything. Express Transport has been our trusted logistics partner for over three years, and they have never missed a deadline. Their team treats our cargo with the same care we do, and their proactive communication keeps us informed every step of the way. They aren&apos;t just a vendor—they are a true extension of our supply chain.&rdquo;
                 </p>
                 <span className="text-[11px] font-bold tracking-wider text-[#FF5A1F] uppercase font-headline block mt-2">
-                  — Verified Enterprise Client Testimonial
+                  — Client testimonial
                 </span>
               </div>
 
@@ -122,7 +122,7 @@ export default function FeedbackSection() {
                 Write to us — our specialist will offer the optimal logistics solution just for you.
               </p>
               <span className="text-xs sm:text-sm text-slate-500 font-sans">
-                Direct 2-hour SLA response for cross-border corridor and project cargo tenders.
+                Mon–Sat 8:00–18:30, Sunday closed.
               </span>
             </div>
 
@@ -165,7 +165,7 @@ export default function FeedbackSection() {
       </div>
 
       {/* ========================================================
-          DISPATCH & FREIGHT REQUEST MODAL DIALOG
+          FREIGHT REQUEST MODAL DIALOG
           ======================================================== */}
       <AnimatePresence>
         {modalOpen && (
@@ -205,7 +205,7 @@ export default function FeedbackSection() {
               <div className="flex items-center gap-3 mb-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
                 <span className="text-xs font-bold tracking-[0.2em] text-[#FF5A1F] uppercase font-headline">
-                  24/7 REGIONAL FREIGHT DESK
+                  MON–SAT 8:00–18:30
                 </span>
               </div>
 
@@ -213,7 +213,7 @@ export default function FeedbackSection() {
                 LEAVE A FREIGHT REQUEST
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 font-sans">
-                Our logistics coordinators at our Wollo Sefer headquarters and Bole Bulbula dispatch desk will review your specifications and contact you directly with a route plan.
+                Our team at our Wollo Sefer headquarters will review your request and get back to you.
               </p>
 
               {submitted ? (
@@ -225,7 +225,7 @@ export default function FeedbackSection() {
                     REQUEST RECEIVED
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 max-w-sm mx-auto mb-6">
-                    A senior operations dispatcher will contact your team within 2 hours.
+                    Our team will review your request and get back to you.
                   </p>
                   <button
                     onClick={closeModal}
@@ -312,7 +312,7 @@ export default function FeedbackSection() {
 
                   <div>
                     <label htmlFor="fb-cargo" className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1.5">
-                      ROUTE CORRIDOR & CARGO SPECIFICATION
+                      ROUTE & CARGO DETAILS
                     </label>
                     <textarea
                       id="fb-cargo"
@@ -320,7 +320,7 @@ export default function FeedbackSection() {
                       rows={3}
                       value={formData.cargo}
                       onChange={update("cargo")}
-                      placeholder="e.g. 8x 40ft containers from Mombasa Port to Kigali, or 90 MT transformer lift."
+                      placeholder="e.g. 12 containers to Kombolcha, or 400 MT of sesame for export"
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors resize-none"
                     />
                   </div>

@@ -16,44 +16,44 @@ interface AdvantageItem {
 const ADVANTAGES: AdvantageItem[] = [
   {
     num: "01",
-    tag: "FLEET AUTONOMY",
-    title: "76 Active Heavy Trucks (100% Owned)",
-    desc: "Late-model European-specification prime movers with 40 MT payload each. In-house mechanical maintenance depot eliminates dispatch failure.",
+    tag: "NEW FLEET",
+    title: "76 Active Trucks, All New",
+    desc: "A modern, new fleet of 76 active trucks, each carrying 40 MT.",
     icon: <Truck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     num: "02",
-    tag: "HIGH-TONNAGE RIGGING",
-    title: "2,916 MT Synchronous Heavy Lift",
-    desc: "Ethiopia's premier private single-dispatch capacity. Hydraulic modular multi-axles engineered for turbines, substations, and heavy civil infrastructure.",
+    tag: "FLEET CAPACITY",
+    title: "2,916 MT At A Time",
+    desc: "Combined capacity to move 2,916 MT of bulk, containerized and commercial cargo at a time.",
     icon: <ShieldCheck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     num: "03",
-    tag: "CUSTOMS PRE-ARRIVAL",
-    title: "Licensed AEO & Bonded Transit",
-    desc: "Authorized Economic Operator priority green-channel customs manifests at Djibouti Port, Galafi border, and Modjo Dry Port.",
+    tag: "CUSTOMS & FORWARDING",
+    title: "Customs Clearance & Cargo Forwarding",
+    desc: "Customs clearance and cargo forwarding for imports and exports, from port to destination.",
     icon: <Warehouse className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     num: "04",
-    tag: "COMMAND SUPERVISION",
-    title: "24/7 Satellite Telemetry & Geofencing",
-    desc: "Dual-redundant GPS transponders, live axle-weight load sensors, and driver fatigue telemetry coordinated from our Addis Ababa dispatch room.",
+    tag: "HUMANITARIAN AID CARGO",
+    title: "158,636 MT Of Aid Cargo Delivered",
+    desc: "Bulk humanitarian aid cargo and 2,188 containers delivered 2022–2026 to Kombolcha, Adama, Mekelle, Hawassa and more.",
     icon: <Radio className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     num: "05",
-    tag: "SECURE STAGING",
-    title: "Bonded Staging Yards & Warehouses",
-    desc: "Dedicated container freight depots eliminating port demurrage fees with round-the-clock armed security patrols and bonded storage.",
+    tag: "WAREHOUSING",
+    title: "Warehousing & Distribution",
+    desc: "Warehouse rental, inventory control and management, load building and yard management, regularly audited.",
     icon: <Anchor className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     num: "06",
-    tag: "MULTIMODAL ARTERIES",
-    title: "Strategic Horn of Africa Corridors",
-    desc: "Unbroken logistics routes connecting maritime deep-water berths in Djibouti and Kenya across inland Ethiopian and South Sudanese destinations.",
+    tag: "TRADE ROUTES",
+    title: "Across Major Trade Routes",
+    desc: "Regular cargo transport across major trade routes and inland across Ethiopia.",
     icon: <Compass className="w-5 h-5 text-[#FF5A1F]" />,
   },
 ];
@@ -110,7 +110,7 @@ export default function AboutAdvantagesSection() {
               />
 
               <p className="text-sm sm:text-base text-slate-300 max-w-md leading-relaxed hidden sm:block">
-                Built on complete asset independence, accredited customs green-channels, and heavy lift engineering tailored for East Africa.
+                A new fleet, customs clearance, warehousing and humanitarian aid cargo experience, built since 2013.
               </p>
             </div>
 

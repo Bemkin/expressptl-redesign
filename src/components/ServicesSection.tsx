@@ -25,19 +25,18 @@ const SERVICES: ServiceDetail[] = [
     id: "construction",
     num: "01",
     title: "CONSTRUCTION",
-    subtitle: "Main contractor, subcontractor & modern plant rental fleet from globally recognized brands.",
-    desc: "Our company is actively engaged in the construction sector, working both as a main contractor and subcontractor for project owners including government institutions, private companies, NGOs, and other organizations.\n\nWe also provide construction machinery rental services, offering high-quality equipment from globally recognized brands. With the growing demand in the construction industry, our company provides a reliable fleet of modern construction equipment, enabling clients to access the machinery they need through a convenient one-stop solution.",
+    subtitle: "Main contractor, subcontractor & construction machinery rental.",
+    desc: "Our company is actively engaged in the construction sector, working both as a main contractor and subcontractor for project owners including government institutions, private companies, NGOs, and other organizations.\n\nWe also provide construction machinery rental, with rollers, graders, loaders, bulldozers, excavators, dump trucks and crushers available.",
     isAccent: false,
     icon: <HardHat className="w-6 h-6" />,
     specs: [
       "Construction: Main contractor and subcontractor for government institutions, private companies & NGOs",
       "Services: Road construction, building towers, residential housing, apartments & infrastructure",
-      "Machinery Rental: High-quality modern equipment fleet from globally recognized brands",
-      "One-Stop Solution: Convenient machinery rental enabling rapid turnkey project execution",
+      "Machinery Rental: Rollers, graders, loaders, bulldozers, excavators, dump trucks & crushers",
     ],
     metrics: [
       { label: "Contracting Role", value: "Main & Subcontractor" },
-      { label: "Machinery Fleet", value: "Global Brand Fleet" },
+      { label: "Machinery Rental", value: "7 Machine Types" },
     ],
     subdivisions: [
       {
@@ -68,15 +67,15 @@ const SERVICES: ServiceDetail[] = [
     id: "ground-transport",
     num: "02",
     title: "GROUND TRANSPORT",
-    subtitle: "76 active new trucks · 40 MT each · 2,916 MT total synchronous capacity.",
-    desc: "Our company provides reliable, safe, and efficient transport services designed to meet the needs of businesses and individuals. We specialize in the secure movement of goods and materials with a strong focus on punctuality, safety, and customer satisfaction. Regardless of industry, commodity, or market, Express Transport and Logistics provides solutions that support both small and large businesses.",
+    subtitle: "76 active new trucks · 40 MT each · 2,916 MT total at a time.",
+    desc: "Our company provides cargo transport across major trade routes and inland transport across Ethiopia, moving bulk cargo, containerized cargo, commercial shipments and humanitarian aid cargo. Express Transport and Logistics provides end-to-end logistics solutions for both small and large businesses.",
     isAccent: true,
     icon: <Truck className="w-6 h-6" />,
     specs: [
       "Currently 76 active trucks (all are new) with 40 MT capacity each (2,916 MT in total)",
       "Regular cargo transport across major trade routes & inland transport services",
       "Transports bulk cargo, containerized cargo, commercial shipments & humanitarian aid",
-      "Specialized focus on humanitarian relief (safe cargo transport excluding contraband)",
+      "Special focus on humanitarian aid cargo",
     ],
     metrics: [
       { label: "Fleet Capacity", value: "2,916 MT" },
@@ -87,20 +86,20 @@ const SERVICES: ServiceDetail[] = [
         heading: "CORE TRANSPORT SOLUTIONS & CARGO TYPES",
         items: [
           "Regular cargo transport across major trade routes",
-          "Inland transport services nationwide",
+          "Inland transport services",
           "End-to-end logistics solutions for all business scales",
           "Bulk cargo transport",
           "Containerized cargo transport",
-          "Commercial shipments & industrial materials (excluding contraband)",
+          "Commercial shipments",
         ],
       },
       {
         heading: "WHY WE GIVE SPECIAL FOCUS TO HUMANITARIAN AID CARGO",
         items: [
-          "1. Managed by international, highly professional organizations, improving our professionalism & operational standards.",
-          "2. Working with global organizations develops our management capacity and international operational experience.",
-          "3. Delivering aid cargo provides great satisfaction, as it directly supports people in need.",
-          "Showcase uplifting capacity dedicated for emergency aid cargo.",
+          "1. Aid cargo is handled by professional international organizations, which raises our own standards.",
+          "2. Working with these organizations builds our capability.",
+          "3. Delivering aid cargo directly helps people in need.",
+          "2022–2026: 158,636 MT of bulk aid cargo and 2,188 containers delivered.",
         ],
       },
     ],
@@ -109,7 +108,7 @@ const SERVICES: ServiceDetail[] = [
     id: "import-export",
     num: "03",
     title: "IMPORT AND EXPORT",
-    subtitle: "Supplying international industrial goods & exporting premium Ethiopian agricultural crops.",
+    subtitle: "Importing industrial goods & exporting Ethiopian agricultural and mining products.",
     desc: "We import a wide range of products from international markets including China, Korea, UAE, Europe, and other countries to support domestic infrastructure and industry. Simultaneously, our company exports a variety of agricultural and mining products to international markets including China, Europe, the Middle East, the USA, Canada, and other regions worldwide.",
     isAccent: false,
     icon: <Ship className="w-6 h-6" />,
@@ -117,11 +116,11 @@ const SERVICES: ServiceDetail[] = [
       "Imports from China, Korea, UAE, Europe: trucks, machinery, tires, batteries, steel & parts",
       "Exports to China, Europe, Middle East, USA, Canada: sesame, mung beans, soybeans, pulses",
       "Specialized in Humera and Wollega sesame seeds, red kidney beans, white beans, and chickpeas",
-      "Dedicated to sustainable extraction, development, and export of natural mineral resources",
+      "Mining: exploring, developing and operating mineral resources responsibly; mining products exported",
     ],
     metrics: [
-      { label: "Export Standard", value: "ECX Grade-1 Certified" },
-      { label: "Global Reach", value: "Tri-Continent Trade" },
+      { label: "Import Origins", value: "China, Korea, UAE, Europe" },
+      { label: "Key Export", value: "Sesame Seeds" },
     ],
     subdivisions: [
       {
@@ -135,7 +134,6 @@ const SERVICES: ServiceDetail[] = [
           "Factory raw materials",
           "Spare parts",
           "All types of steel",
-          "Other required industrial products",
         ],
       },
       {
@@ -147,8 +145,7 @@ const SERVICES: ServiceDetail[] = [
           "Red kidney beans",
           "Rounded white beans",
           "Chickpeas",
-          "Other agricultural products",
-          "Natural mineral ores & extracted minerals",
+          "Mining products",
         ],
       },
     ],
@@ -158,37 +155,36 @@ const SERVICES: ServiceDetail[] = [
     num: "04",
     title: "LOGISTIC SERVICE",
     subtitle: "Customs clearance · Cargo forwarding · Warehouse rental · Shipping agency.",
-    desc: "Understanding that transport and logistics go hand in hand, we also provide logistics services designed to meet your business needs. We take pride in catering to a broad range of clientele throughout the country with our warehousing services—comprehensive, reliable, and flexible. Our experienced experts design a supply chain flowchart tailored to meet your business and logistic needs, focused on increasing efficiency and cutting down costs.",
+    desc: "Understanding that transport and logistics go hand in hand, we also provide logistics services: customs clearance, cargo forwarding and warehouse rental, with shipping agency services currently under development.\n\nOur warehousing and distribution services cover inventory control and management, load building and yard management, and are regularly audited.",
     isAccent: true,
     icon: <Warehouse className="w-6 h-6" />,
     specs: [
-      "Customs clearance (Galafi, Modjo Dry Port, and Kality terminal)",
-      "Dedicated cargo forwarding and automated shipping documentation",
-      "Comprehensive warehouse rental and nationwide distribution centers",
+      "Customs clearance",
+      "Cargo forwarding",
+      "Warehouse rental",
       "Shipping agency services (currently under development)",
     ],
     metrics: [
-      { label: "Clearance Hubs", value: "Galafi / Modjo / Kality" },
-      { label: "Network Scope", value: "Nationwide Warehousing" },
+      { label: "Customs", value: "Customs Clearance" },
+      { label: "Warehousing", value: "Regularly Audited" },
     ],
     subdivisions: [
       {
         heading: "CORE LOGISTICS SERVICES",
         items: [
-          "Customs clearance at major ports & border posts",
-          "Cargo forwarding across global and inland routes",
-          "Warehouse rental with flexible storage terms",
+          "Customs clearance",
+          "Cargo forwarding",
+          "Warehouse rental",
           "Shipping agency services (currently under development)",
         ],
       },
       {
-        heading: "TAILORED SUPPLY CHAIN & NATIONWIDE WAREHOUSING",
+        heading: "WAREHOUSING & DISTRIBUTION",
         items: [
-          "Tailored supply chain flowcharts designed by experienced experts",
-          "Focused on increasing operational efficiency & cutting down costs",
-          "Vast network of warehouses & distribution centers across the country",
-          "Record response times catering to diverse enterprise clientele",
-          "Long-term cost savings giving your business a competitive edge",
+          "Inventory control and management",
+          "Load building",
+          "Yard management",
+          "Regularly audited warehousing operations",
         ],
       },
     ],
@@ -198,36 +194,34 @@ const SERVICES: ServiceDetail[] = [
     num: "05",
     title: "MANUFACTURING",
     subtitle: "14,000 m² food processing factory in Addis Ababa, around Bole Bulbula.",
-    desc: "As part of our long-term business expansion, we are currently constructing a food processing factory in Addis Ababa, around Bole Bulbula. The factory covers an area of 14,000 square meters and will focus on food production and processing, contributing to both local supply and export opportunities.",
+    desc: "We are currently constructing a food processing factory in Addis Ababa, around Bole Bulbula. The factory covers an area of 14,000 square meters and will focus on food production and processing, for both local supply and export.",
     isAccent: false,
     icon: <Factory className="w-6 h-6" />,
     specs: [
-      "Facility Scale: 14,000 square meter food processing factory under active construction",
-      "Strategic Location: Situated in Addis Ababa, around Bole Bulbula with direct arterial access",
-      "Operational Focus: Modern food production, industrial processing, and hygienic packaging",
-      "Market Impact: Contributing significantly to both local supply and international export opportunities",
+      "Facility Scale: 14,000 square meter food processing factory under construction",
+      "Location: Addis Ababa, around Bole Bulbula",
+      "Focus: Food production and processing",
+      "Market: Local supply and export",
     ],
     metrics: [
       { label: "Factory Area", value: "14,000 m²" },
-      { label: "Location", value: "Bole Bulbula, Addis" },
+      { label: "Status", value: "Under Construction" },
     ],
     subdivisions: [
       {
-        heading: "FACILITY SPECIFICATIONS & LOCATION",
+        heading: "THE FACTORY",
         items: [
-          "14,000 square meters factory footprint",
+          "14,000 square meter site",
           "Located in Addis Ababa around Bole Bulbula",
-          "Advanced food production & processing technology",
-          "Hygienic storage and quality-controlled packaging",
+          "Currently under construction",
+          "Food production and processing",
         ],
       },
       {
-        heading: "BUSINESS EXPANSION & VALUE CREATION",
+        heading: "PURPOSE",
         items: [
-          "Core component of our long-term business expansion",
-          "Contributing directly to domestic and local food supply",
-          "Unlocking high-value international export opportunities",
-          "Industrial job creation and agricultural value addition",
+          "Food supply for the local market",
+          "Processed food for export",
         ],
       },
     ],
@@ -631,7 +625,7 @@ export default function ServicesSection() {
               {/* Technical Capabilities */}
               <div className="space-y-3 mb-8">
                 <span className="text-xs font-bold tracking-wider text-slate-400 uppercase block font-headline">
-                  DEPLOYED OPERATIONAL PROTOCOLS
+                  KEY POINTS
                 </span>
                 {selectedService.specs.map((spec, i) => (
                   <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200">
@@ -648,7 +642,7 @@ export default function ServicesSection() {
                   onClick={() => setSelectedService(null)}
                   className="flex-1 py-4 rounded-xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 text-white font-headline text-xl tracking-wider uppercase text-center transition-colors shadow-lg shadow-[#FF5A1F]/25 flex items-center justify-center gap-2"
                 >
-                  <span>REQUEST DIVISION DISPATCH</span>
+                  <span>REQUEST THIS SERVICE</span>
                   <ArrowUpRight className="w-5 h-5" />
                 </a>
               </div>

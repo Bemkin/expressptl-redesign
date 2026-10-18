@@ -17,21 +17,21 @@ import AboutTeamSection from "@/components/about/AboutTeamSection";
 export const metadata: Metadata = {
   title: "About Us | Express Transport & Logistics (Express PTL)",
   description:
-    "Operating continuously since 2013, Express PTL is Ethiopia's premier heavy haulage enterprise. 76 owned prime movers (2,916 MT synchronous lift), licensed AEO customs accreditation, and UN WFP humanitarian partner.",
+    "Operating since 2013, Express Transport & Logistics provides transport, customs clearing, freight forwarding, warehousing and distribution in Ethiopia, with 76 new trucks moving 2,916 MT at a time and a special focus on humanitarian aid cargo.",
   keywords: [
     "Express PTL About",
     "Ethiopia heavy transport",
-    "Djibouti corridor logistics",
-    "UN WFP carrier Ethiopia",
+    "freight forwarding Ethiopia",
+    "humanitarian aid cargo transport Ethiopia",
     "Ambasel building logistics",
     "Temesgen Yohannes Express PTL",
-    "heavy haulage East Africa",
+    "truck transport Ethiopia",
     "customs clearing Ethiopia",
   ],
   openGraph: {
     title: "About Us | Express Transport & Logistics (Express PTL)",
     description:
-      "Operating continuously since 2013, Express PTL is Ethiopia's premier heavy haulage enterprise with 76 owned prime movers, 2,916 MT lift, and licensed AEO customs clearance.",
+      "Operating since 2013, Express PTL provides transport, customs clearing, forwarding and warehousing in Ethiopia, with 76 new trucks moving 2,916 MT at a time.",
     url: "/about",
     siteName: "Express Transport & Logistics",
     images: [shareImage],

@@ -17,28 +17,28 @@ const METRICS: MetricCounter[] = [
     value: "125",
     suffix: "",
     label: "COUNTRIES COVERED",
-    sub: "Global cross-border freight network",
+    sub: "Global freight forwarding",
     icon: <Globe2 className="w-6 h-6 text-[#FF5A1F]" />,
   },
   {
     value: "150",
     suffix: "",
     label: "PORTS COVERED",
-    sub: "Direct deepwater & dry port connectivity",
+    sub: "From port to destination",
     icon: <Anchor className="w-6 h-6 text-[#FF5A1F]" />,
   },
   {
     value: "4000",
     suffix: "+",
     label: "SATISFIED CLIENTS",
-    sub: "Global agencies & enterprise partners",
+    sub: "Including prominent multinational organizations in Ethiopia",
     icon: <Users className="w-6 h-6 text-[#FF5A1F]" />,
   },
   {
     value: "13M",
     suffix: "+",
     label: "TONNAGE DELIVERED",
-    sub: "Millions of metric tons safely uplifted",
+    sub: "Bulk, containerized & commercial shipments",
     icon: <Truck className="w-6 h-6 text-[#FF5A1F]" />,
   },
 ];
@@ -63,7 +63,7 @@ export default function ImpactMetricsStrip() {
             </span>
           </div>
           <span className="text-[11px] sm:text-xs font-bold tracking-[0.2em] text-white/50 uppercase font-headline hidden sm:block">
-            AUTHENTIC LIFETIME CAPABILITY
+            EXPRESS PTL • SINCE 2013
           </span>
         </div>
 

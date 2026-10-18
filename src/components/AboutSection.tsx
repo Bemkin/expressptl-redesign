@@ -71,7 +71,7 @@ export default function AboutSection() {
 
             {/* Reverse-Engineered MVP Reading Scrub Block: Words illuminate from 18% dim watermark to 100% white */}
             <ReadingScrubText
-              text="Over the last ten years we have built a reputation for quality, transparency, and reliability. We are proud to support some of the most prominent multinational organizations in Ethiopia to achieve supply chain excellence and provide crucial strategic partnerships. Our commitment to our customers is to provide world class service in a challenging environment. We specialize in and are uniquely positioned to provide globally integrated logistics solutions to ensure seamless service from anywhere in the world to your location in Ethiopia. We provide services in global freight forwarding, customs clearing, transport, warehousing, and distribution. Express Transport and Logistics is managed dynamically and efficiently by professional staff who are well prepared to meet customer logistics requirements and provide our customers the most reliable and extensive services. We welcome you to join our network in Ethiopia and worldwide."
+              text="Since 2013 we have built a reputation for quality, transparency, and reliability. We are proud to support some of the most prominent multinational organizations in Ethiopia to achieve supply chain excellence and provide crucial strategic partnerships. Our commitment to our customers is to provide world class service in a challenging environment. We specialize in and are uniquely positioned to provide globally integrated logistics solutions to ensure seamless service from anywhere in the world to your location in Ethiopia. We provide services in global freight forwarding, customs clearing, transport, warehousing, and distribution. Express Transport and Logistics is managed dynamically and efficiently by professional staff who are well prepared to meet customer logistics requirements and provide our customers the most reliable and extensive services. We welcome you to join our network in Ethiopia and worldwide."
               className="text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-4xl mb-10 sm:mb-12"
             />
 
@@ -99,17 +99,17 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2">
                 <Truck className="w-4 h-4 text-[#FF5A1F]" />
-                <span>76 Active Heavy Trucks</span>
+                <span>76 Active Trucks, All New</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-white/20 hidden sm:block" />
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#FF5A1F]" />
-                <span>2,916 MT Synchronous Lift</span>
+                <span>2,916 MT At A Time</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-white/20 hidden sm:block" />
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#FF5A1F]" />
-                <span>10+ Years of Reliability</span>
+                <span>Operating Since 2013</span>
               </div>
             </motion.div>
           </div>
@@ -128,13 +128,13 @@ export default function AboutSection() {
               {/* Loop Block 1 */}
               <div className="flex items-center gap-10 sm:gap-16 shrink-0 pr-10 sm:pr-16">
                 <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
-                  10 YEARS ON THE MARKET
+                  ON THE MARKET SINCE 2013
                 </span>
                 <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •
                 </span>
                 <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
-                  10 YEARS ON THE MARKET
+                  ON THE MARKET SINCE 2013
                 </span>
                 <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •
@@ -144,13 +144,13 @@ export default function AboutSection() {
               {/* Loop Block 2 (identical clone for seamless infinite loop) */}
               <div className="flex items-center gap-10 sm:gap-16 shrink-0 pr-10 sm:pr-16">
                 <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
-                  10 YEARS ON THE MARKET
+                  ON THE MARKET SINCE 2013
                 </span>
                 <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •
                 </span>
                 <span className="font-headline text-[13vw] lg:text-[180px] xl:text-[210px] leading-none text-white/5.5 tracking-tight uppercase">
-                  10 YEARS ON THE MARKET
+                  ON THE MARKET SINCE 2013
                 </span>
                 <span className="font-headline text-[8vw] lg:text-[110px] leading-none text-white/4">
                   •

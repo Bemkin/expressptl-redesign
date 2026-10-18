@@ -13,21 +13,20 @@ import OperationsCalculatorSection from "@/components/operations/OperationsCalcu
 export const metadata: Metadata = {
   title: "Fleet & Operations | Express Transport & Logistics (Express PTL)",
   description:
-    "Explore Express PTL's owned heavy haulage infrastructure: 76 new prime movers, 2,916 MT synchronous lift, 14,000 m² Bole Bulbula facility, strategic Djibouti–Addis corridors, and instant freight tariff calculator.",
+    "Express PTL's fleet of 76 new trucks (40 MT each, 2,916 MT at a time), our humanitarian aid cargo delivery record across Ethiopia, and a quick freight quote request.",
   keywords: [
     "Express PTL operations",
     "Ethiopia heavy fleet",
     "76 prime movers Ethiopia",
-    "Djibouti Addis trade corridor",
-    "Bole Bulbula logistics hub",
-    "freight rate calculator Ethiopia",
-    "UN WFP humanitarian transport",
-    "Goldhofer lowbed Ethiopia",
+    "truck transport Ethiopia",
+    "humanitarian aid cargo transport",
+    "freight quote Ethiopia",
+    "customs clearing Addis Ababa",
   ],
   openGraph: {
     title: "Fleet & Operations | Express Transport & Logistics (Express PTL)",
     description:
-      "76 company-owned heavy prime movers, 2,916 MT capacity, strategic Horn of Africa corridors, and real-time freight estimation.",
+      "76 new trucks, 2,916 MT capacity at a time, aid cargo delivered across Ethiopia, and a quick quote request.",
     url: "/operations",
     siteName: "Express Transport & Logistics",
     images: [shareImage],

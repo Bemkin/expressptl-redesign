@@ -88,62 +88,62 @@ interface FleetVehicle {
 const FLEET_VEHICLES: FleetVehicle[] = [
   {
     id: "prime-mover",
-    name: "40 MT HEAVY CORRIDOR PRIME MOVER",
-    category: "Cross-Border Long-Haul Backbone",
-    power: "High-Torque Turbocharged Powertrain",
-    capacity: "40 MT Payload (2,916 MT Total Lift)",
-    telemetry: "24/7 Satellite GPS & Wollo Sefer Dispatch",
-    fleetCount: "76 Units 100% Company-Owned",
+    name: "76 NEW TRUCKS, 40 MT EACH",
+    category: "Our Fleet",
+    power: "All trucks new",
+    capacity: "40 MT each · 2,916 MT at a time",
+    telemetry: "Cargo transport from source to destination",
+    fleetCount: "76 Active Trucks",
     img: "/assets/fleet/prime_mover_corridor.jpg",
     highlights: [
-      "Dedicated prime movers for the primary Djibouti–Addis Ababa economic lifeline",
-      "Late-model European heavy-duty trucks operated with zero broker dilution",
-      "Continuous preventative maintenance schedule at Bole Bulbula 14,000 m² depot",
+      "Regular cargo transport across major trade routes",
+      "Inland transport services across Ethiopia",
+      "End-to-end logistics solutions for small and large businesses",
     ],
   },
   {
     id: "modular-lowbed",
-    name: "MODULAR MULTI-AXLE HEAVY LOWBED",
-    category: "Over-Dimensional Project Rigging",
-    power: "Independent Multi-Axle Hydraulic Suspension",
-    capacity: "Up to 150 MT Combined Train Weight",
-    telemetry: "Computerized Deck Leveling & Steerable Bogies",
-    fleetCount: "Dedicated Heavy Haul Division",
+    name: "COMMERCIAL & INDUSTRIAL SHIPMENTS",
+    category: "Import & Industrial Cargo",
+    power: "Machinery, steel, spare parts",
+    capacity: "40 MT per truck",
+    telemetry: "Customs clearance and forwarding available",
+    fleetCount: "Commercial Cargo",
     img: "/assets/fleet/modular_heavy_lowbed.jpg",
     highlights: [
-      "Engineered for heavy power transformers, industrial plant & substation turbines",
-      "Adjustable hydraulic deck height for rugged terrain and overhead clearances",
-      "Steerable multi-wheel bogies designed for tight mountainous corridor hairpins",
+      "Light and heavy trucks, construction machinery, tires and batteries",
+      "Factory raw materials, spare parts and all types of steel",
+      "Imports from China, Korea, the UAE, Europe and other markets",
     ],
   },
   {
     id: "container-rig",
-    name: "20FT & 40FT INTERMODAL CONTAINER RIG",
-    category: "Maritime Port Multimodal Transit",
-    power: "Tri-Axle Heavy Duty Container Chassis",
-    capacity: "2x 20ft or 1x 40ft High-Cube Maritime Containers",
-    telemetry: "Electronic Cargo Seal & GPS Corridor Tracking",
-    fleetCount: "Full Corridor Deployment",
+    name: "CONTAINERIZED CARGO",
+    category: "Container Transport",
+    power: "Standard shipping containers",
+    capacity: "2,188 aid containers delivered (2022–2026)",
+    telemetry: "Customs clearance and forwarding available",
+    fleetCount: "Containers",
     img: "/assets/fleet/intermodal_container_rig.jpg",
     highlights: [
-      "Twist-lock container stabilization for rugged Horn of Africa corridors",
-      "Fast-track bonded customs escort directly to Modjo Dry Port under AEO license",
-      "Partner multimodal carrier handling international shipping lines (Maersk, MSC)",
+      "Containerized cargo moved from source to designated destination",
+      "Customs clearance and cargo forwarding handled in-house",
+      "Warehouse rental when cargo needs to wait",
     ],
   },
   {
     id: "bulk-agri",
-    name: "REINFORCED SIDEBOARD BULK AGRI-CARRIER",
-    category: "Agricultural Commodity & Grain Haulage",
-    power: "High-Tensile Steel Drop-Side Chassis",
-    capacity: "40 MT Bulk Cargo & Palletized Freight",
-    telemetry: "Tamper-Evident Tarpaulin Electronic Seal",
-    fleetCount: "Dedicated Agricultural Division",
+    name: "BULK & AGRICULTURAL CARGO",
+    category: "Bulk & Humanitarian Cargo",
+    power: "Grain, pulses and oilseeds",
+    capacity: "158,636 MT of aid cargo delivered (2022–2026)",
+    telemetry: "Special focus on humanitarian aid cargo",
+    fleetCount: "Bulk Cargo",
     img: "/assets/fleet/bulk_agri_sideboard.jpg",
     highlights: [
-      "Weatherproof strapped heavy tarpaulin enclosures protecting sesame, coffee & pulses",
-      "Direct harvest uplift from Humera, Gondar, and Wollega farming belts",
-      "High-volume deployment for UN WFP humanitarian relief grain distribution",
+      "Sesame (Humera and Wollega), mung beans, soybeans, kidney beans, white beans and chickpeas for export",
+      "Humanitarian aid cargo for international organizations",
+      "Deliveries to Kombolcha, Adama, Mekelle, Hawassa and more",
     ],
   },
 ];
@@ -168,22 +168,22 @@ export default function OperationsFleetSection() {
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
               <span className="text-xs sm:text-[13px] font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
-                SECTION 01 • COMPANY-OWNED ASSETS
+                SECTION 01 • OUR FLEET
               </span>
             </div>
             <h2 className="font-headline text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white uppercase tracking-tight leading-[0.92]">
-              76 PRIME MOVERS &amp; <br className="hidden sm:inline" />
-              SPECIALIZED ROLLING STOCK.
+              76 NEW TRUCKS &amp; <br className="hidden sm:inline" />
+              THE CARGO WE MOVE.
             </h2>
           </div>
 
           <div className="p-6 rounded-2xl bg-[#0D1322] border border-white/10 max-w-md shadow-xl">
             <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
               <span className="text-xs uppercase tracking-widest text-slate-400 font-headline">
-                TOTAL COMBINED LIFT
+                TOTAL CAPACITY
               </span>
               <span className="text-xs font-bold text-[#FF5A1F] font-mono">
-                100% OWNED
+                ALL NEW
               </span>
             </div>
             <div className="flex items-baseline gap-2 mb-1">
@@ -191,11 +191,11 @@ export default function OperationsFleetSection() {
                 2,916 MT
               </span>
               <span className="text-xs uppercase tracking-wider text-slate-400 font-headline">
-                Single-Lift Capacity
+                At a time
               </span>
             </div>
             <p className="text-xs text-slate-400 font-sans leading-relaxed">
-              Every prime mover and trailer in our operations is directly owned, OEM-maintained, and operated under strict zero-subcontracting governance.
+              Our fleet includes 76 active trucks, all new, each loading 40 MT. Together they move up to 2,916 MT of cargo at a time.
             </p>
           </div>
         </div>
@@ -235,13 +235,13 @@ export default function OperationsFleetSection() {
                   <div className="grid grid-cols-2 gap-4 text-xs font-sans text-slate-300 pt-3 border-t border-white/10">
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-headline">
-                        Output
+                        Cargo
                       </span>
                       <span className="font-semibold">{vehicle.power}</span>
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-headline">
-                        Max Capacity
+                        Capacity
                       </span>
                       <span className="font-semibold text-white">{vehicle.capacity}</span>
                     </div>
@@ -266,7 +266,7 @@ export default function OperationsFleetSection() {
               <div className="absolute top-6 left-6 flex items-center gap-2">
                 <div className="bg-[#070B14]/85 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-xl text-xs font-headline uppercase tracking-wider text-white flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
-                  <span>CORRIDOR FLEET CONFIGURATION</span>
+                  <span>FLEET &amp; CARGO</span>
                 </div>
               </div>
 
@@ -287,17 +287,17 @@ export default function OperationsFleetSection() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/10 mb-6 text-xs text-slate-300">
                   <div className="flex items-center gap-3">
                     <Gauge className="w-4 h-4 text-[#FF5A1F] shrink-0" />
-                    <span><strong>Power:</strong> {selectedVehicle.power}</span>
+                    <span><strong>Cargo:</strong> {selectedVehicle.power}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Radio className="w-4 h-4 text-[#FF5A1F] shrink-0" />
-                    <span><strong>Telemetry:</strong> {selectedVehicle.telemetry}</span>
+                    <span><strong>Service:</strong> {selectedVehicle.telemetry}</span>
                   </div>
                 </div>
 
                 <div className="space-y-2 mb-6">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-2">
-                    TECHNICAL CAPABILITIES &amp; INTEGRITY
+                    WHAT WE HANDLE
                   </span>
                   {selectedVehicle.highlights.map((h, i) => (
                     <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-300 font-sans">
@@ -309,8 +309,8 @@ export default function OperationsFleetSection() {
               </div>
 
               <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-sans">
-                <span>Licensed for Djibouti Corridor &amp; Regional Arteries</span>
-                <span className="text-[#FF5A1F] font-semibold font-mono">100% Operational Readiness</span>
+                <span>Cargo transport across major trade routes</span>
+                <span className="text-[#FF5A1F] font-semibold font-mono">76 Active Trucks</span>
               </div>
             </div>
           </div>
@@ -327,7 +327,7 @@ export default function OperationsFleetSection() {
             <div className="relative w-full aspect-[16/9]">
               <Image
                 src="/assets/facility.jpg"
-                alt="Bole Bulbula 14,000 m² Logistics Terminal"
+                alt="Express PTL facility"
                 fill
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 className="object-cover object-center filter brightness-90"
@@ -339,34 +339,34 @@ export default function OperationsFleetSection() {
                   14,000 M²
                 </span>
                 <span className="text-[10px] font-bold tracking-widest text-[#FF5A1F] uppercase font-headline">
-                  HEAVY FLEET TERMINAL &amp; WORKSHOP
+                  FOOD PROCESSING FACTORY
                 </span>
               </div>
             </div>
 
             <div className="p-8 sm:p-10">
               <span className="text-xs font-bold tracking-widest uppercase text-[#FF5A1F] font-headline block mb-2">
-                CENTRAL LOGISTICS COMMAND • ADDIS ABABA
+                UNDER CONSTRUCTION • BOLE BULBULA, ADDIS ABABA
               </span>
               <h3 className="font-headline text-3xl sm:text-4xl text-white uppercase tracking-tight mb-4">
-                BOLE BULBULA OPERATIONAL TERMINAL.
+                GROWING INTO MANUFACTURING.
               </h3>
               <p className="text-sm text-slate-300 font-sans leading-relaxed mb-6">
-                Our owned 14,000 m² facility serves as the strategic marshalling yard for all 76 prime movers. Equipped with multi-bay preventative maintenance pits, diagnostic rigging rigs, bonded customs-escort staging, and 24/7 telematics operations room monitoring active Horn of Africa convoys.
+                As part of our long-term expansion, we are building a 14,000 m² food processing factory around Bole Bulbula in Addis Ababa. It will focus on food production and processing for both local supply and export.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-xs font-sans text-slate-400">
                 <div>
-                  <span className="font-bold text-white block uppercase font-headline text-[11px]">Preventative Bays</span>
-                  <span>In-House OEM Overhauls</span>
+                  <span className="font-bold text-white block uppercase font-headline text-[11px]">14,000 m²</span>
+                  <span>Factory site</span>
                 </div>
                 <div>
-                  <span className="font-bold text-white block uppercase font-headline text-[11px]">Bonded Staging</span>
-                  <span>Customs-Escorted Storage</span>
+                  <span className="font-bold text-white block uppercase font-headline text-[11px]">Food Processing</span>
+                  <span>Production &amp; processing</span>
                 </div>
                 <div>
-                  <span className="font-bold text-white block uppercase font-headline text-[11px]">24/7 Dispatch</span>
-                  <span>Continuous Satellite GPS</span>
+                  <span className="font-bold text-white block uppercase font-headline text-[11px]">Local &amp; Export</span>
+                  <span>Supply markets</span>
                 </div>
               </div>
             </div>
@@ -381,20 +381,20 @@ export default function OperationsFleetSection() {
                 </div>
                 <div>
                   <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F] font-headline block">
-                    HUMANITARIAN CARRIER
+                    HUMANITARIAN AID CARGO
                   </span>
                   <span className="text-xs text-slate-400 font-sans">
-                    UN WFP &amp; Multilateral Agency Partner
+                    A special focus of our transport work
                   </span>
                 </div>
               </div>
 
               <h3 className="font-headline text-3xl sm:text-4xl text-white uppercase tracking-tight leading-tight mb-4">
-                DEDICATED EMERGENCY RELIEF HAULAGE.
+                DELIVERING AID WHERE IT IS NEEDED.
               </h3>
 
               <p className="text-sm text-slate-300 font-sans leading-relaxed mb-8">
-                Express PTL gives highest operational priority to humanitarian cargo. Over the last decade, our dedicated prime movers have transported life-saving food, medical supplies, and shelter materials into challenging environments with complete transparency and zero contraband policy.
+                We give special focus to humanitarian aid cargo. Working with professional international organizations raises our operational standards, and every delivery directly supports people in need.
               </p>
 
               {/* Statistics Counters */}
@@ -419,19 +419,19 @@ export default function OperationsFleetSection() {
 
                 <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
                   <span className="text-xs uppercase tracking-wider text-slate-400 font-headline">
-                    Mission Delivery Reliability
+                    Destinations Served
                   </span>
                   <span className="font-headline text-2xl sm:text-3xl text-emerald-400 font-extrabold">
-                    99.98%
+                    10 Cities
                   </span>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
                   <span className="text-xs uppercase tracking-wider text-slate-400 font-headline">
-                    Direct Fleet Control
+                    Active Fleet
                   </span>
                   <span className="font-headline text-2xl sm:text-3xl text-white font-extrabold">
-                    76 Prime Movers
+                    76 Trucks
                   </span>
                 </div>
               </div>
@@ -443,13 +443,13 @@ export default function OperationsFleetSection() {
                 className="w-full py-3 px-4 rounded-xl bg-[#FF5A1F] hover:bg-[#ff723f] text-white font-headline text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer shadow-lg shadow-[#FF5A1F]/20"
               >
                 <FileSpreadsheet className="w-4 h-4 text-white" />
-                <span>VIEW AUDITED DISPATCH LEDGER (2022–2026)</span>
+                <span>VIEW DELIVERY RECORD (2022–2026)</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </div>
 
             <div className="pt-4 border-t border-white/10 text-xs text-slate-400 font-sans">
-              <span>Audited under UN Logistics Cluster safety and operational governance. Verified data across 10 regional hubs.</span>
+              <span>Deliveries to 10 destinations across Ethiopia, from Kombolcha and Mekelle to Hawassa and Semera.</span>
             </div>
           </div>
 
@@ -486,14 +486,14 @@ export default function OperationsFleetSection() {
                   <div className="flex items-center gap-2 mb-2">
                     <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
                     <span className="text-xs font-bold tracking-[0.2em] text-[#FF5A1F] uppercase font-headline">
-                      OFFICIAL DISPATCH RECORDS (2022 – 2026)
+                      DELIVERY RECORD (2022 – 2026)
                     </span>
                   </div>
                   <h3 className="font-headline text-2xl sm:text-4xl text-white uppercase tracking-tight">
-                    EXPRESS PTL VERIFIED TRANSPORT CAPABILITY
+                    HUMANITARIAN AID CARGO DELIVERED
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 font-sans mt-1">
-                    Audited capacity of uplifting for Humanitarian Aid Cargo and Containerized Shipments across Ethiopian trade corridors.
+                    Bulk aid cargo and containerized shipments we delivered, by destination and year.
                   </p>
                 </div>
 
@@ -646,8 +646,8 @@ export default function OperationsFleetSection() {
 
               {/* Bottom Summary Bar */}
               <div className="pt-4 mt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2 shrink-0">
-                <span>Directly sourced from Express Transport & Logistics operational dispatches (2022–2026).</span>
-                <span className="text-[#FF5A1F] font-bold">158,636 MT Relief Cargo • 2,188 Container Dispatches</span>
+                <span>Express Transport & Logistics delivery records, 2022–2026.</span>
+                <span className="text-[#FF5A1F] font-bold">158,636 MT bulk aid cargo • 2,188 containers</span>
               </div>
             </motion.div>
           </div>

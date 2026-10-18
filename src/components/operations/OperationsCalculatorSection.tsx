@@ -1,67 +1,87 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ShieldCheck, Clock, Truck, CheckCircle2, Send, Phone, Mail, ArrowUpRight, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { ShieldCheck, Truck, CheckCircle2, Send, Phone, Mail } from "lucide-react";
+import { submitInquiry } from "@/lib/submitInquiry";
 
-interface RouteOption {
-  label: string;
-  value: string;
-  baseDays: number;
-  ratePerTon: number;
-}
-
-const ORIGINS: RouteOption[] = [
-  { label: "Port of Djibouti (Doraleh DCT)", value: "djibouti", baseDays: 3, ratePerTon: 85 },
-  { label: "Berbera Port (DP World)", value: "berbera", baseDays: 4, ratePerTon: 92 },
-  { label: "Port of Mombasa (Kenya / LAPSSET)", value: "mombasa", baseDays: 5, ratePerTon: 110 },
-  { label: "Modjo Multimodal Dry Port", value: "modjo", baseDays: 1, ratePerTon: 35 },
-  { label: "Addis Ababa (Bole Bulbula)", value: "addis", baseDays: 1, ratePerTon: 30 },
-];
-
-const DESTINATIONS: RouteOption[] = [
-  { label: "Addis Ababa Central Terminal", value: "addis_dest", baseDays: 0, ratePerTon: 0 },
-  { label: "Modjo Multimodal Dry Port", value: "modjo_dest", baseDays: -1, ratePerTon: -10 },
-  { label: "Hawassa Industrial Park", value: "hawassa_dest", baseDays: 1, ratePerTon: 25 },
-  { label: "Dire Dawa Free Trade Zone", value: "diredawa_dest", baseDays: 0, ratePerTon: 15 },
-  { label: "Mekelle Logistics Hub", value: "mekelle_dest", baseDays: 2, ratePerTon: 45 },
-  { label: "Kombolcha Industrial Park", value: "kombolcha_dest", baseDays: 1, ratePerTon: 30 },
+// Destinations taken from Express PTL's published aid-cargo delivery record.
+const DESTINATIONS = [
+  "Addis Ababa",
+  "Adama",
+  "Bahir Dar",
+  "Dessie",
+  "Dire Dawa",
+  "Hawassa",
+  "Kombolcha",
+  "Mekelle",
+  "Nefas Mewcha",
+  "Semera",
+  "Other / not sure yet",
 ];
 
 const CARGO_TYPES = [
-  { id: "container", label: "Containerized FCL (20ft / 40ft HC)", multiplier: 1.0, unitDesc: "Standard Prime Mover Flatbed" },
-  { id: "agri", label: "Agricultural Breakbulk (Sesame / Coffee)", multiplier: 1.15, unitDesc: "Reinforced Sideboard Cargo Trailer" },
-  { id: "heavy", label: "Heavy Lift & OOG Machinery (>40 MT)", multiplier: 1.65, unitDesc: "Goldhofer Modular Hydraulic Lowbed" },
-  { id: "humanitarian", label: "UN WFP Humanitarian Aid Cargo", multiplier: 0.95, unitDesc: "Dedicated Priority Aid Convoy" },
+  { id: "container", label: "Containerized cargo", desc: "20ft / 40ft containers" },
+  { id: "bulk", label: "Bulk cargo", desc: "Grain, fertilizer, raw materials" },
+  { id: "commercial", label: "Commercial shipments", desc: "Machinery, steel, spare parts" },
+  { id: "humanitarian", label: "Humanitarian aid cargo", desc: "Relief food and supplies" },
 ];
 
+const TRUCK_CAPACITY_MT = 40;
+
+const EMPTY_CONTACT = { fullName: "", company: "", phone: "", email: "", website: "" };
+
+const inputClass =
+  "w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 font-sans text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors";
+const labelClass = "text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-2";
+
 export default function OperationsCalculatorSection() {
-  const [origin, setOrigin] = useState("djibouti");
-  const [destination, setDestination] = useState("addis_dest");
-  const [cargoType, setCargoType] = useState("container");
-  const [tonnage, setTonnage] = useState(38);
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState(DESTINATIONS[0]);
+  const [cargoType, setCargoType] = useState(CARGO_TYPES[0].id);
+  const [tonnage, setTonnage] = useState(40);
   const [includeCustoms, setIncludeCustoms] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [details, setDetails] = useState("");
+  const [contact, setContact] = useState(EMPTY_CONTACT);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
-  // Dynamic calculations
-  const selectedOrigin = ORIGINS.find((o) => o.value === origin) || ORIGINS[0];
-  const selectedDest = DESTINATIONS.find((d) => d.value === destination) || DESTINATIONS[0];
-  const selectedCargo = CARGO_TYPES.find((c) => c.id === cargoType) || CARGO_TYPES[0];
+  const selectedCargo = CARGO_TYPES.find((c) => c.id === cargoType) ?? CARGO_TYPES[0];
+  const trucksNeeded = Math.max(1, Math.ceil(tonnage / TRUCK_CAPACITY_MT));
 
-  const totalDaysMin = Math.max(1, selectedOrigin.baseDays + selectedDest.baseDays);
-  const totalDaysMax = totalDaysMin + 2;
+  const updateContact = (field: keyof typeof EMPTY_CONTACT) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setContact((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const baseRate = (selectedOrigin.ratePerTon + selectedDest.ratePerTon) * selectedCargo.multiplier;
-  const estimatedSubtotal = Math.round(baseRate * tonnage);
-  const customsFee = includeCustoms ? 350 : 0;
-  const estimatedTotal = estimatedSubtotal + customsFee;
-
-  const requiredTrucks = Math.max(1, Math.ceil(tonnage / 40));
-
-  const handleModalSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+    const cargo = [
+      `From: ${origin || "not specified"}`,
+      `To: ${destination}`,
+      `Cargo: ${selectedCargo.label}`,
+      `Approx. weight: ${tonnage} MT (~${trucksNeeded} truck${trucksNeeded > 1 ? "s" : ""})`,
+      `Customs clearance needed: ${includeCustoms ? "yes" : "no"}`,
+      details && `Notes: ${details}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+    try {
+      await submitInquiry({ ...contact, cargo, source: "operations-quote" });
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resetForm = () => {
+    setSubmitted(false);
+    setContact(EMPTY_CONTACT);
+    setOrigin("");
+    setDetails("");
   };
 
   return (
@@ -70,7 +90,7 @@ export default function OperationsCalculatorSection() {
       <div className="absolute top-1/2 right-1/4 w-[600px] h-[600px] bg-[#FF5A1F]/5 blur-[180px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-        
+
         {/* ========================================================
             HEADER ROW: TITLE & EXPLANATION
            ======================================================== */}
@@ -79,408 +99,257 @@ export default function OperationsCalculatorSection() {
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
               <span className="text-xs sm:text-[13px] font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
-                SECTION 03 • ALGORITHMIC FREIGHT ESTIMATOR
+                SECTION 03 • REQUEST A QUOTE
               </span>
             </div>
             <h2 className="font-headline text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white uppercase tracking-tight leading-[0.92]">
-              CALCULATE YOUR ROUTE, <br className="hidden sm:inline" />
-              TRANSIT TIME &amp; TARIFF.
+              TELL US ABOUT <br className="hidden sm:inline" />
+              YOUR SHIPMENT.
             </h2>
           </div>
 
           <p className="text-sm text-slate-300 font-sans max-w-lg leading-relaxed">
-            Real-time algorithmic dispatch estimates calibrated for Horn of Africa dry ports, container tariffs, out-of-gauge heavy lift configurations, and bonded customs clearance.
+            Share the route, cargo and approximate weight. Our team will review it and come back to you with a quotation and a transport plan.
           </p>
         </div>
 
-        {/* ========================================================
-            INTERACTIVE ESTIMATOR GRID
-           ======================================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* LEFT: CALCULATOR INPUT CONTROLS (lg:col-span-7) */}
-          <div className="lg:col-span-7 rounded-3xl bg-[#0D1322] border border-white/10 p-8 sm:p-12 shadow-2xl space-y-8">
-            
-            {/* 1. Origin & Destination Selectors */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-2">
-                  POINT OF ORIGIN (PORT / HUB)
-                </label>
-                <select
-                  value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-sans text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
-                >
-                  {ORIGINS.map((o) => (
-                    <option key={o.value} value={o.value} className="bg-[#0D1322] text-white">
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-2">
-                  DESTINATION (DRY PORT / PARK)
-                </label>
-                <select
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-sans text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
-                >
-                  {DESTINATIONS.map((d) => (
-                    <option key={d.value} value={d.value} className="bg-[#0D1322] text-white">
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        {submitted ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            role="status"
+            className="rounded-3xl bg-[#0E1528] border border-white/10 p-10 sm:p-16 shadow-2xl text-center max-w-3xl mx-auto"
+          >
+            <div className="w-16 h-16 rounded-full bg-[#FF5A1F]/20 text-[#FF5A1F] flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
             </div>
-
-            {/* 2. Cargo Category Selector */}
-            <div>
-              <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-3">
-                CARGO CLASSIFICATION &amp; SPECIFICATION
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {CARGO_TYPES.map((type) => {
-                  const isChecked = cargoType === type.id;
-                  return (
-                    <button
-                      key={type.id}
-                      type="button"
-                      onClick={() => setCargoType(type.id)}
-                      className={`p-4 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                        isChecked
-                          ? "bg-[#0E1528] border-[#FF5A1F] shadow-md shadow-[#FF5A1F]/15"
-                          : "bg-white/[0.02] border-white/10 hover:border-white/20"
-                      }`}
-                    >
-                      <span className="font-headline text-sm uppercase text-white font-bold block mb-1">
-                        {type.label}
-                      </span>
-                      <span className="text-[11px] text-slate-400 font-sans">
-                        {type.unitDesc}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 3. Weight / Tonnage Slider */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline">
-                  ESTIMATED CARGO TONNAGE
-                </label>
-                <span className="font-headline text-2xl text-[#FF5A1F] font-bold">
-                  {tonnage} METRIC TONS
-                </span>
-              </div>
-              <input
-                type="range"
-                min={1}
-                max={150}
-                value={tonnage}
-                onChange={(e) => setTonnage(Number(e.target.value))}
-                className="w-full h-2.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#FF5A1F]"
-              />
-              <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mt-2">
-                <span>1 MT (LCL / Sample)</span>
-                <span>40 MT (1 Full Truck)</span>
-                <span>80 MT (2 Trucks)</span>
-                <span>150 MT (Super Heavy Lift)</span>
-              </div>
-            </div>
-
-            {/* 4. Customs Clearance AEO Toggle */}
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-[#FF5A1F] shrink-0" />
-                <div>
-                  <span className="font-headline text-sm uppercase text-white font-bold block">
-                    ECC Authorized Economic Operator (AEO) Customs Brokerage
-                  </span>
-                  <span className="text-xs text-slate-400 font-sans">
-                    Includes expedited bonded manifest filing at Galafi and Modjo Dry Port (+$350 flat)
-                  </span>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setIncludeCustoms(!includeCustoms)}
-                className={`w-14 h-8 rounded-full p-1 transition-colors cursor-pointer shrink-0 ${
-                  includeCustoms ? "bg-[#FF5A1F]" : "bg-white/10"
-                }`}
-              >
-                <div
-                  className={`w-6 h-6 rounded-full bg-white transition-transform ${
-                    includeCustoms ? "translate-x-6" : "translate-x-0"
-                  }`}
-                />
-              </button>
-            </div>
-
-          </div>
-
-          {/* RIGHT: ALGORITHMIC ESTIMATION SUMMARY CARD (lg:col-span-5) */}
-          <div className="lg:col-span-5 rounded-3xl bg-[#0E1528] border border-white/10 p-8 sm:p-12 shadow-2xl flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F] font-headline">
-                  ESTIMATION BREAKDOWN
-                </span>
-                <span className="text-xs font-mono text-slate-400">
-                  REAL-TIME QUOTE
-                </span>
-              </div>
-
-              {/* Transit Time Box */}
-              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 mb-6 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-1">
-                    TRANSIT DURATION
-                  </span>
-                  <span className="font-headline text-3xl sm:text-4xl text-white font-bold">
-                    {totalDaysMin} – {totalDaysMax} DAYS
-                  </span>
-                </div>
-                <Clock className="w-8 h-8 text-[#FF5A1F] opacity-80" />
-              </div>
-
-              {/* Rolling Stock Allocation */}
-              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 mb-6 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-1">
-                    FLEET ALLOCATION REQUIRED
-                  </span>
-                  <span className="font-headline text-2xl text-white font-bold">
-                    {requiredTrucks}x {tonnage > 60 ? "Heavy Prime Movers / Lowbed" : "Prime Mover (40 MT Unit)"}
-                  </span>
-                  <span className="text-xs text-slate-400 block mt-0.5">
-                    {selectedCargo.unitDesc}
-                  </span>
-                </div>
-                <Truck className="w-8 h-8 text-[#FF5A1F] opacity-80" />
-              </div>
-
-              {/* Rate Range Output */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-[#1B223D] to-[#0E1528] border border-white/15 mb-6">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-1">
-                  ESTIMATED FREIGHT TARIFF BRACKET
-                </span>
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-headline text-4xl sm:text-5xl text-white font-extrabold">
-                    ${estimatedTotal.toLocaleString()}
-                  </span>
-                  <span className="text-xs font-mono text-slate-400 uppercase">
-                    USD Baseline
-                  </span>
-                </div>
-                <div className="text-[11px] text-slate-400 font-sans space-y-1 pt-2 border-t border-white/10">
-                  <div className="flex justify-between">
-                    <span>Haulage Baseline ({tonnage} MT @ ${baseRate.toFixed(1)}/MT):</span>
-                    <span className="text-white">${estimatedSubtotal.toLocaleString()}</span>
-                  </div>
-                  {includeCustoms && (
-                    <div className="flex justify-between">
-                      <span>AEO Customs Brokerage &amp; Staging:</span>
-                      <span className="text-emerald-400">+$350</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Button Opening Dispatch Modal */}
-            <div className="pt-4">
-              <button
-                type="button"
-                onClick={() => setModalOpen(true)}
-                className="group mvp-bubble-btn w-full py-5 rounded-2xl shadow-[0_15px_40px_rgba(255,90,31,0.25)] font-headline text-xl sm:text-2xl tracking-wider uppercase flex items-center justify-center gap-3 bg-[#FF5A1F] text-white cursor-pointer select-none transition-all"
-              >
-                <span className="sr-only">{"REQUEST FORMAL TENDER ALLOCATION"}</span>
-                <span className="mvp-text-clip" aria-hidden="true">
-                  <span className="inline-flex">
-                    {"REQUEST FORMAL TENDER ALLOCATION".split("").map((c, i) => (
-                      <span
-                        key={`c1-${i}`}
-                        className="mvp-char-primary"
-                        style={{ transitionDelay: `${i * 10}ms` }}
-                      >
-                        {c === " " ? "\u00A0" : c}
-                      </span>
-                    ))}
-                  </span>
-                  <span className="inline-flex absolute top-0 left-0 w-full pointer-events-none">
-                    {"REQUEST FORMAL TENDER ALLOCATION".split("").map((c, i) => (
-                      <span
-                        key={`c2-${i}`}
-                        className="mvp-char-secondary"
-                        style={{ transitionDelay: `${i * 10}ms` }}
-                      >
-                        {c === " " ? "\u00A0" : c}
-                      </span>
-                    ))}
-                  </span>
-                </span>
-                <ArrowUpRight className="w-5 h-5 stroke-[2.5] relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
-              <span className="text-[11px] text-slate-400 font-sans block text-center mt-2.5">
-                Official commercial rate contracts guaranteed within 2 hours.
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* ========================================================
-          DISPATCH TENDER REQUEST MODAL OVERLAY
-         ======================================================== */}
-      <AnimatePresence>
-        {modalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setModalOpen(false)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.35 }}
-              className="relative w-full max-w-2xl bg-[#0E1224] border border-white/20 rounded-[28px] p-6 sm:p-10 shadow-2xl z-10 text-white overflow-hidden max-h-[90vh] overflow-y-auto"
+            <h3 className="font-headline text-3xl sm:text-4xl text-white uppercase mb-3">
+              QUOTE REQUEST RECEIVED
+            </h3>
+            <p className="text-sm text-slate-300 max-w-md mx-auto mb-8 font-sans">
+              Thank you. Our team at the Ambasel Building office will review your shipment details and get back to you.
+            </p>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="py-3 px-8 rounded-xl bg-white text-[#0E1224] font-headline text-lg uppercase tracking-wider hover:bg-[#FF5A1F] hover:text-white transition-colors cursor-pointer"
             >
-              <button
-                onClick={() => setModalOpen(false)}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer transition-colors"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              REQUEST ANOTHER QUOTE
+            </button>
+          </motion.div>
+        ) : (
+          <form onSubmit={handleSubmit} aria-busy={isLoading} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Honeypot: off-screen and hidden from assistive tech; only bots fill it */}
+            <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+              <label htmlFor="quote-website">Website</label>
+              <input id="quote-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={contact.website} onChange={updateContact("website")} />
+            </div>
 
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
-                <span className="text-xs font-bold tracking-[0.2em] text-[#FF5A1F] uppercase font-headline">
-                  FORMAL TENDER DISPATCH
-                </span>
+            {/* LEFT: SHIPMENT DETAILS (lg:col-span-7) */}
+            <fieldset className="lg:col-span-7 rounded-3xl bg-[#0D1322] border border-white/10 p-8 sm:p-12 shadow-2xl space-y-8">
+              <legend className="sr-only">Shipment details</legend>
+
+              {/* 1. Origin & Destination */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="quote-origin" className={labelClass}>
+                    PICK-UP LOCATION
+                  </label>
+                  <input
+                    id="quote-origin"
+                    name="origin"
+                    type="text"
+                    value={origin}
+                    onChange={(e) => setOrigin(e.target.value)}
+                    placeholder="e.g. port of entry, warehouse or city"
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="quote-destination" className={labelClass}>
+                    DESTINATION
+                  </label>
+                  <select
+                    id="quote-destination"
+                    name="destination"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                    className={inputClass}
+                  >
+                    {DESTINATIONS.map((d) => (
+                      <option key={d} value={d} className="bg-[#0D1322] text-white">
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <h2 className="font-headline text-3xl sm:text-4xl text-white uppercase leading-tight mb-2">
-                LOCK YOUR FLEET ALLOCATION
-              </h2>
-
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 font-sans">
-                Submitting calculated estimate for <strong>{tonnage} MT</strong> ({selectedCargo.label}) from <strong>{selectedOrigin.label}</strong> to <strong>{selectedDest.label}</strong>.
-              </p>
-
-              {submitted ? (
-                <div className="py-10 text-center">
-                  <div className="w-16 h-16 rounded-full bg-[#FF5A1F]/20 text-[#FF5A1F] flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h3 className="font-headline text-3xl text-white uppercase mb-2">
-                    TENDER REQUEST DISPATCHED
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 max-w-sm mx-auto mb-6">
-                    Our operations room at Wollo Sefer headquarters will review your specifications and contact your enterprise within 2 hours.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setModalOpen(false);
-                    }}
-                    className="py-3 px-8 rounded-xl bg-white text-[#0E1224] font-headline text-lg uppercase tracking-wider hover:bg-[#FF5A1F] hover:text-white transition-colors"
-                  >
-                    CLOSE WINDOW
-                  </button>
+              {/* 2. Cargo type */}
+              <div role="radiogroup" aria-labelledby="quote-cargo-label">
+                <span id="quote-cargo-label" className={`${labelClass} mb-3`}>
+                  CARGO TYPE
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {CARGO_TYPES.map((type) => {
+                    const isChecked = cargoType === type.id;
+                    return (
+                      <button
+                        key={type.id}
+                        type="button"
+                        role="radio"
+                        aria-checked={isChecked}
+                        onClick={() => setCargoType(type.id)}
+                        className={`p-4 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                          isChecked
+                            ? "bg-[#0E1528] border-[#FF5A1F] shadow-md shadow-[#FF5A1F]/15"
+                            : "bg-white/[0.02] border-white/10 hover:border-white/20"
+                        }`}
+                      >
+                        <span className="font-headline text-sm uppercase text-white font-bold block mb-1">
+                          {type.label}
+                        </span>
+                        <span className="text-[11px] text-slate-400 font-sans">{type.desc}</span>
+                      </button>
+                    );
+                  })}
                 </div>
-              ) : (
-                <form onSubmit={handleModalSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1 font-headline">
-                        FULL NAME *
-                      </label>
-                      <input
-                        required
-                        type="text"
-                        placeholder="e.g. Temesgen Yohannes"
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1 font-headline">
-                        COMPANY / ORGANIZATION *
-                      </label>
-                      <input
-                        required
-                        type="text"
-                        placeholder="e.g. Commercial Importer / Agency"
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
-                      />
-                    </div>
-                  </div>
+              </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1 font-headline">
-                        PHONE NUMBER *
-                      </label>
-                      <input
-                        required
-                        type="tel"
-                        placeholder="+251 91 124 8830"
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-1 font-headline">
-                        EMAIL ADDRESS *
-                      </label>
-                      <input
-                        required
-                        type="email"
-                        placeholder="client@company.com"
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:border-[#FF5A1F] focus:outline-none transition-colors"
-                      />
-                    </div>
-                  </div>
+              {/* 3. Approximate weight */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <label htmlFor="quote-tonnage" className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline">
+                    APPROXIMATE WEIGHT
+                  </label>
+                  <span className="font-headline text-2xl text-[#FF5A1F] font-bold">
+                    {tonnage} METRIC TONS
+                  </span>
+                </div>
+                <input
+                  id="quote-tonnage"
+                  type="range"
+                  min={1}
+                  max={400}
+                  value={tonnage}
+                  onChange={(e) => setTonnage(Number(e.target.value))}
+                  className="w-full h-2.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#FF5A1F]"
+                />
+                <div className="flex items-center gap-2 text-xs text-slate-400 font-sans mt-3">
+                  <Truck className="w-4 h-4 text-[#FF5A1F]" aria-hidden="true" />
+                  <span>
+                    About {trucksNeeded} truck{trucksNeeded > 1 ? "s" : ""} at {TRUCK_CAPACITY_MT} MT each. Our fleet of 76 trucks moves up to 2,916 MT at a time.
+                  </span>
+                </div>
+              </div>
 
-                  <button
-                    type="submit"
-                    className="w-full py-4 rounded-xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 text-white font-headline text-xl tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer mt-3 shadow-lg shadow-[#FF5A1F]/30"
-                  >
-                    <span>SUBMIT FORMAL TENDER ALLOCATION</span>
-                    <Send className="w-4 h-4" />
-                  </button>
-
-                  <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/10 text-xs text-slate-400 font-sans">
-                    <div className="flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-[#FF5A1F]" />
-                      <span>+251 11 470 2031</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Mail className="w-3.5 h-3.5 text-[#FF5A1F]" />
-                      <span>express@expressptl.com</span>
-                    </div>
+              {/* 4. Customs clearance */}
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <ShieldCheck className="w-5 h-5 text-[#FF5A1F] shrink-0" aria-hidden="true" />
+                  <div>
+                    <span id="quote-customs-label" className="font-headline text-sm uppercase text-white font-bold block">
+                      I NEED CUSTOMS CLEARANCE
+                    </span>
+                    <span className="text-xs text-slate-400 font-sans">
+                      We can handle customs clearing and cargo forwarding for you.
+                    </span>
                   </div>
-                </form>
+                </div>
+
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={includeCustoms}
+                  aria-labelledby="quote-customs-label"
+                  onClick={() => setIncludeCustoms(!includeCustoms)}
+                  className={`w-14 h-8 rounded-full p-1 transition-colors cursor-pointer shrink-0 ${
+                    includeCustoms ? "bg-[#FF5A1F]" : "bg-white/10"
+                  }`}
+                >
+                  <div
+                    className={`w-6 h-6 rounded-full bg-white transition-transform ${
+                      includeCustoms ? "translate-x-6" : "translate-x-0"
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* 5. Notes */}
+              <div>
+                <label htmlFor="quote-details" className={labelClass}>
+                  ANYTHING ELSE WE SHOULD KNOW (OPTIONAL)
+                </label>
+                <textarea
+                  id="quote-details"
+                  name="details"
+                  rows={3}
+                  value={details}
+                  onChange={(e) => setDetails(e.target.value)}
+                  placeholder="e.g. number of containers, preferred dates, special handling"
+                  className={`${inputClass} resize-none`}
+                />
+              </div>
+            </fieldset>
+
+            {/* RIGHT: CONTACT DETAILS (lg:col-span-5) */}
+            <fieldset className="lg:col-span-5 rounded-3xl bg-[#0E1528] border border-white/10 p-8 sm:p-12 shadow-2xl flex flex-col gap-5">
+              <legend className="sr-only">Your contact details</legend>
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F] font-headline">
+                  YOUR DETAILS
+                </span>
+                <span className="text-xs font-mono text-slate-400">* REQUIRED</span>
+              </div>
+
+              <div>
+                <label htmlFor="quote-fullName" className={labelClass}>FULL NAME *</label>
+                <input id="quote-fullName" name="fullName" type="text" autoComplete="name" required value={contact.fullName} onChange={updateContact("fullName")} placeholder="e.g. Dawit Haile" className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="quote-company" className={labelClass}>COMPANY / ORGANIZATION</label>
+                <input id="quote-company" name="company" type="text" autoComplete="organization" value={contact.company} onChange={updateContact("company")} placeholder="e.g. importer, manufacturer or aid agency" className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="quote-phone" className={labelClass}>PHONE NUMBER *</label>
+                <input id="quote-phone" name="phone" type="tel" autoComplete="tel" required value={contact.phone} onChange={updateContact("phone")} placeholder="+251 91 124 8830" className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="quote-email" className={labelClass}>E-MAIL ADDRESS</label>
+                <input id="quote-email" name="email" type="email" autoComplete="email" value={contact.email} onChange={updateContact("email")} placeholder="client@company.com" className={inputClass} />
+              </div>
+
+              {error && (
+                <p role="alert" className="rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200 font-sans">
+                  {error}
+                </p>
               )}
-            </motion.div>
-          </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-5 rounded-2xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 disabled:opacity-60 disabled:cursor-wait text-white font-headline text-xl sm:text-2xl tracking-wider uppercase flex items-center justify-center gap-3 cursor-pointer shadow-[0_15px_40px_rgba(255,90,31,0.25)] transition-colors mt-2"
+              >
+                <span>{isLoading ? "SENDING…" : "REQUEST A QUOTE"}</span>
+                <Send className="w-5 h-5" aria-hidden="true" />
+              </button>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-white/10 text-xs text-slate-400 font-sans">
+                <a href="tel:+251114702031" className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Phone className="w-3.5 h-3.5 text-[#FF5A1F]" aria-hidden="true" />
+                  <span>+251 11 470 2031</span>
+                </a>
+                <a href="mailto:express@expressptl.com" className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Mail className="w-3.5 h-3.5 text-[#FF5A1F]" aria-hidden="true" />
+                  <span>express@expressptl.com</span>
+                </a>
+              </div>
+              <span className="text-[11px] text-slate-500 font-sans">Office hours: Mon–Sat 8:00–18:30, Sunday closed.</span>
+            </fieldset>
+          </form>
         )}
-      </AnimatePresence>
+      </div>
     </section>
   );
 }

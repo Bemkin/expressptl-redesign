@@ -2,110 +2,73 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Radio } from "lucide-react";
+import { MapPin } from "lucide-react";
 
-interface TradeCorridor {
+// Source: Express PTL's published humanitarian aid cargo delivery record (expressptl.com), 2022–2026.
+interface DeliveryRecord {
   id: string;
-  name: string;
-  tag: string;
-  route: string;
-  distance: string;
-  transitTime: string;
-  borderPost: string;
-  significance: string;
-  checkpoints: string[];
-  telemetryStatus: string;
-  specialty: string;
+  label: string;
+  unit: string;
+  total: number;
+  byDestination: { name: string; value: number }[];
+  byYear: { year: string; value: number }[];
 }
 
-const TRADE_CORRIDORS: TradeCorridor[] = [
+const RECORDS: DeliveryRecord[] = [
   {
-    id: "djibouti",
-    name: "DJIBOUTI – ADDIS ABABA STRATEGIC LIFELINE",
-    tag: "PRIMARY ARTERY • >90% NATIONAL VOLUME",
-    route: "Port of Djibouti (Doraleh) → Galafi Border → Modjo Dry Port → Addis Ababa",
-    distance: "910 KM",
-    transitTime: "3 – 4 Days (FCL) / 4 – 6 Days (OOG)",
-    borderPost: "Galafi / Dewele (ECC AEO Priority Fast-Track)",
-    significance:
-      "The undisputed economic lifeline of Ethiopia. Carries over 90% of national containerized imports, capital infrastructure equipment, and international export commodities under bonded customs escort.",
-    checkpoints: [
-      "Doraleh Container Terminal (Djibouti Port)",
-      "Galafi One-Stop Customs Border Post",
-      "Awash Waystation & Relay Depot",
-      "Modjo Multimodal Dry Port Hub",
-      "Bole Bulbula Heavy Fleet Terminal (Addis Ababa)",
+    id: "bulk",
+    label: "BULK CARGO",
+    unit: "MT",
+    total: 158636,
+    byDestination: [
+      { name: "Kombolcha", value: 71683 },
+      { name: "Adama", value: 28215 },
+      { name: "Mekelle", value: 26136 },
+      { name: "Hawassa", value: 14185 },
+      { name: "Addis Ababa", value: 6400 },
+      { name: "Dire Dawa", value: 5467 },
+      { name: "Bahir Dar", value: 2690 },
+      { name: "Nefas Mewcha", value: 2000 },
+      { name: "Semera", value: 960 },
+      { name: "Dessie", value: 900 },
     ],
-    telemetryStatus: "Active Continuous GPS Tracking (100% Corridor Visibility)",
-    specialty: "Heavy transformers, containerized industrial lines, AEO customs bonded clearance",
+    byYear: [
+      { year: "2022", value: 77096 },
+      { year: "2023", value: 22220 },
+      { year: "2024", value: 6400 },
+      { year: "2025", value: 52920 },
+    ],
   },
   {
-    id: "berbera",
-    name: "BERBERA – EASTERN ETHIOPIA ARTERY",
-    tag: "STRATEGIC DIVERSIFICATION ARTERY",
-    route: "Berbera Deepwater Port → Tog Wajaale → Jigjiga → Dire Dawa → Addis Ababa",
-    distance: "880 KM",
-    transitTime: "3 – 5 Days",
-    borderPost: "Tog Wajaale One-Stop Customs Post",
-    significance:
-      "Strategic eastern maritime access corridor connecting the modernized deepwater port at Berbera directly to the Dire Dawa Free Trade Zone, industrial parks, and eastern agricultural producers.",
-    checkpoints: [
-      "Berbera DP World Maritime Berth",
-      "Tog Wajaale Customs Border Gate",
-      "Jigjiga Logistics Station",
-      "Dire Dawa Dry Port & Free Trade Zone",
-      "Modjo Dry Port Relay Station",
+    id: "containers",
+    label: "CONTAINERIZED CARGO",
+    unit: "containers",
+    total: 2188,
+    byDestination: [
+      { name: "Kombolcha", value: 880 },
+      { name: "Mekelle", value: 525 },
+      { name: "Adama", value: 263 },
+      { name: "Hawassa", value: 244 },
+      { name: "Nefas Mewcha", value: 144 },
+      { name: "Dire Dawa", value: 119 },
+      { name: "Semera", value: 13 },
     ],
-    telemetryStatus: "Satellite Geo-Fenced Corridor Monitoring",
-    specialty: "Industrial park container transfers, breakbulk machinery, regional export cargo",
-  },
-  {
-    id: "moyale",
-    name: "MOYALE – SOUTHERN KENYA GATEWAY (LAPSSET)",
-    tag: "REGIONAL INTER-STATE LINK",
-    route: "Port of Mombasa / Lamu → Moyale OSBP → Hawassa Industrial Park → Addis Ababa",
-    distance: "1,260 KM",
-    transitTime: "4 – 6 Days",
-    borderPost: "Moyale One-Stop Border Post (OSBP)",
-    significance:
-      "High-speed modern asphalt artery connecting the Indian Ocean seaports of Kenya directly to southern Ethiopia's textile hubs, manufacturing parks, and capital consumer markets.",
-    checkpoints: [
-      "Mombasa / Lamu Deepwater Terminal",
-      "Isiolo Transit Relay Depot",
-      "Moyale One-Stop Border Station",
-      "Hawassa Industrial Park Terminal",
-      "Addis Ababa Logistics Depot",
+    byYear: [
+      { year: "2022", value: 514 },
+      { year: "2023", value: 729 },
+      { year: "2024", value: 334 },
+      { year: "2025", value: 512 },
+      { year: "2026", value: 99 },
     ],
-    telemetryStatus: "Real-Time Inter-State Axle Telemetry",
-    specialty: "Cross-border consumer cargo, project construction steel, industrial raw materials",
-  },
-  {
-    id: "metema",
-    name: "SUDAN – METEMA RED SEA EXPORT ARTERY",
-    tag: "NORTHWESTERN AGRO-EXPORT ARTERY",
-    route: "Port Sudan → Gedaref → Metema Border → Gondar → Bahir Dar",
-    distance: "860 KM",
-    transitTime: "4 – 5 Days",
-    borderPost: "Metema / Gallabat Border Crossing",
-    significance:
-      "Crucial overland export artery providing direct Red Sea maritime access for Amhara agricultural exporters, handling high-value sesame seed exports, pulses, and UN relief cargo.",
-    checkpoints: [
-      "Port Sudan Bulk Terminal",
-      "Gedaref Logistics Relay Station",
-      "Metema Customs Clearing Gate",
-      "Gondar Agro-Logistics Depot",
-      "Bahir Dar Industrial Hub",
-    ],
-    telemetryStatus: "GPS Armed Convoy Escort Monitoring",
-    specialty: "Bulk sesame seed hoppers, coffee export containers, emergency aid supplies",
   },
 ];
 
-export default function OperationsCorridorsSection() {
-  const [activeCorridorId, setActiveCorridorId] = useState<string>("djibouti");
+const fmt = (n: number) => n.toLocaleString("en-US");
 
-  const activeCorridor =
-    TRADE_CORRIDORS.find((c) => c.id === activeCorridorId) || TRADE_CORRIDORS[0];
+export default function OperationsCorridorsSection() {
+  const [activeId, setActiveId] = useState<string>(RECORDS[0].id);
+  const active = RECORDS.find((r) => r.id === activeId) ?? RECORDS[0];
+  const maxDest = Math.max(...active.byDestination.map((d) => d.value));
 
   return (
     <section id="corridors" className="py-24 sm:py-32 lg:py-40 bg-[#070B14] text-white border-b border-white/10 select-none relative overflow-hidden">
@@ -113,40 +76,44 @@ export default function OperationsCorridorsSection() {
       <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-[#1F1F61]/20 blur-[180px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-        
+
         {/* ========================================================
-            HEADER ROW: TITLE & CORRIDOR NETWORK SUMMARY
+            HEADER ROW
            ======================================================== */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 sm:mb-20">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
               <span className="text-xs sm:text-[13px] font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
-                SECTION 02 • REGIONAL TRANSIT INFRASTRUCTURE
+                SECTION 02 • WHERE WE DELIVER
               </span>
             </div>
             <h2 className="font-headline text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white uppercase tracking-tight leading-[0.92]">
-              STRATEGIC TRADE CORRIDORS &amp; <br className="hidden sm:inline" />
-              CROSS-BORDER ARTERIES.
+              HUMANITARIAN CARGO <br className="hidden sm:inline" />
+              DELIVERED ACROSS ETHIOPIA.
             </h2>
           </div>
 
           <p className="text-sm text-slate-300 font-sans max-w-lg leading-relaxed">
-            Express PTL operates scheduled convoy dispatches and synchronous heavy haulage along all primary freight corridors connecting deepwater Red Sea and Indian Ocean ports to landlocked Ethiopian dry ports.
+            We transport bulk, containerized and commercial cargo across major trade routes, with a special focus on humanitarian aid. This is our aid cargo delivery record from 2022 to 2026.
           </p>
         </div>
 
         {/* ========================================================
-            CORRIDOR SELECTOR TABS
+            CARGO TYPE TABS
            ======================================================== */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-          {TRADE_CORRIDORS.map((corridor) => {
-            const isActive = corridor.id === activeCorridorId;
+        <div role="tablist" aria-label="Cargo type" className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+          {RECORDS.map((record) => {
+            const isActive = record.id === activeId;
             return (
               <button
-                key={corridor.id}
-                onClick={() => setActiveCorridorId(corridor.id)}
-                className={`p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                key={record.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls="delivery-panel"
+                onClick={() => setActiveId(record.id)}
+                className={`p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-end justify-between gap-4 ${
                   isActive
                     ? "bg-[#0E1528] border-[#FF5A1F] shadow-lg shadow-[#FF5A1F]/15 scale-[1.01]"
                     : "bg-[#0A0E1A]/80 border-white/10 hover:border-white/20 hover:bg-[#0E1528]/50"
@@ -154,132 +121,77 @@ export default function OperationsCorridorsSection() {
               >
                 <div>
                   <span className="text-[10px] font-bold tracking-wider uppercase text-[#FF5A1F] font-headline block mb-1">
-                    {corridor.tag}
+                    2022 – 2026
                   </span>
-                  <h3 className="font-headline text-lg sm:text-xl text-white uppercase tracking-wide leading-tight mb-3">
-                    {corridor.name}
+                  <h3 className="font-headline text-lg sm:text-xl text-white uppercase tracking-wide leading-tight">
+                    {record.label}
                   </h3>
                 </div>
-
-                <div className="flex items-center justify-between text-xs font-mono text-slate-400 pt-3 border-t border-white/10">
-                  <span>{corridor.distance}</span>
-                  <span className="text-white font-bold">{corridor.transitTime}</span>
-                </div>
+                <span className="font-headline text-3xl sm:text-4xl text-white font-bold whitespace-nowrap">
+                  {fmt(record.total)} <span className="text-sm text-slate-400 uppercase">{record.unit}</span>
+                </span>
               </button>
             );
           })}
         </div>
 
         {/* ========================================================
-            ACTIVE CORRIDOR DETAIL CARD & WAYPOINTS
+            ACTIVE RECORD: BY DESTINATION + BY YEAR
            ======================================================== */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeCorridor.id}
+            key={active.id}
+            id="delivery-panel"
+            role="tabpanel"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="rounded-3xl bg-[#0D1322] border border-white/10 p-8 sm:p-12 lg:p-16 shadow-2xl"
+            className="rounded-3xl bg-[#0D1322] border border-white/10 p-8 sm:p-12 lg:p-16 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16"
           >
-            {/* Top Corridor Specs Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-8 border-b border-white/10 gap-6 mb-8">
-              <div>
-                <span className="text-xs font-bold tracking-widest uppercase text-[#FF5A1F] font-headline block mb-2">
-                  {activeCorridor.tag}
-                </span>
-                <h3 className="font-headline text-3xl sm:text-5xl text-white uppercase tracking-tight">
-                  {activeCorridor.name}
-                </h3>
-              </div>
-
-              {/* Stat Chips */}
-              <div className="flex flex-wrap items-center gap-4">
-                <div className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-center">
-                  <span className="text-[10px] uppercase tracking-wider text-slate-400 block font-headline">
-                    Route Distance
-                  </span>
-                  <span className="font-headline text-2xl text-white font-bold">
-                    {activeCorridor.distance}
-                  </span>
-                </div>
-
-                <div className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-center">
-                  <span className="text-[10px] uppercase tracking-wider text-slate-400 block font-headline">
-                    Average Transit
-                  </span>
-                  <span className="font-headline text-2xl text-[#FF5A1F] font-bold">
-                    {activeCorridor.transitTime}
-                  </span>
-                </div>
-
-                <div className="px-5 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center">
-                  <span className="text-[10px] uppercase tracking-wider text-emerald-400 block font-headline">
-                    Customs Protocol
-                  </span>
-                  <span className="font-headline text-sm text-emerald-300 font-bold">
-                    AEO PRIORITY
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Middle: Corridor Description & Telemetry Status */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10 items-start">
-              <div className="lg:col-span-8">
-                <p className="text-sm sm:text-base text-slate-300 font-sans leading-relaxed mb-6">
-                  {activeCorridor.significance}
-                </p>
-
-                <div className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-slate-300">
-                  <Radio className="w-4 h-4 text-[#FF5A1F] shrink-0 animate-pulse" />
-                  <span><strong>Corridor Telematics:</strong> {activeCorridor.telemetryStatus}</span>
-                </div>
-              </div>
-
-              <div className="lg:col-span-4 p-5 rounded-2xl bg-white/[0.02] border border-white/10">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-headline block mb-2">
-                  PRIMARY CARGO SPECIALTY
-                </span>
-                <p className="text-xs text-slate-300 font-sans leading-relaxed">
-                  {activeCorridor.specialty}
-                </p>
-                <div className="mt-4 pt-3 border-t border-white/10 text-[11px] text-slate-400 font-mono">
-                  Border: {activeCorridor.borderPost}
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom: Sequenced Transit Checkpoints (The Lifeline Pipeline) */}
-            <div>
+            {/* By destination */}
+            <div className="lg:col-span-8">
               <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F] font-headline block mb-6">
-                TRANSIT STAGING &amp; CLEARANCE CHECKPOINTS
+                DELIVERED BY DESTINATION ({active.unit.toUpperCase()})
               </span>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                {activeCorridor.checkpoints.map((cp, idx) => (
-                  <div
-                    key={cp}
-                    className="p-4 rounded-xl bg-white/5 border border-white/10 relative flex flex-col justify-between"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="w-6 h-6 rounded-full bg-[#FF5A1F]/20 text-[#FF5A1F] flex items-center justify-center font-headline text-xs font-bold">
-                        0{idx + 1}
-                      </span>
-                      {idx === 0 ? (
-                        <span className="text-[9px] uppercase font-mono text-emerald-400 font-bold">Origin</span>
-                      ) : idx === activeCorridor.checkpoints.length - 1 ? (
-                        <span className="text-[9px] uppercase font-mono text-[#FF5A1F] font-bold">Terminal</span>
-                      ) : (
-                        <span className="text-[9px] uppercase font-mono text-slate-400">Waystation</span>
-                      )}
-                    </div>
-                    <span className="font-headline text-sm sm:text-base text-white uppercase leading-snug">
-                      {cp}
+              <ul className="space-y-3">
+                {active.byDestination.map((d) => (
+                  <li key={d.name} className="grid grid-cols-[8.5rem_1fr_auto] sm:grid-cols-[10rem_1fr_6rem] items-center gap-3 sm:gap-4">
+                    <span className="flex items-center gap-2 font-headline text-sm sm:text-base text-white uppercase">
+                      <MapPin className="w-3.5 h-3.5 text-[#FF5A1F] shrink-0" aria-hidden="true" />
+                      {d.name}
                     </span>
+                    <span className="h-3 rounded-full bg-white/5 overflow-hidden" aria-hidden="true">
+                      <motion.span
+                        className="block h-full rounded-full bg-[#FF5A1F]"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${(d.value / maxDest) * 100}%` }}
+                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                      />
+                    </span>
+                    <span className="font-mono text-xs sm:text-sm text-slate-300 text-right tabular-nums">
+                      {fmt(d.value)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* By year */}
+            <div className="lg:col-span-4">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F] font-headline block mb-6">
+                DELIVERED BY YEAR
+              </span>
+              <dl className="space-y-3">
+                {active.byYear.map((y) => (
+                  <div key={y.year} className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
+                    <dt className="font-headline text-lg text-slate-300">{y.year}</dt>
+                    <dd className="font-headline text-2xl text-white font-bold tabular-nums">
+                      {fmt(y.value)} <span className="text-xs text-slate-400 uppercase">{active.unit}</span>
+                    </dd>
                   </div>
                 ))}
-              </div>
+              </dl>
             </div>
           </motion.div>
         </AnimatePresence>

@@ -35,7 +35,7 @@ export default function AboutHero() {
         >
           <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
           <span className="text-xs sm:text-sm font-extrabold tracking-[0.25em] text-[#FF5A1F] uppercase">
-            SINCE 2013 • OVERLAND MASTER CARRIER
+            SINCE 2013 • TRANSPORT & LOGISTICS
           </span>
         </motion.div>
 
@@ -98,16 +98,16 @@ export default function AboutHero() {
         >
           <div className="lg:col-span-7">
             <h2 className="font-headline text-2xl sm:text-3xl lg:text-4xl text-white uppercase tracking-tight leading-snug">
-              A professional logistics enterprise with extensive heavy-haul & supply chain mastery across East Africa.
+              A professional transport and logistics company, operating across Ethiopia since 2013.
             </h2>
           </div>
 
           <div className="lg:col-span-5 space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
             <p>
-              Over the last ten years, Express Transport and Logistics has forged a stellar reputation for quality, transparency, and operational reliability. We are proud to support some of the most prominent multinational organizations in Ethiopia to achieve supply chain excellence.
+              Since 2013, Express Transport and Logistics has built a reputation for quality, transparency, and reliability. We are proud to support some of the most prominent multinational organizations in Ethiopia to achieve supply chain excellence.
             </p>
             <p className="text-slate-400 text-xs sm:text-sm">
-              Our commitment to our clients is unwavering: delivering world-class transport, customs brokerage, and bonded container clearance in challenging operating environments.
+              Our commitment to our clients is to provide world class service in a challenging environment: transport, customs clearing, freight forwarding, warehousing, and distribution.
             </p>
           </div>
         </motion.div>

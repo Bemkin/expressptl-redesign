@@ -10,21 +10,21 @@ import ContactFormSection from "@/components/contact/ContactFormSection";
 export const metadata: Metadata = {
   title: "Contacts | Express Transport & Logistics (Express PTL)",
   description:
-    "Get in touch with Express PTL's executive dispatch room and corporate headquarters at Ambasel Building, Addis Ababa. Direct communications for heavy haulage tenders, cross-border Djibouti corridor manifests, and 24/7 fleet coordination.",
+    "Contact Express Transport and Logistics at Ambasel Building, Wollo Sefer, Addis Ababa. Call +251 11 470 2031 or +251 91 124 8830, or e-mail express@expressptl.com. Open Mon–Sat 8:00–18:30.",
   keywords: [
     "Express PTL contacts",
     "Ethiopia transport contact",
-    "Addis Ababa freight dispatch",
+    "Addis Ababa freight forwarding",
     "Ambasel building logistics",
     "Temesgen Yohannes",
     "Melaku Yenew",
-    "Djibouti corridor freight phone",
-    "heavy haulage quotation Ethiopia",
+    "customs clearance Addis Ababa",
+    "transport quotation Ethiopia",
   ],
   openGraph: {
     title: "Contacts | Express Transport & Logistics (Express PTL)",
     description:
-      "Direct communications for heavy haulage, cross-border multimodal transport, and project cargo across Ethiopia and East Africa.",
+      "Reach our Addis Ababa headquarters for freight forwarding, customs clearing, transport and warehousing in Ethiopia.",
     url: "/contact",
     siteName: "Express Transport & Logistics",
     images: [shareImage],
@@ -41,10 +41,10 @@ export default function ContactPage() {
       {/* 2. Section 1: Hero Contacts with Executive Leadership Portraits (Temesgen Yohannes & Melaku Yenew) */}
       <ContactHero />
 
-      {/* 3. Section 2: Info Contacts Typographic List (Emails, Phones, Facilities, Channels) */}
+      {/* 3. Section 2: Info Contacts Typographic List (E-mail, Phones, Office, Hours) */}
       <ContactInfoList />
 
-      {/* 4. Section 3: Interactive Dark-Mode Logistics Hubs Map (Ambasel HQ & Bole Bulbula Depot) */}
+      {/* 4. Section 3: Dark-Mode Headquarters Map (Ambasel Building, Wollo Sefer) */}
       <ContactMapSection />
 
       {/* 5. Section 4: Scale-Block Contact & Feedback Card (Homepage Theme) */}

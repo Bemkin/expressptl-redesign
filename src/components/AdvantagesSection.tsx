@@ -17,40 +17,40 @@ interface AdvantageItem {
 const ADVANTAGES_LIST: AdvantageItem[] = [
   {
     id: "01",
-    title: "OPERATING CONTINUOUSLY SINCE 2013",
-    desc: "over a decade of proven reputation for quality, transparency, and operational reliability across Ethiopia and regional trade corridors.",
+    title: "OPERATING SINCE 2013",
+    desc: "a reputation for quality, transparency, and reliability, built across Ethiopia and major trade routes.",
     icon: <Compass className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "02",
-    title: "76 ACTIVE HEAVY TRUCKS",
-    desc: "100% company-owned late-model prime movers with 40 MT payload each, real-time GPS telemetry, and dual-driver shifts.",
+    title: "76 ACTIVE TRUCKS, ALL NEW",
+    desc: "a modern, new fleet with a 40 MT capacity per truck.",
     icon: <Truck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "03",
-    title: "2,916 MT SYNCHRONOUS LIFT",
-    desc: "the largest private single-dispatch heavy lift capability in Ethiopia, transporting bulk, containerized, and emergency relief cargo.",
+    title: "2,916 MT AT A TIME",
+    desc: "our total fleet capacity at a time, for bulk, containerized, commercial, and humanitarian aid cargo.",
     isKey: true,
     stat: "40 MT Per Unit",
     icon: <ShieldCheck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "04",
-    title: "CUSTOMS CLEARANCE & BONDED TRANSIT",
-    desc: "seamless, compliant customs clearance and container staging at Galafi, Modjo Dry Port, and Kality logistics terminal.",
+    title: "CUSTOMS CLEARANCE & FORWARDING",
+    desc: "customs clearance, cargo forwarding, and warehouse rental for imports and exports.",
     icon: <Warehouse className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "05",
-    title: "HUMANITARIAN RELIEF CARRIER",
-    desc: "audited and trusted long-haul carrier for UN agencies, meeting international operational standards for emergency food and medical aid.",
+    title: "HUMANITARIAN AID CARGO",
+    desc: "158,636 MT of bulk aid cargo and 2,188 containers delivered 2022–2026 to Kombolcha, Adama, Mekelle, and more.",
     icon: <Radio className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     id: "06",
-    title: "DIVERSIFIED INDUSTRIAL CAPABILITY",
-    desc: "end-to-end integration uniting overland freight, global commodity trade, heavy civil construction, and agro-manufacturing.",
+    title: "BEYOND TRANSPORT",
+    desc: "import and export trade, construction, machinery rental, mining, and a food processing factory under construction at Bole Bulbula.",
     icon: <ThermometerSnowflake className="w-5 h-5 text-[#FF5A1F]" />,
   },
 ];
@@ -110,7 +110,7 @@ export default function AdvantagesSection() {
               />
 
               <p className="text-xs sm:text-sm text-slate-400 max-w-md leading-relaxed hidden sm:block">
-                Built over 13+ years of high-stakes deployments, Express PTL integrates owned heavy assets, strategic customs infrastructure, and audited humanitarian standards.
+                Since 2013, Express PTL has combined a new fleet, customs clearance and forwarding, and humanitarian aid cargo experience.
               </p>
             </div>
 
@@ -206,7 +206,7 @@ export default function AdvantagesSection() {
                           2,916 MT
                         </span>
                         <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
-                          Synchronous Lift Capacity
+                          Fleet Capacity At A Time
                         </span>
                       </div>
                       <div className="px-3.5 py-1.5 rounded-md bg-white/10 text-xs font-bold uppercase tracking-wider text-white">

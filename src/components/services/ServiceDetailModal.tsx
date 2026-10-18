@@ -127,7 +127,7 @@ export default function ServiceDetailModal({
             {service.routes && service.routes.length > 0 && (
               <div className="mb-8">
                 <h4 className="text-xs uppercase tracking-widest text-[#FF5A1F] font-bold mb-3 flex items-center gap-2">
-                  <span>ACTIVE CORRIDORS & TRADE TRANSIT ARTERIES</span>
+                  <span>ROUTES & DESTINATIONS</span>
                 </h4>
                 <div className="space-y-2.5">
                   {service.routes.map((route, rIdx) => (
@@ -175,7 +175,7 @@ export default function ServiceDetailModal({
             <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3 text-xs text-slate-400 font-sans">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>100% Certified Operational Compliance & Licensed Carrier</span>
+                <span>Express Transport and Logistics · Since 2013</span>
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -187,7 +187,7 @@ export default function ServiceDetailModal({
                   }}
                   className="w-full sm:w-auto px-6 py-3.5 rounded-lg bg-[#FF5A1F] hover:bg-[#ff6d38] text-white font-headline text-base tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg shadow-[#FF5A1F]/20"
                 >
-                  <span>Request Route / Service Quote</span>
+                  <span>Request a Service Quote</span>
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>

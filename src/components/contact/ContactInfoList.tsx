@@ -22,12 +22,7 @@ const INFO_ROWS: InfoRow[] = [
       {
         text: "express@expressptl.com",
         href: "mailto:express@expressptl.com",
-        sublabel: "Executive Administration & Strategic Contracts",
-      },
-      {
-        text: "operations@expressptl.com",
-        href: "mailto:operations@expressptl.com",
-        sublabel: "Tender Quotations, Port Logistics & 24/7 Dispatch",
+        sublabel: "Inquiries, quotations and general correspondence",
       },
     ],
   },
@@ -37,47 +32,34 @@ const INFO_ROWS: InfoRow[] = [
       {
         text: "+251 11 470 2031",
         href: "tel:+251114702031",
-        sublabel: "Headquarters Direct Line (Addis Ababa)",
+        sublabel: "Headquarters office line (Addis Ababa)",
       },
       {
         text: "+251 91 124 8830",
         href: "tel:+251911248830",
-        sublabel: "Commercial Freight & Priority Corridor Mobile",
+        sublabel: "Mobile",
       },
     ],
   },
   {
-    caption: "OFFICES & HUBS:",
+    caption: "OFFICE:",
     items: [
       {
         text: "AMBASEL BLDG, 6TH & 7TH FL, WOLLO SEFER, ADDIS ABABA",
         href: "https://maps.google.com/?q=Ambasel+Building+Addis+Ababa",
         target: "_blank",
-        sublabel: "Corporate Headquarters (6th Fl 607–610 & 7th Fl 701–702)",
-      },
-      {
-        text: "BOLE BULBULA 14,000 M² HEAVY FLEET TERMINAL",
-        sublabel: "Heavy Lift Rigging Yard, Bonded Staging & Workshop Facilities",
+        sublabel: "Headquarters (6th floor 607–610 & 7th floor 701–702)",
       },
     ],
   },
   {
-    caption: "COMMUNICATION:",
+    caption: "WORKING HOURS:",
     items: [
       {
-        text: "LINKEDIN",
-        href: "https://www.linkedin.com/company/express-transport-logistics",
-        target: "_blank",
+        text: "MON–SAT 8:00–18:30",
       },
       {
-        text: "TELEGRAM",
-        href: "https://t.me/expressptl",
-        target: "_blank",
-      },
-      {
-        text: "WHATSAPP",
-        href: "https://wa.me/251911248830",
-        target: "_blank",
+        text: "SUNDAY CLOSED",
       },
     ],
   },

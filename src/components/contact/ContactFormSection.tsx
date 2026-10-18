@@ -87,7 +87,7 @@ export default function ContactFormSection() {
                 </p>
               </div>
               <span className="text-xs sm:text-sm text-slate-500 font-sans block">
-                Direct 2-hour SLA response for cross-border corridor and project cargo tenders.
+                Mon–Sat 8:00–18:30, Sunday closed.
               </span>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function ContactFormSection() {
                 REQUEST TRANSMITTED SUCCESSFULLY
               </h3>
               <p className="text-slate-600 font-sans max-w-md mx-auto text-sm sm:text-base mb-8">
-                Thank you, <span className="font-bold text-[#1B1E3D]">{formData.fullName}</span>. Our senior operations dispatcher at Wollo Sefer headquarters will review your specifications and call you within 2 hours.
+                Thank you, <span className="font-bold text-[#1B1E3D]">{formData.fullName}</span>. Our team will review your request and get back to you.
               </p>
               <button
                 type="button"
@@ -191,10 +191,10 @@ export default function ContactFormSection() {
                 </div>
               </div>
 
-              {/* Route Corridor & Cargo Requirements */}
+              {/* Route & Cargo Requirements */}
               <div className="flex flex-col">
                 <label htmlFor="contact-cargo" className="text-[11px] font-bold tracking-wider text-[#1B1E3D]/80 uppercase block mb-2 font-headline">
-                  ROUTE CORRIDOR &amp; CARGO SPECIFICATIONS (OPTIONAL)
+                  ROUTE &amp; CARGO DETAILS (OPTIONAL)
                 </label>
                 <input
                   id="contact-cargo"
@@ -202,7 +202,7 @@ export default function ContactFormSection() {
                   type="text"
                   value={formData.cargo}
                   onChange={(e) => setFormData({ ...formData, cargo: e.target.value })}
-                  placeholder="e.g. 12x 40ft containers from Djibouti Port to Modjo Dry Port, or 120 MT transformer lift"
+                  placeholder="e.g. 12 containers to Kombolcha, or 400 MT of sesame for export"
                   className="w-full px-5 py-4 rounded-xl bg-white border border-slate-300 text-[#1B1E3D] placeholder-slate-400 text-sm focus:border-[#1B1E3D] focus:ring-1 focus:ring-[#1B1E3D] focus:outline-none transition-all"
                 />
               </div>

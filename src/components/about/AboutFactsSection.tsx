@@ -14,50 +14,50 @@ interface FactItem {
 const FACTS: FactItem[] = [
   {
     val: "76",
-    label: "ACTIVE HEAVY TRUCKS",
-    desc: "100% company-owned late-model prime movers with 40 MT payload each, zero dispatch cancellations.",
+    label: "ACTIVE TRUCKS",
+    desc: "All new trucks, each with a 40 MT capacity.",
   },
   {
     val: "2,916 MT",
-    label: "SYNCHRONOUS LIFT",
-    desc: "Largest private single-dispatch heavy lift capability in Ethiopia, transporting industrial turbines and project cargo.",
+    label: "FLEET CAPACITY",
+    desc: "Total cargo our fleet can move at a time: bulk, containerized and commercial shipments.",
   },
   {
     val: "158,636 MT",
-    label: "AID CARGO UPLIFTED",
-    desc: "158,636 metric tons of emergency relief and 2,188 containerized shipments delivered for UN WFP and partners across 10 Ethiopian destinations.",
+    label: "AID CARGO DELIVERED",
+    desc: "Bulk humanitarian aid cargo, plus 2,188 containers, delivered 2022–2026 across 10 Ethiopian destinations.",
   },
   {
-    val: "99.98%",
-    label: "SECURITY & SAFETY RECORD",
-    desc: "Zero-hijack escort protocol, satellite route monitoring, and preventive maintenance standards.",
+    val: "2013",
+    label: "OPERATING SINCE",
+    desc: "Freight forwarding, customs clearing, transport, warehousing and distribution.",
   },
 ];
 
-// Exact 4 Counters from original https://expressptl.com/about-us/
+// The 4 headline counters from the original https://expressptl.com/about-us/
 const ORIGINAL_ABOUT_COUNTERS = [
   {
-    val: "06+",
+    val: "125",
     label: "Countries Covered",
-    desc: "Ethiopia, Djibouti, Kenya, South Sudan, Sudan, Uganda",
+    desc: "Global freight forwarding to your location in Ethiopia",
     icon: <Globe2 className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
-    val: "04",
+    val: "150",
     label: "Ports Covered",
-    desc: "Djibouti Port, Mombasa, Berbera, and Lamu Gateway",
+    desc: "From port to destination",
     icon: <Anchor className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
-    val: "150+",
+    val: "4,000+",
     label: "Satisfied Clients",
-    desc: "Multinational corporations, UN humanitarian agencies, NGOs",
+    desc: "Including prominent multinational organizations in Ethiopia",
     icon: <Building2 className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
-    val: "MILLIONS+",
+    val: "13M+",
     label: "Tonnage Delivered",
-    desc: "Bulk agricultural, heavy industrial, and commercial shipments",
+    desc: "Bulk, containerized and commercial shipments",
     icon: <Weight className="w-5 h-5 text-[#FF5A1F]" />,
   },
 ];
@@ -72,7 +72,7 @@ export default function AboutFactsSection() {
           <div className="flex items-center gap-2 mb-3">
             <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
             <span className="text-[11px] sm:text-xs font-bold tracking-[0.25em] text-[#FF5A1F] uppercase">
-              PROVEN PERFORMANCE & REACH
+              OUR FLEET & TRACK RECORD
             </span>
           </div>
 
@@ -113,8 +113,8 @@ export default function AboutFactsSection() {
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                <span>Fleet Asset Metric</span>
-                <span className="text-[#FF5A1F]">● Verified Active</span>
+                <span>Express PTL</span>
+                <span className="text-[#FF5A1F]">● Company Data</span>
               </div>
             </motion.div>
           ))}
@@ -131,14 +131,14 @@ export default function AboutFactsSection() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-white/10 gap-4">
             <div>
               <span className="text-xs font-bold tracking-widest text-[#FF5A1F] uppercase block mb-1">
-                REGIONAL REACH & ENTERPRISE SATISFACTION
+                REACH & CLIENTS
               </span>
               <h3 className="font-headline text-2xl sm:text-3xl text-white uppercase tracking-tight">
-                OPERATIONAL FOOTPRINT ACROSS EAST AFRICA
+                OUR NETWORK IN NUMBERS
               </h3>
             </div>
             <span className="text-xs font-mono text-slate-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 w-fit">
-              LIVE NETWORK AUDIT
+              SINCE 2013
             </span>
           </div>
 

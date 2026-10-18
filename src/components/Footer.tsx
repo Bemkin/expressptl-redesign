@@ -107,7 +107,7 @@ export default function Footer({ hideBackground = false }: FooterProps) {
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <Image
             src="/assets/footer_depot_warehouse.jpg"
-            alt="Express PTL Logistics Terminal"
+            alt="Express PTL warehouse"
             fill
             className="object-cover object-center filter brightness-[0.38] contrast-[1.18]"
             sizes="100vw"
@@ -166,8 +166,8 @@ export default function Footer({ hideBackground = false }: FooterProps) {
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
-                  text="Regional Corridors"
-                  href="/operations#corridors"
+                  text="Operations"
+                  href="/operations"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
@@ -262,61 +262,30 @@ export default function Footer({ hideBackground = false }: FooterProps) {
               </div>
             </div>
 
-            {/* Column 4: CONNECT & SOCIAL */}
+            {/* Column 4: CONNECT */}
             <div className="flex flex-col">
               <TextHoverRoll
                 text="CONNECT"
                 className="font-headline text-lg sm:text-xl lg:text-[22px] tracking-wider uppercase text-white mb-2 sm:mb-3 lg:mb-4"
               />
               <div className="flex flex-col space-y-1.5 sm:space-y-2">
-                {/* Social Links from production (Facebook, Twitter, Skype, Pinterest) */}
-                <div className="flex items-center gap-2.5 pt-1 pb-2">
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#FF5A1F] hover:text-white flex items-center justify-center text-slate-300 transition-colors"
-                    aria-label="Facebook"
-                  >
-                    <span className="font-bold text-xs">f</span>
-                  </a>
-                  <a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#FF5A1F] hover:text-white flex items-center justify-center text-slate-300 transition-colors"
-                    aria-label="Twitter"
-                  >
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                  </a>
-                  <a
-                    href="skype:expressptl?chat"
-                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#FF5A1F] hover:text-white flex items-center justify-center text-slate-300 transition-colors"
-                    aria-label="Skype"
-                  >
-                    <span className="font-bold text-xs">S</span>
-                  </a>
-                  <a
-                    href="https://pinterest.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#FF5A1F] hover:text-white flex items-center justify-center text-slate-300 transition-colors"
-                    aria-label="Pinterest"
-                  >
-                    <span className="font-bold text-xs">P</span>
-                  </a>
+                {/* Business hours */}
+                <div className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 pb-1">
+                  <span className="text-white/50 text-[11px] block uppercase font-headline">Hours</span>
+                  <p className="leading-snug text-slate-300 text-[12px] sm:text-[13px]">
+                    Mon–Sat 8:00–18:30<br />
+                    Sunday closed
+                  </p>
                 </div>
 
                 <TextHoverRoll
-                  text="Rate Calculator"
+                  text="Request a Quote"
                   href="/operations#calculator"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-slate-300 hover:text-white"
                 />
                 <TextHoverRoll
-                  text="Tender Request"
-                  href="/#feedback"
+                  text="Our Services"
+                  href="/services"
                   className="text-xs sm:text-[13px] lg:text-[14px] font-sans text-[#FF5A1F] hover:text-white font-medium"
                 />
               </div>
@@ -355,7 +324,7 @@ export default function Footer({ hideBackground = false }: FooterProps) {
           {/* Left Wrapper (.footer__bottom-wrapper) */}
           <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 w-full md:w-auto">
             <span suppressHydrationWarning className="tracking-wider text-center sm:text-left">
-              Designed by <a href="mailto:bemnetkibret4@gmail.com" className="text-slate-300 hover:text-[#FF5A1F] underline transition-colors">bemnetkibret4@gmail.com</a>. {new Date().getFullYear()} Express Transport and Logistics. All rights reserved..
+              Designed by <a href="mailto:bemnetkibret4@gmail.com" className="text-slate-300 hover:text-[#FF5A1F] underline transition-colors">bemnetkibret4@gmail.com</a>. {new Date().getFullYear()} Express Transport and Logistics. All rights reserved.
             </span>
           </div>
 

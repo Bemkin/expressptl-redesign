@@ -22,37 +22,37 @@ const FLAGSHIP_PARTNERS: PartnerItem[] = [
     num: "01",
     name: "UN World Food Programme",
     shortName: "UN WFP",
-    category: "HUMANITARIAN LIFELINE ALLIANCE",
-    sectorTag: "EMERGENCY RELIEF",
+    category: "HUMANITARIAN ORGANIZATION",
+    sectorTag: "HUMANITARIAN",
     logo: "/assets/partners/wfp.png",
-    scope: "Priority food security & emergency humanitarian cargo carriage across the Horn of Africa.",
+    scope: "International humanitarian organization.",
   },
   {
     num: "02",
     name: "A.P. Moller - Maersk",
     shortName: "MAERSK",
-    category: "GLOBAL OCEAN & INTERMODAL ALLIANCE",
-    sectorTag: "GLOBAL CARRIER",
+    category: "GLOBAL SHIPPING & LOGISTICS",
+    sectorTag: "SHIPPING LINE",
     logo: "/assets/partners/maersk.png",
-    scope: "Direct carrier haulage and intermodal containerized transit from global deepwater hubs.",
+    scope: "Global container shipping and logistics company.",
   },
   {
     num: "03",
     name: "Mediterranean Shipping Co.",
     shortName: "MSC",
-    category: "GLOBAL MARITIME CONTAINER ALLIANCE",
-    sectorTag: "DEEPWATER LINER",
+    category: "GLOBAL CONTAINER SHIPPING",
+    sectorTag: "SHIPPING LINE",
     logo: "/assets/partners/msc.png",
-    scope: "Vessel discharge coordination and end-to-end container delivery through Red Sea lanes.",
+    scope: "Global container shipping line.",
   },
   {
     num: "04",
     name: "World Health Organization",
     shortName: "WHO",
-    category: "INTERNATIONAL HEALTH LOGISTICS",
-    sectorTag: "COLD CHAIN & MEDICAL",
+    category: "INTERNATIONAL HEALTH ORGANIZATION",
+    sectorTag: "HEALTH",
     logo: "/assets/partners/who.png",
-    scope: "Temperature-controlled medical supply transit and emergency pandemic response transport.",
+    scope: "International public health organization.",
   },
 ];
 
@@ -61,73 +61,73 @@ const NATIONAL_PARTNERS: PartnerItem[] = [
     num: "05",
     name: "Ethiopian Commodity Exchange",
     shortName: "ECX",
-    category: "COMMODITIES TRADING HUB",
+    category: "COMMODITY EXCHANGE",
     sectorTag: "NATIONAL EXCHANGE",
     logo: "/assets/partners/ecx.png",
-    scope: "Secured export transit for Ethiopian coffee, oilseeds, sesame, and high-value agricultural produce.",
+    scope: "Ethiopia's national commodity exchange.",
   },
   {
     num: "06",
     name: "Ethiopian Shipping & Logistics",
     shortName: "ESLSE",
-    category: "NATIONAL MULTIMODAL ALLIANCE",
-    sectorTag: "MULTIMODAL CORRIDOR",
+    category: "NATIONAL SHIPPING & LOGISTICS",
+    sectorTag: "SHIPPING & LOGISTICS",
     logo: "/assets/partners/ethiopian_shipping.png",
-    scope: "Seamless road-rail multimodal coordination between Djibouti seaports and Mojo dry port terminal.",
+    scope: "Ethiopia's national shipping and logistics enterprise.",
   },
   {
     num: "07",
     name: "Commercial Bank of Ethiopia",
     shortName: "CBE",
-    category: "FINANCIAL & TRADE SETTLEMENT",
+    category: "BANKING",
     sectorTag: "STATE BANK",
     logo: "/assets/partners/cbe.png",
-    scope: "Institutional import/export letters of credit, customs guarantees, and cargo collateral assurance.",
+    scope: "State-owned commercial bank of Ethiopia.",
   },
   {
     num: "08",
     name: "Bank of Abyssinia",
     shortName: "BANK OF ABYSSINIA",
-    category: "COMMERCIAL BANKING PARTNER",
-    sectorTag: "TRADE FINANCE",
+    category: "COMMERCIAL BANKING",
+    sectorTag: "BANKING",
     logo: "/assets/partners/abyssinia.png",
-    scope: "Commercial cross-border financing, merchant banking, and fast-track trade documentary credit.",
+    scope: "Ethiopian commercial bank.",
   },
   {
     num: "09",
     name: "Ministry of Agriculture (FDRE)",
     shortName: "MIN. OF AGRICULTURE",
-    category: "FEDERAL GOVERNMENT STRATEGIC PARTNER",
-    sectorTag: "FOOD SECURITY",
+    category: "FEDERAL GOVERNMENT",
+    sectorTag: "AGRICULTURE",
     logo: "/assets/partners/ministry_agriculture.png",
-    scope: "Nationwide seasonal distribution of bulk agricultural fertilizer, seed stock, and agrarian machinery.",
+    scope: "Federal ministry responsible for agriculture.",
   },
   {
     num: "10",
     name: "Ministry of Trade & Regional Integration",
     shortName: "MIN. OF TRADE",
-    category: "FEDERAL REGULATORY PARTNER",
-    sectorTag: "TRADE CORRIDOR",
+    category: "FEDERAL GOVERNMENT",
+    sectorTag: "TRADE",
     logo: "/assets/partners/ministry_trade.png",
-    scope: "Regulatory border compliance, regional trade agreement facilitation, and transit cargo clearance.",
+    scope: "Federal ministry responsible for trade and regional integration.",
   },
   {
     num: "11",
     name: "Agricultural Transformation Institute",
     shortName: "ATI (ETHIOPIA)",
-    category: "AGRI-DEVELOPMENT & TECH",
-    sectorTag: "RURAL AGRI-TECH",
+    category: "AGRICULTURAL DEVELOPMENT",
+    sectorTag: "AGRICULTURE",
     logo: "/assets/partners/agriculture.png",
-    scope: "Value-chain logistics connecting cooperative smallholders with international export corridors.",
+    scope: "Ethiopian agricultural development institute.",
   },
   {
     num: "12",
     name: "MASGI Industrial Logistics",
     shortName: "MASGI",
-    category: "MANUFACTURING & HEAVY INDUSTRY",
-    sectorTag: "HEAVY INDUSTRIAL",
+    category: "INDUSTRY",
+    sectorTag: "INDUSTRIAL",
     logo: "/assets/partners/masgi.png",
-    scope: "Industrial raw material supply chains, heavy machinery transport, and factory floor distribution.",
+    scope: "Industrial and logistics company.",
   },
 ];
 
@@ -151,7 +151,7 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
             poster="/assets/partners_truck.jpg"
             className="w-full h-full object-cover object-[center_45%]"
             filterClass="filter brightness-[0.72] contrast-[1.12]"
-            alt="Express Transport Multimodal Fleet Partner Operations"
+            alt="Express Transport fleet"
           />
           <div className="absolute inset-0 bg-linear-to-t from-[#070B14] via-[#070B14]/40 to-[#070B14]/85 z-2" />
           <div className="absolute inset-0 bg-linear-to-r from-[#070B14]/80 via-transparent to-[#070B14]/80 z-2" />
@@ -176,7 +176,7 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
                 <div className="flex items-center gap-3 mb-5">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
                   <span className="text-xs font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline">
-                    STRATEGIC ALLIANCES & CARRIER ROSTER
+                    PARTNERS & CLIENTS
                   </span>
                 </div>
 
@@ -189,7 +189,7 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
                 />
 
                 <p className="text-sm xl:text-base text-slate-300 font-sans max-w-md leading-relaxed mt-6">
-                  Direct contractual carriage for international humanitarian relief agencies, global shipping lines, and leading Ethiopian industrial and financial institutions.
+                  Since 2013, we have supported some of the most prominent multinational organizations in Ethiopia with freight forwarding, customs clearing, transport, warehousing and distribution.
                 </p>
               </div>
 
@@ -197,15 +197,15 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
               <div className="mt-6 pt-5 border-t border-white/10 space-y-2.5 max-w-md text-xs text-slate-300 font-sans">
                 <div className="flex items-start gap-2.5">
                   <span className="text-[#FF5A1F] font-bold">01.</span>
-                  <span>Managed by global institutions, elevating our team&apos;s operational standards.</span>
+                  <span>Aid cargo is handled by professional international organizations.</span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-[#FF5A1F] font-bold">02.</span>
-                  <span>International cooperation sharpens our cross-border logistics capacity.</span>
+                  <span>Working with them builds our capability.</span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-[#FF5A1F] font-bold">03.</span>
-                  <span>Uplifting critical emergency aid provides meaningful human impact.</span>
+                  <span>Delivering aid cargo helps people in need.</span>
                 </div>
               </div>
 
@@ -213,7 +213,7 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
               <div className="mt-6 flex items-center gap-3">
                 <div className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 flex items-center gap-2 text-xs font-headline tracking-wider text-white">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#FF5A1F]" />
-                  <span>12 VERIFIED INSTITUTIONAL PARTNERS</span>
+                  <span>12 PARTNERS & CLIENTS</span>
                 </div>
               </div>
             </div>
@@ -282,11 +282,11 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
                 <h4 className="text-xs font-bold tracking-[0.25em] text-white/70 uppercase font-headline">
-                  DOMESTIC INSTITUTIONS & REGIONAL ENTERPRISE NETWORK
+                  ETHIOPIAN INSTITUTIONS & ENTERPRISES
                 </h4>
               </div>
               <span className="text-[11px] font-bold tracking-[0.2em] text-white/40 uppercase font-headline">
-                CROSS-BORDER & COMMODITY CORRIDORS
+                TRADE, FINANCE & INDUSTRY
               </span>
             </div>
 
@@ -354,14 +354,14 @@ export default function PartnersSection({ hideBackground = false }: PartnersSect
           {/* Header */}
           <div className="mb-2">
             <span className="text-xs font-bold tracking-[0.25em] text-[#FF5A1F] uppercase font-headline block mb-2">
-              STRATEGIC ALLIANCES & CARRIERS
+              PARTNERS & CLIENTS
             </span>
             <h2 className="font-headline text-5xl sm:text-6xl text-white uppercase leading-[0.85] tracking-tight">
               PARTNERS <br />
               CLIENTS
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 font-sans mt-4 max-w-lg leading-relaxed">
-              Direct contractual carriage for international humanitarian relief agencies, global shipping lines, and leading Ethiopian industrial partners.
+              Since 2013, we have supported some of the most prominent multinational organizations in Ethiopia with freight forwarding, customs clearing, transport, warehousing and distribution.
             </p>
           </div>
 

@@ -17,28 +17,28 @@ interface MandateItem {
 const MANDATES: MandateItem[] = [
   {
     num: "01",
-    tag: "ZERO-DISRUPTION",
-    title: "Zero-Disruption Logistics Philosophy",
-    desc: "Equipped with dedicated backup prime movers, designated mobile technical workshop units, and satellite routing to prevent convoy delays across remote rift-valley corridors.",
+    tag: "NEW FLEET",
+    title: "A Modern, New Fleet",
+    desc: "76 active trucks, all new, each carrying 40 MT, moving 2,916 MT at a time across major trade routes.",
     icon: <Truck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     num: "02",
-    tag: "HUMANITARIAN LIFELINE",
-    title: "Certified UN Humanitarian Partner",
-    desc: "We give special focus to humanitarian aid cargo for three core reasons:",
+    tag: "HUMANITARIAN AID CARGO",
+    title: "A Special Focus On Aid Cargo",
+    desc: "We give special focus to humanitarian aid cargo for three reasons:",
     points: [
-      "Rigorous oversight by international bodies elevates our operational standards.",
-      "Global partnerships enhance our multilateral cross-border experience.",
-      "Delivering relief directly supports vulnerable communities in need.",
+      "Aid cargo is handled by professional international organizations.",
+      "Working with them builds our own capability.",
+      "It helps people in need.",
     ],
     icon: <ShieldCheck className="w-5 h-5 text-[#FF5A1F]" />,
   },
   {
     num: "03",
-    tag: "DIRECT BROKERAGE",
-    title: "In-House Customs Accreditation",
-    desc: "Licensed Authorized Economic Operator (AEO) with dedicated in-house brokerage stationed at Djibouti Port, Galafi border, and Modjo Dry Port executing fast-track manifest clearance.",
+    tag: "CUSTOMS & FORWARDING",
+    title: "Customs Clearance & Forwarding",
+    desc: "Customs clearance, cargo forwarding and warehouse rental, with shipping agency services under development.",
     icon: <Warehouse className="w-5 h-5 text-[#FF5A1F]" />,
   },
 ];
@@ -116,8 +116,8 @@ export default function AboutMandatesSection() {
 
               {/* Bottom Subtle Indicator */}
               <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-                <span className="uppercase tracking-wider font-semibold">Standard Operating Protocol</span>
-                <span className="text-white/60 font-mono">100% Verified</span>
+                <span className="uppercase tracking-wider font-semibold">Express PTL</span>
+                <span className="text-white/60 font-mono">Since 2013</span>
               </div>
             </motion.div>
           ))}

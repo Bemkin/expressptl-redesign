@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { markIntroAsSeen } from "@/lib/introSession";
 
 interface NavItem {
@@ -26,12 +26,6 @@ interface NavbarProps {
   isStarted?: boolean;
 }
 
-const LANGUAGES = [
-  { code: "ENG", label: "English" },
-  { code: "FRA", label: "Français" },
-  { code: "SWA", label: "Kiswahili" },
-];
-
 export default function Navbar({ isStarted = true }: NavbarProps) {
   const pathname = usePathname();
   const routeTab = pathname === "/" ? "home" : (
@@ -44,9 +38,6 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
   const activeTab = routeTab ?? scrollTab;
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("ENG");
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const langDropdownRef = useRef<HTMLDivElement>(null);
 
   // When browsing any subpage, mark session intro as complete so returning to HOME is immediate
   useEffect(() => {
@@ -54,19 +45,6 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
       markIntroAsSeen();
     }
   }, [pathname]);
-
-  // Close desktop language dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target as Node)) {
-        setLangDropdownOpen(false);
-      }
-    };
-    if (langDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [langDropdownOpen]);
 
   // Synchronize active tab with homepage scroll sections
   useEffect(() => {
@@ -352,54 +330,6 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
               <ArrowUpRight className="w-4 h-4 stroke-[2.5] relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
-            {/* Desktop Language Selector Pill with Dropdown */}
-            <div ref={langDropdownRef} className="relative hidden sm:block">
-              <button
-                type="button"
-                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="group mvp-bubble-btn flex items-center gap-1.5 px-4 h-13 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] font-headline text-[1.2rem] tracking-wider uppercase cursor-pointer"
-                aria-label="Select Language"
-              >
-                <span className="relative z-10">{currentLang}</span>
-                <ChevronDown
-                  className={`w-4 h-4 relative z-10 stroke-[2.5] transition-transform duration-300 ${
-                    langDropdownOpen ? "rotate-180" : "group-hover:rotate-180"
-                  }`}
-                />
-              </button>
-
-              <AnimatePresence>
-                {langDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-2 w-36 bg-white rounded-xl shadow-2xl border border-slate-100 p-1.5 z-50 flex flex-col gap-1"
-                  >
-                    {LANGUAGES.map((lang) => (
-                      <button
-                        key={lang.code}
-                        type="button"
-                        onClick={() => {
-                          setCurrentLang(lang.code);
-                          setLangDropdownOpen(false);
-                        }}
-                        className={`w-full px-3 py-2 rounded-lg font-headline text-sm tracking-wider text-left flex items-center justify-between transition-colors ${
-                          currentLang === lang.code
-                            ? "bg-[#FF5A1F] text-white"
-                            : "text-[#0D1322] hover:bg-slate-100 hover:text-[#FF5A1F]"
-                        }`}
-                      >
-                        <span>{lang.label}</span>
-                        <span className="text-[11px] opacity-75 font-mono">{lang.code}</span>
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
             {/* Mobile Hamburger Toggle Button */}
             <button
               type="button"
@@ -448,28 +378,8 @@ export default function Navbar({ isStarted = true }: NavbarProps) {
               ))}
             </div>
 
-            {/* Mobile Footer Area: Language Selector & Direct Contact */}
+            {/* Mobile Footer Area: Direct Contact */}
             <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-3">
-              <div className="flex items-center justify-between px-1">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Language</span>
-                <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
-                  {LANGUAGES.map((lang) => (
-                    <button
-                      key={lang.code}
-                      type="button"
-                      onClick={() => setCurrentLang(lang.code)}
-                      className={`px-3 py-1.5 rounded-lg font-headline text-sm tracking-wider uppercase transition-all duration-200 ${
-                        currentLang === lang.code
-                          ? "bg-[#FF5A1F] text-white shadow-md shadow-[#FF5A1F]/25"
-                          : "text-[#0D1322] hover:text-[#FF5A1F]"
-                      }`}
-                    >
-                      {lang.code}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Mobile CTA */}
               <a
                 href="/contact"
