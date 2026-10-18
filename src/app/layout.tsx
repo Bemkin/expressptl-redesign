@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Outfit, Plus_Jakarta_Sans, Barlow_Condensed } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageCurtain from "@/components/PageCurtain";
-import { shareImage } from "@/lib/seo";
+import { shareImage, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -31,14 +31,7 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-// Absolute base for canonical / Open Graph URLs. Icons and share images come from the
-// file conventions in this folder (favicon.ico, icon.png, apple-icon.png); the share image from @/lib/seo.
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
-
+// Icons come from the file conventions in this folder (favicon.ico, icon.png, apple-icon.png).
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Express Transport & Logistics (Express PTL) | Premier Ethiopian Heavy Haulage & Multimodal Freight",

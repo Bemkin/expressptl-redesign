@@ -67,7 +67,7 @@ const TEAM: TeamMember[] = [
 
 export default function AboutTeamSection() {
   return (
-    <section className="py-24 sm:py-36 bg-[#070B14] relative border-b border-white/5 select-none">
+    <section id="team" className="py-24 sm:py-36 bg-[#070B14] relative border-b border-white/5 select-none">
       <div className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Header Block */}
         <div className="max-w-4xl mb-16 sm:mb-20">

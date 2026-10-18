@@ -1,3 +1,10 @@
+/** Absolute origin of the deployed site, used for metadata, sitemap and robots. */
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 /**
  * Default social share image. A page that sets its own `openGraph` object replaces the
  * layout's one entirely, so every page must include this in `openGraph.images`.
